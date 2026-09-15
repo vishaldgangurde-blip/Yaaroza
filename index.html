@@ -107,15 +107,21 @@
     <h1>Yaaroza</h1>
     <div class="tagline">Meet • Talk • Play</div>
 
-    <input id="loginPhone"
-           type="tel"
-           placeholder="Mobile number e.g. +919876543210">
+    <input
+      id="loginPhone"
+      type="tel"
+      placeholder="Mobile number e.g. +919876543210"
+    >
 
-    <input id="loginPassword"
-           type="password"
-           placeholder="Password">
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Password"
+    >
 
-    <button type="button" onclick="loginUser()">Login</button>
+    <button type="button" onclick="loginUser()">
+      Login
+    </button>
 
     <div class="link" onclick="showCreateAccount()">
       Create Account
@@ -129,24 +135,33 @@
 
   <!-- CREATE ACCOUNT -->
   <div id="createScreen" class="hidden">
+
     <h1>Create Account</h1>
     <div class="tagline">Join Yaaroza</div>
 
-    <input id="signupPhone"
-           type="tel"
-           placeholder="Mobile number e.g. +919876543210">
+    <input
+      id="signupPhone"
+      type="tel"
+      placeholder="Mobile number e.g. +919876543210"
+    >
 
-    <input id="signupPassword"
-           type="password"
-           placeholder="Create password">
+    <input
+      id="signupPassword"
+      type="password"
+      placeholder="Create password"
+    >
 
-    <input id="signupUsername"
-           type="text"
-           placeholder="Username">
+    <input
+      id="signupUsername"
+      type="text"
+      placeholder="Username"
+    >
 
-    <input id="signupName"
-           type="text"
-           placeholder="Full name">
+    <input
+      id="signupName"
+      type="text"
+      placeholder="Full name"
+    >
 
     <button type="button" onclick="createAccount()">
       Create Account
@@ -155,17 +170,21 @@
     <button type="button" class="back" onclick="showLogin()">
       Back to Login
     </button>
+
   </div>
 
 
   <!-- FORGOT PASSWORD -->
   <div id="forgotScreen" class="hidden">
-    <h1>Reset Password</h1>
-    <div class="tagline">OTP recovery will be connected next</div>
 
-    <input id="forgotPhone"
-           type="tel"
-           placeholder="Mobile number">
+    <h1>Reset Password</h1>
+    <div class="tagline">Reset your Yaaroza password</div>
+
+    <input
+      id="forgotPhone"
+      type="tel"
+      placeholder="Mobile number"
+    >
 
     <button type="button" onclick="sendOTP()">
       Send OTP
@@ -174,6 +193,7 @@
     <button type="button" class="back" onclick="showLogin()">
       Back to Login
     </button>
+
   </div>
 
   <div id="message"></div>
@@ -191,7 +211,7 @@
     "https://qkpljuksfgyyooythbjg.supabase.co";
 
   const SUPABASE_PUBLISHABLE_KEY =
-    "YOUR_PUBLISHABLE_KEY_HERE";
+    "sb_publishable_GQG4XSSgd7_eBOe18DkkMA_7PBuNZId";
 
   const { createClient } = supabase;
 
@@ -309,7 +329,7 @@
       return;
     }
 
-    // Profile data
+    // Update automatically-created profile
     const { error: profileError } =
       await client
         .from("profiles")
@@ -321,14 +341,16 @@
 
     if (profileError) {
       console.error(profileError);
+
       showMessage(
         "Account ban gaya, lekin profile save nahi hui."
       );
+
       return;
     }
 
     showMessage(
-      "Account created! OTP verification next step mein connect karenge. 🎉"
+      "Account created successfully! 🎉"
     );
   }
 
@@ -348,7 +370,7 @@
     }
 
     showMessage(
-      "OTP system abhi setup nahi hai. SMS provider connect karna baaki hai."
+      "OTP system setup hone ke baad SMS yahan aayega."
     );
   }
 
