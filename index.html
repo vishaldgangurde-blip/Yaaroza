@@ -1,123 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yaaroza</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaaroza</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #111827;
-      color: white;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #0b0712;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .app {
-      width: 100%;
-      max-width: 420px;
-      padding: 30px 22px;
-      text-align: center;
-    }
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 25px;
+}
 
-    .logo {
-      font-size: 42px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
+.logo {
+  text-align: center;
+  font-size: 42px;
+  font-weight: bold;
+  color: #b76cff;
+  margin-bottom: 8px;
+}
 
-    .tagline {
-      color: #b8c0cc;
-      margin-bottom: 35px;
-    }
+.tagline {
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 35px;
+}
 
-    .box {
-      background: #1f2937;
-      padding: 25px;
-      border-radius: 20px;
-    }
+.card {
+  background: #15101f;
+  padding: 25px;
+  border-radius: 22px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
 
-    input {
-      width: 100%;
-      padding: 15px;
-      margin-bottom: 14px;
-      border: none;
-      border-radius: 12px;
-      background: #374151;
-      color: white;
-      font-size: 16px;
-      outline: none;
-    }
+h2 {
+  text-align: center;
+  margin-bottom: 22px;
+}
 
-    button {
-      width: 100%;
-      padding: 15px;
-      border: none;
-      border-radius: 12px;
-      background: #7c3aed;
-      color: white;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 5px;
-    }
+input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 14px;
+  border: 1px solid #342744;
+  border-radius: 12px;
+  background: #0d0914;
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
 
-    .links {
-      margin-top: 20px;
-      color: #a78bfa;
-      font-size: 14px;
-    }
+input:focus {
+  border-color: #a855f7;
+}
 
-    .links span {
-      margin: 0 8px;
-    }
-  </style>
+button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #9333ea;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #a855f7;
+}
+
+.links {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.links button {
+  background: none;
+  padding: 6px;
+  color: #c084fc;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+.back {
+  background: transparent;
+  color: #aaa;
+  margin-top: 10px;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="app">
+<div class="container">
 
-    <div class="logo">Yaaroza</div>
+  <div class="logo">YAAROZA</div>
+  <div class="tagline">Meet • Talk • Play</div>
 
-    <div class="tagline">
-      Meet • Talk • Play
+  <!-- LOGIN -->
+  <div class="card" id="loginBox">
+    <h2>Welcome Back 👋</h2>
+
+    <input type="tel" id="loginMobile" placeholder="Mobile Number">
+
+    <input type="password" id="loginPassword" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <div class="links">
+      <button onclick="showRegister()">Create Account</button>
+      <button onclick="forgotPassword()">Forgot Password?</button>
     </div>
-
-    <div class="box">
-
-      <input
-        type="tel"
-        placeholder="Mobile Number"
-      >
-
-      <input
-        type="password"
-        placeholder="Password"
-      >
-
-      <button>
-        Login
-      </button>
-
-      <div class="links">
-        Create Account
-        <span>•</span>
-        Forgot Password
-      </div>
-
-    </div>
-
   </div>
+
+  <!-- CREATE ACCOUNT -->
+  <div class="card hidden" id="registerBox">
+    <h2>Create Account 🚀</h2>
+
+    <input type="tel" id="registerMobile" placeholder="Mobile Number">
+
+    <input type="password" id="registerPassword" placeholder="Create Password">
+
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+
+    <button onclick="createAccount()">Continue</button>
+
+    <div class="links">
+      <button onclick="showLogin()">Already have an account? Login</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+function showRegister() {
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("registerBox").classList.remove("hidden");
+}
+
+function showLogin() {
+  document.getElementById("registerBox").classList.add("hidden");
+  document.getElementById("loginBox").classList.remove("hidden");
+}
+
+function login() {
+  const mobile = document.getElementById("loginMobile").value;
+  const password = document.getElementById("loginPassword").value;
+
+  if (!mobile || !password) {
+    alert("Please enter mobile number and password.");
+    return;
+  }
+
+  alert("Login system coming soon 🚀");
+}
+
+function createAccount() {
+  const mobile = document.getElementById("registerMobile").value;
+  const password = document.getElementById("registerPassword").value;
+  const confirm = document.getElementById("confirmPassword").value;
+
+  if (!mobile || !password || !confirm) {
+    alert("Please fill all details.");
+    return;
+  }
+
+  if (password !== confirm) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  alert("OTP verification will be added next.");
+}
+
+function forgotPassword() {
+  alert("OTP password recovery will be added next.");
+}
+
+</script>
 
 </body>
 </html>
