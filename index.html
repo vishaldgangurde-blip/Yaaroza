@@ -8,59 +8,59 @@
 <style>
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
+  margin: 0;
+  min-height: 100vh;
   font-family: Arial, sans-serif;
   background: #0b0712;
   color: white;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.container {
+.app {
   width: 100%;
-  max-width: 420px;
-  padding: 25px;
+  max-width: 430px;
+  padding: 20px;
 }
 
 .logo {
   text-align: center;
   font-size: 42px;
-  font-weight: bold;
+  font-weight: 800;
   color: #b76cff;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .tagline {
   text-align: center;
   color: #aaa;
-  margin-bottom: 35px;
+  margin-bottom: 28px;
 }
 
 .card {
-  background: #15101f;
-  padding: 25px;
+  background: #171020;
   border-radius: 22px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  padding: 25px;
+  box-shadow: 0 15px 45px rgba(0,0,0,.45);
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 22px;
+  margin: 0 0 22px;
 }
 
 input {
+  display: block;
   width: 100%;
   padding: 15px;
-  margin-bottom: 14px;
-  border: 1px solid #342744;
+  margin: 12px 0;
   border-radius: 12px;
-  background: #0d0914;
+  border: 1px solid #3a2948;
+  background: #0e0a15;
   color: white;
   font-size: 16px;
   outline: none;
@@ -70,10 +70,12 @@ input:focus {
   border-color: #a855f7;
 }
 
-button {
+.main-btn {
+  display: block;
   width: 100%;
   padding: 15px;
-  border: none;
+  margin-top: 15px;
+  border: 0;
   border-radius: 12px;
   background: #9333ea;
   color: white;
@@ -82,120 +84,210 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background: #a855f7;
+.main-btn:active {
+  transform: scale(.98);
 }
 
-.links {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.links button {
-  background: none;
-  padding: 6px;
+.link-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border: 0;
+  background: transparent;
   color: #c084fc;
   font-size: 14px;
+  cursor: pointer;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-.back {
-  background: transparent;
-  color: #aaa;
-  margin-top: 10px;
+.message {
+  text-align: center;
+  color: #c084fc;
+  margin-top: 15px;
+  min-height: 20px;
+  font-size: 14px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
   <div class="logo">YAAROZA</div>
   <div class="tagline">Meet • Talk • Play</div>
 
   <!-- LOGIN -->
-  <div class="card" id="loginBox">
+  <div class="card" id="loginScreen">
+
     <h2>Welcome Back 👋</h2>
 
-    <input type="tel" id="loginMobile" placeholder="Mobile Number">
+    <input
+      type="tel"
+      id="loginMobile"
+      placeholder="Mobile Number"
+      inputmode="numeric"
+    >
 
-    <input type="password" id="loginPassword" placeholder="Password">
+    <input
+      type="password"
+      id="loginPassword"
+      placeholder="Password"
+    >
 
-    <button onclick="login()">Login</button>
+    <button class="main-btn" type="button" onclick="loginUser()">
+      Login
+    </button>
 
-    <div class="links">
-      <button onclick="showRegister()">Create Account</button>
-      <button onclick="forgotPassword()">Forgot Password?</button>
-    </div>
+    <button class="link-btn" type="button" onclick="showCreateAccount()">
+      Create Account
+    </button>
+
+    <button class="link-btn" type="button" onclick="showForgotPassword()">
+      Forgot Password?
+    </button>
+
+    <div class="message" id="loginMessage"></div>
+
   </div>
 
+
   <!-- CREATE ACCOUNT -->
-  <div class="card hidden" id="registerBox">
+  <div class="card hidden" id="createScreen">
+
     <h2>Create Account 🚀</h2>
 
-    <input type="tel" id="registerMobile" placeholder="Mobile Number">
+    <input
+      type="tel"
+      id="registerMobile"
+      placeholder="Mobile Number"
+      inputmode="numeric"
+    >
 
-    <input type="password" id="registerPassword" placeholder="Create Password">
+    <input
+      type="password"
+      id="registerPassword"
+      placeholder="Create Password"
+    >
 
-    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+    <input
+      type="password"
+      id="confirmPassword"
+      placeholder="Confirm Password"
+    >
 
-    <button onclick="createAccount()">Continue</button>
+    <button class="main-btn" type="button" onclick="createAccount()">
+      Continue
+    </button>
 
-    <div class="links">
-      <button onclick="showLogin()">Already have an account? Login</button>
-    </div>
+    <button class="link-btn" type="button" onclick="showLogin()">
+      ← Back to Login
+    </button>
+
+    <div class="message" id="createMessage"></div>
+
+  </div>
+
+
+  <!-- FORGOT PASSWORD -->
+  <div class="card hidden" id="forgotScreen">
+
+    <h2>Reset Password 🔐</h2>
+
+    <input
+      type="tel"
+      id="forgotMobile"
+      placeholder="Mobile Number"
+      inputmode="numeric"
+    >
+
+    <button class="main-btn" type="button" onclick="sendOTP()">
+      Send OTP
+    </button>
+
+    <button class="link-btn" type="button" onclick="showLogin()">
+      ← Back to Login
+    </button>
+
+    <div class="message" id="forgotMessage"></div>
+
   </div>
 
 </div>
 
+
 <script>
 
-function showRegister() {
-  document.getElementById("loginBox").classList.add("hidden");
-  document.getElementById("registerBox").classList.remove("hidden");
+function hideAllScreens() {
+  document.getElementById("loginScreen").classList.add("hidden");
+  document.getElementById("createScreen").classList.add("hidden");
+  document.getElementById("forgotScreen").classList.add("hidden");
 }
 
 function showLogin() {
-  document.getElementById("registerBox").classList.add("hidden");
-  document.getElementById("loginBox").classList.remove("hidden");
+  hideAllScreens();
+  document.getElementById("loginScreen").classList.remove("hidden");
 }
 
-function login() {
-  const mobile = document.getElementById("loginMobile").value;
-  const password = document.getElementById("loginPassword").value;
+function showCreateAccount() {
+  hideAllScreens();
+  document.getElementById("createScreen").classList.remove("hidden");
+}
 
-  if (!mobile || !password) {
-    alert("Please enter mobile number and password.");
+function showForgotPassword() {
+  hideAllScreens();
+  document.getElementById("forgotScreen").classList.remove("hidden");
+}
+
+function loginUser() {
+
+  const mobile = document.getElementById("loginMobile").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
+  const message = document.getElementById("loginMessage");
+
+  if (mobile === "" || password === "") {
+    message.textContent = "Please enter mobile number and password.";
     return;
   }
 
-  alert("Login system coming soon 🚀");
+  message.textContent = "Login system will be connected soon.";
 }
 
 function createAccount() {
-  const mobile = document.getElementById("registerMobile").value;
+
+  const mobile = document.getElementById("registerMobile").value.trim();
   const password = document.getElementById("registerPassword").value;
   const confirm = document.getElementById("confirmPassword").value;
+  const message = document.getElementById("createMessage");
 
-  if (!mobile || !password || !confirm) {
-    alert("Please fill all details.");
+  if (mobile === "" || password === "" || confirm === "") {
+    message.textContent = "Please fill all details.";
     return;
   }
 
   if (password !== confirm) {
-    alert("Passwords do not match.");
+    message.textContent = "Passwords do not match.";
     return;
   }
 
-  alert("OTP verification will be added next.");
+  message.textContent = "OTP verification will be connected next.";
 }
 
-function forgotPassword() {
-  alert("OTP password recovery will be added next.");
+function sendOTP() {
+
+  const mobile = document.getElementById("forgotMobile").value.trim();
+  const message = document.getElementById("forgotMessage");
+
+  if (mobile === "") {
+    message.textContent = "Please enter your mobile number.";
+    return;
+  }
+
+  message.textContent = "OTP password recovery will be connected next.";
 }
 
 </script>
