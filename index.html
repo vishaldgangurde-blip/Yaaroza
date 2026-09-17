@@ -11,470 +11,335 @@
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
     }
 
     body {
-      margin: 0;
       min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at top left, #8b5cf6 0%, transparent 35%),
-        radial-gradient(circle at bottom right, #2563eb 0%, transparent 40%),
-        linear-gradient(135deg, #111827, #312e81);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #222;
       padding: 20px;
     }
 
     .container {
       width: 100%;
-      max-width: 450px;
+      max-width: 500px;
+      margin: auto;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.97);
-      border-radius: 28px;
-      padding: 28px 22px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.30);
-      overflow: hidden;
+      background: white;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.18);
     }
 
-    .logo {
+    .brand {
       text-align: center;
-      font-size: 35px;
-      font-weight: 800;
-      color: #111827;
-      margin-bottom: 5px;
-      letter-spacing: -1px;
+      margin-bottom: 22px;
     }
 
-    .tagline {
-      text-align: center;
-      color: #6b7280;
-      font-size: 13px;
-      margin-bottom: 24px;
+    .brand h1 {
+      font-size: 34px;
+      color: #6c5ce7;
+    }
+
+    .brand p {
+      color: #777;
+      margin-top: 5px;
     }
 
     .tabs {
       display: flex;
-      gap: 7px;
-      margin-bottom: 24px;
+      gap: 6px;
+      margin-bottom: 20px;
+      background: #f1f1f1;
+      padding: 5px;
+      border-radius: 14px;
     }
 
-    .tab {
+    .tabs button {
       flex: 1;
-      border: 0;
-      border-radius: 12px;
+      border: none;
       padding: 11px 5px;
-      background: #f1f3f7;
-      color: #374151;
+      border-radius: 10px;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .tabs button.active {
+      background: white;
+      color: #6c5ce7;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .form {
+      display: none;
+    }
+
+    .form.active {
+      display: block;
+    }
+
+    .form h2 {
+      margin-bottom: 6px;
+    }
+
+    .form p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
       font-size: 13px;
       font-weight: 700;
-      cursor: pointer;
-    }
-
-    .tab.active {
-      background: linear-gradient(135deg, #6366f1, #2563eb);
-      color: white;
-      box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
-    }
-
-    h2 {
-      text-align: center;
-      font-size: 23px;
-      margin: 0 0 20px;
-      color: #111827;
+      margin-bottom: 6px;
     }
 
     input,
-    textarea,
-    select {
+    select,
+    textarea {
       width: 100%;
-      border: 1px solid #e5e7eb;
+      padding: 13px;
+      border: 1px solid #ddd;
       border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 15px;
       outline: none;
-      margin-bottom: 13px;
-      font-family: Arial, sans-serif;
-      background: #fff;
-    }
-
-    input {
-      height: 48px;
+      font-size: 15px;
+      background: white;
     }
 
     textarea {
-      min-height: 90px;
       resize: vertical;
+      min-height: 90px;
     }
 
     input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10);
+    select:focus,
+    textarea:focus {
+      border-color: #6c5ce7;
     }
 
-    .password-wrap {
+    .password-box {
       position: relative;
-      width: 100%;
     }
 
-    .password-wrap input {
-      padding-right: 52px;
+    .password-box input {
+      padding-right: 50px;
     }
 
-    .toggle-password {
+    .eye-btn {
       position: absolute;
-      right: 7px;
-      top: 0;
-      width: 44px;
-      height: 48px;
-      border: 0;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
       background: transparent;
       cursor: pointer;
-      font-size: 20px;
-      margin: 0;
-      padding: 0;
+      font-size: 18px;
     }
 
     .main-btn {
       width: 100%;
-      height: 48px;
-      border: 0;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #6366f1, #2563eb);
-      color: #ffffff;
-      font-size: 15px;
+      border: none;
+      padding: 14px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #6c5ce7, #00b894);
+      color: white;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 3px;
-      box-shadow: 0 7px 18px rgba(37, 99, 235, 0.20);
+      margin-top: 5px;
+    }
+
+    .main-btn:hover {
+      opacity: 0.92;
     }
 
     .secondary-btn {
       width: 100%;
-      height: 44px;
-      border: 0;
+      border: none;
+      padding: 12px;
       border-radius: 12px;
-      background: #f1f3f7;
-      color: #374151;
-      font-size: 14px;
-      font-weight: 700;
+      background: #eee;
       cursor: pointer;
+      font-weight: 700;
       margin-top: 10px;
     }
 
-    .main-btn:active,
-    .tab:active,
-    .secondary-btn:active,
-    .toggle-password:active {
-      transform: scale(0.98);
-    }
-
     .message {
-      min-height: 20px;
-      text-align: center;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 10px;
+      background: #f5f5f5;
+      color: #555;
       font-size: 14px;
-      margin-top: 13px;
-      line-height: 1.4;
-    }
-
-    .success {
-      color: #16823b;
-    }
-
-    .error {
-      color: #d93025;
-    }
-
-    .info {
-      color: #555555;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .otp-box {
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 1px solid #eeeeee;
-    }
-
-    .otp-info {
       text-align: center;
-      color: #555555;
-      font-size: 13px;
-      line-height: 1.5;
-      margin-bottom: 13px;
+      display: none;
     }
 
-    /* =========================
-       PROFILE
-    ========================= */
-
-    .profile-card {
-      position: relative;
-      margin: -28px -22px 0;
-      padding-bottom: 25px;
-      background: linear-gradient(145deg, #eef2ff, #f8fafc);
-      border-bottom-left-radius: 30px;
-      border-bottom-right-radius: 30px;
+    .otp-area {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: #f7f7ff;
+      border-radius: 14px;
     }
+
+    .otp-area.show {
+      display: block;
+    }
+
+    .logged-in {
+      display: none;
+    }
+
+    /* PROFILE */
 
     .profile-cover {
-      height: 105px;
-      background: linear-gradient(135deg, #6366f1, #2563eb, #7c3aed);
+      height: 120px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #6c5ce7, #00cec9);
       position: relative;
-      overflow: hidden;
+      margin-bottom: 65px;
     }
 
-    .profile-cover::after {
-      content: "";
+    .avatar-wrap {
       position: absolute;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.10);
-      right: -55px;
-      top: -80px;
-    }
-
-    .profile-avatar-wrap {
-      position: relative;
-      margin-top: -55px;
+      left: 50%;
+      bottom: -55px;
+      transform: translateX(-50%);
       text-align: center;
-      z-index: 2;
     }
 
-    .profile-avatar {
-      width: 105px;
-      height: 105px;
+    .avatar {
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #6366f1, #2563eb);
+      background: linear-gradient(135deg, #6c5ce7, #00cec9);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 12px;
-      font-size: 38px;
+      font-size: 42px;
       font-weight: 800;
-      overflow: hidden;
       border: 5px solid white;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+      overflow: hidden;
+      margin: auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
 
-    .profile-avatar img {
+    .avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .online-dot {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      background: #22c55e;
-      border: 3px solid white;
-      border-radius: 50%;
-      bottom: 10px;
-      right: calc(50% - 48px);
+    .change-photo-btn {
+      margin-top: 10px;
+      padding: 9px 15px;
+      border: none;
+      border-radius: 10px;
+      background: #6c5ce7;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
     }
 
-    .profile-display-name {
+    .profile-info {
       text-align: center;
-      font-size: 24px;
-      font-weight: 800;
-      color: #111827;
-      margin: 5px 0;
+      margin-top: 10px;
     }
 
-    .profile-username {
-      text-align: center;
-      color: #6366f1;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 8px;
+    .profile-info h2 {
+      font-size: 25px;
     }
 
-    .profile-bio {
-      text-align: center;
-      color: #6b7280;
-      font-size: 13px;
+    .username {
+      color: #6c5ce7;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .bio {
+      color: #666;
+      margin-top: 10px;
       line-height: 1.5;
-      max-width: 320px;
-      margin: 0 auto;
-      padding: 0 15px;
     }
 
-    .profile-stats {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      margin-top: 17px;
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 22px 0;
     }
 
     .stat {
+      background: #f7f7f7;
+      padding: 13px 5px;
+      border-radius: 14px;
       text-align: center;
     }
 
-    .stat-number {
+    .stat strong {
       display: block;
-      font-size: 17px;
-      font-weight: 800;
-      color: #111827;
+      font-size: 20px;
     }
 
-    .stat-label {
-      display: block;
-      font-size: 11px;
-      color: #6b7280;
-      margin-top: 2px;
+    .stat span {
+      font-size: 12px;
+      color: #777;
     }
 
-    .profile-info-grid {
+    .info-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 18px;
+      margin-top: 15px;
     }
 
     .info-item {
-      background: #f8fafc;
-      border: 1px solid #eef0f4;
-      border-radius: 14px;
       padding: 13px;
+      border-radius: 13px;
+      background: #f8f8f8;
     }
 
-    .info-icon {
-      font-size: 18px;
-      margin-bottom: 5px;
-    }
-
-    .info-title {
-      font-size: 10px;
-      color: #9ca3af;
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .info-value {
-      margin-top: 4px;
-      font-size: 13px;
-      color: #374151;
-      font-weight: 600;
-      word-break: break-word;
+    .info-item small {
+      display: block;
+      color: #888;
+      margin-bottom: 4px;
     }
 
     .profile-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
       gap: 10px;
       margin-top: 18px;
     }
 
-    .profile-actions .main-btn {
-      margin-top: 0;
+    .profile-actions button {
+      flex: 1;
     }
 
-    .edit-btn {
-      background: #111827;
-      box-shadow: none;
-    }
-
-    .logout-btn {
-      background: #fee2e2;
-      color: #dc2626;
-      box-shadow: none;
-    }
-
-    /* =========================
-       EDIT PROFILE
-    ========================= */
-
-    .edit-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .edit-header h2 {
-      margin-bottom: 5px;
-    }
-
-    .edit-subtitle {
-      color: #6b7280;
-      font-size: 13px;
-    }
-
-    .edit-avatar {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #6366f1, #2563eb);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 18px;
-      font-size: 32px;
-      font-weight: 800;
-      overflow: hidden;
-      border: 4px solid #eef2ff;
-    }
-
-    .edit-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .profile-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: #374151;
-      margin: 5px 0 6px;
-    }
-
-    .field-hint {
-      font-size: 11px;
-      color: #9ca3af;
-      margin-top: -8px;
-      margin-bottom: 13px;
+    .edit-profile {
+      display: none;
     }
 
     .footer {
       text-align: center;
-      color: #9ca3af;
-      font-size: 11px;
-      line-height: 1.5;
       margin-top: 20px;
+      font-size: 12px;
+      color: #999;
     }
 
-    @media (max-width: 390px) {
-      .card {
-        padding: 24px 17px;
-      }
-
-      .profile-card {
-        margin: -24px -17px 0;
-      }
-
-      .profile-info-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .tabs {
-        gap: 4px;
-      }
-
-      .tab {
-        font-size: 12px;
-      }
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
@@ -485,262 +350,216 @@
 
   <div class="card">
 
-    <div class="logo">Yaaroza</div>
-
-    <div class="tagline">
-      Connect • Chat • Call • Make Friends
+    <div class="brand">
+      <h1>Yaaroza</h1>
+      <p>Connect • Chat • Call • Make Friends</p>
     </div>
 
+    <!-- AUTH -->
 
-    <!-- AUTH AREA -->
-
-    <div id="authArea">
+    <div id="authSection">
 
       <div class="tabs">
-
-        <button
-          type="button"
-          class="tab active"
-          id="loginTab"
-          onclick="showForm('login')">
+        <button id="loginTab" class="active" onclick="showForm('login')">
           Login
         </button>
 
-        <button
-          type="button"
-          class="tab"
-          id="signupTab"
-          onclick="showForm('signup')">
+        <button id="signupTab" onclick="showForm('signup')">
           Create Account
         </button>
 
-        <button
-          type="button"
-          class="tab"
-          id="forgotTab"
-          onclick="showForm('forgot')">
+        <button id="forgotTab" onclick="showForm('forgot')">
           Forgot
         </button>
-
       </div>
-
 
       <!-- LOGIN -->
 
-      <div id="loginForm">
+      <div id="loginForm" class="form active">
 
         <h2>Welcome Back</h2>
+        <p>Login using your mobile number and password.</p>
 
-        <input
-          id="loginPhone"
-          type="tel"
-          inputmode="tel"
-          placeholder="Mobile Number"
-          autocomplete="tel"
-        >
-
-        <div class="password-wrap">
-
+        <div class="field">
+          <label>Mobile Number</label>
           <input
-            id="loginPassword"
-            type="password"
-            placeholder="Password"
-            autocomplete="current-password"
+            id="loginPhone"
+            type="tel"
+            placeholder="919XXXXXXXXX"
           >
-
-          <button
-            type="button"
-            class="toggle-password"
-            onclick="togglePassword('loginPassword', this)"
-            aria-label="Show password">
-            👁️
-          </button>
-
         </div>
 
-        <button
-          type="button"
-          class="main-btn"
-          onclick="loginUser()">
-          Login
-        </button>
+        <div class="field">
+          <label>Password</label>
 
-        <div id="loginMessage" class="message"></div>
-
-      </div>
-
-
-      <!-- CREATE ACCOUNT -->
-
-      <div id="signupForm" class="hidden">
-
-        <h2>Create Your Account</h2>
-
-        <input
-          id="signupName"
-          type="text"
-          placeholder="Your Name"
-          autocomplete="name"
-        >
-
-        <input
-          id="signupPhone"
-          type="tel"
-          inputmode="tel"
-          placeholder="Mobile Number"
-          autocomplete="tel"
-        >
-
-        <div class="password-wrap">
-
-          <input
-            id="signupPassword"
-            type="password"
-            placeholder="Password"
-            autocomplete="new-password"
-          >
-
-          <button
-            type="button"
-            class="toggle-password"
-            onclick="togglePassword('signupPassword', this)"
-            aria-label="Show password">
-            👁️
-          </button>
-
-        </div>
-
-        <div class="password-wrap">
-
-          <input
-            id="signupConfirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            autocomplete="new-password"
-          >
-
-          <button
-            type="button"
-            class="toggle-password"
-            onclick="togglePassword('signupConfirmPassword', this)"
-            aria-label="Show password">
-            👁️
-          </button>
-
-        </div>
-
-        <button
-          type="button"
-          class="main-btn"
-          onclick="createAccount()">
-          Create Account
-        </button>
-
-        <div id="signupMessage" class="message"></div>
-
-
-        <div id="signupOtpArea" class="otp-box hidden">
-
-          <div class="otp-info">
-            OTP sent. Enter the 6-digit OTP to verify your phone.
-          </div>
-
-          <input
-            id="signupOtp"
-            type="text"
-            inputmode="numeric"
-            maxlength="6"
-            placeholder="Enter 6-digit OTP"
-            autocomplete="one-time-code"
-          >
-
-          <button
-            type="button"
-            class="main-btn"
-            onclick="verifySignupOtp()">
-            Verify OTP
-          </button>
-
-          <button
-            type="button"
-            class="secondary-btn"
-            onclick="resendSignupOtp()">
-            Resend OTP
-          </button>
-
-          <div id="signupOtpMessage" class="message"></div>
-
-        </div>
-
-      </div>
-
-
-      <!-- FORGOT PASSWORD -->
-
-      <div id="forgotForm" class="hidden">
-
-        <h2>Reset Password</h2>
-
-        <input
-          id="forgotPhone"
-          type="tel"
-          inputmode="tel"
-          placeholder="Mobile Number"
-          autocomplete="tel"
-        >
-
-        <button
-          type="button"
-          class="main-btn"
-          onclick="sendForgotOtp()">
-          Send OTP
-        </button>
-
-        <div id="forgotMessage" class="message"></div>
-
-
-        <div id="forgotOtpArea" class="otp-box hidden">
-
-          <div class="otp-info">
-            Enter the 6-digit OTP sent to your phone and choose a new password.
-          </div>
-
-          <input
-            id="forgotOtp"
-            type="text"
-            inputmode="numeric"
-            maxlength="6"
-            placeholder="Enter 6-digit OTP"
-            autocomplete="one-time-code"
-          >
-
-          <div class="password-wrap">
-
+          <div class="password-box">
             <input
-              id="newPassword"
+              id="loginPassword"
               type="password"
-              placeholder="New Password"
-              autocomplete="new-password"
+              placeholder="Enter password"
             >
 
             <button
+              class="eye-btn"
               type="button"
-              class="toggle-password"
-              onclick="togglePassword('newPassword', this)"
-              aria-label="Show password">
-              👁️
-            </button>
+              onclick="togglePassword('loginPassword', this)"
+            >👁</button>
+          </div>
+        </div>
 
+        <button class="main-btn" onclick="loginUser()">
+          Login
+        </button>
+
+      </div>
+
+      <!-- SIGNUP -->
+
+      <div id="signupForm" class="form">
+
+        <h2>Create Account</h2>
+        <p>Create your Yaaroza account.</p>
+
+        <div class="field">
+          <label>Display Name</label>
+          <input
+            id="signupName"
+            type="text"
+            placeholder="Your name"
+          >
+        </div>
+
+        <div class="field">
+          <label>Mobile Number</label>
+          <input
+            id="signupPhone"
+            type="tel"
+            placeholder="919XXXXXXXXX"
+          >
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+
+          <div class="password-box">
+            <input
+              id="signupPassword"
+              type="password"
+              placeholder="Create password"
+            >
+
+            <button
+              class="eye-btn"
+              type="button"
+              onclick="togglePassword('signupPassword', this)"
+            >👁</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Confirm Password</label>
+
+          <div class="password-box">
+            <input
+              id="signupConfirmPassword"
+              type="password"
+              placeholder="Confirm password"
+            >
+
+            <button
+              class="eye-btn"
+              type="button"
+              onclick="togglePassword('signupConfirmPassword', this)"
+            >👁</button>
+          </div>
+        </div>
+
+        <button class="main-btn" onclick="createAccount()">
+          Create Account
+        </button>
+
+        <div id="signupOtpArea" class="otp-area">
+
+          <div class="field">
+            <label>Verification OTP</label>
+
+            <input
+              id="signupOtp"
+              type="text"
+              maxlength="6"
+              placeholder="Enter OTP"
+            >
           </div>
 
-          <button
-            type="button"
-            class="main-btn"
-            onclick="resetPassword()">
-            Reset Password
+          <button class="main-btn" onclick="verifySignupOtp()">
+            Verify OTP
           </button>
 
-          <div id="resetMessage" class="message"></div>
+          <button class="secondary-btn" onclick="resendSignupOtp()">
+            Resend OTP
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- FORGOT PASSWORD -->
+
+      <div id="forgotForm" class="form">
+
+        <h2>Reset Password</h2>
+        <p>Use your mobile number to reset your password.</p>
+
+        <div class="field">
+          <label>Mobile Number</label>
+
+          <input
+            id="forgotPhone"
+            type="tel"
+            placeholder="919XXXXXXXXX"
+          >
+        </div>
+
+        <button class="main-btn" onclick="sendForgotOtp()">
+          Send OTP
+        </button>
+
+        <div id="forgotOtpArea" class="otp-area">
+
+          <div class="field">
+            <label>OTP</label>
+
+            <input
+              id="forgotOtp"
+              type="text"
+              maxlength="6"
+              placeholder="Enter OTP"
+            >
+          </div>
+
+          <div class="field">
+            <label>New Password</label>
+
+            <div class="password-box">
+
+              <input
+                id="newPassword"
+                type="password"
+                placeholder="New password"
+              >
+
+              <button
+                class="eye-btn"
+                type="button"
+                onclick="togglePassword('newPassword', this)"
+              >👁</button>
+
+            </div>
+          </div>
+
+          <button class="main-btn" onclick="resetPassword()">
+            Reset Password
+          </button>
 
         </div>
 
@@ -748,374 +567,266 @@
 
     </div>
 
+    <!-- LOGGED IN -->
 
-    <!-- LOGGED IN AREA -->
-
-    <div id="loggedInArea" class="hidden">
-
+    <div id="loggedInSection" class="logged-in">
 
       <!-- PROFILE VIEW -->
 
       <div id="profileView">
 
-        <div class="profile-card">
+        <div class="profile-cover">
 
-          <div class="profile-cover"></div>
+          <div class="avatar-wrap">
 
-          <div class="profile-avatar-wrap">
-
-            <div class="profile-avatar" id="profileAvatar">
+            <div class="avatar" id="profileAvatar">
               U
             </div>
 
-            <div class="online-dot"></div>
+            <button
+              class="change-photo-btn"
+              type="button"
+              onclick="chooseAvatar()"
+            >
+              📸 Change Photo
+            </button>
 
           </div>
 
-          <div
-            class="profile-display-name"
-            id="profileDisplayName">
+        </div>
+
+        <div class="profile-info">
+
+          <h2 id="profileDisplayName">
             User
-          </div>
+          </h2>
 
-          <div
-            class="profile-username"
-            id="profileUsername">
+          <div class="username" id="profileUsername">
             @username
           </div>
 
-          <div
-            class="profile-bio"
-            id="profileBio">
+          <div class="bio" id="profileBio">
             No bio yet.
           </div>
 
-          <div class="profile-stats">
+        </div>
 
-            <div class="stat">
-              <span class="stat-number">0</span>
-              <span class="stat-label">Friends</span>
-            </div>
+        <div class="stats">
 
-            <div class="stat">
-              <span class="stat-number">0</span>
-              <span class="stat-label">Followers</span>
-            </div>
+          <div class="stat">
+            <strong id="friendsCount">0</strong>
+            <span>Friends</span>
+          </div>
 
-            <div class="stat">
-              <span class="stat-number">0</span>
-              <span class="stat-label">Following</span>
-            </div>
+          <div class="stat">
+            <strong id="followersCount">0</strong>
+            <span>Followers</span>
+          </div>
 
+          <div class="stat">
+            <strong id="followingCount">0</strong>
+            <span>Following</span>
           </div>
 
         </div>
 
-
-        <div class="profile-info-grid">
+        <div class="info-grid">
 
           <div class="info-item">
-
-            <div class="info-icon">📱</div>
-
-            <div class="info-title">
-              Mobile
-            </div>
-
-            <div
-              class="info-value"
-              id="userPhone">
-              —
-            </div>
-
+            <small>Mobile</small>
+            <span id="userPhone">Not available</span>
           </div>
 
-
           <div class="info-item">
-
-            <div class="info-icon">🌍</div>
-
-            <div class="info-title">
-              Country
-            </div>
-
-            <div
-              class="info-value"
-              id="profileCountry">
-              Not set
-            </div>
-
+            <small>Country</small>
+            <span id="profileCountry">Not set</span>
           </div>
 
-
           <div class="info-item">
-
-            <div class="info-icon">🗣️</div>
-
-            <div class="info-title">
-              Language
-            </div>
-
-            <div
-              class="info-value"
-              id="profileLanguage">
-              Not set
-            </div>
-
+            <small>Language</small>
+            <span id="profileLanguage">Not set</span>
           </div>
 
-
           <div class="info-item">
-
-            <div class="info-icon">✨</div>
-
-            <div class="info-title">
-              Status
-            </div>
-
-            <div class="info-value">
-              Yaaroza Member
-            </div>
-
+            <small>Status</small>
+            <span>Yaaroza Member</span>
           </div>
 
         </div>
-
 
         <div class="profile-actions">
 
           <button
-            type="button"
-            class="main-btn edit-btn"
-            onclick="showEditProfile()">
-            ✏️ Edit Profile
+            class="main-btn"
+            onclick="showEditProfile()"
+          >
+            Edit Profile
           </button>
 
           <button
-            type="button"
-            class="main-btn logout-btn"
-            onclick="logoutUser()">
+            class="secondary-btn"
+            onclick="logoutUser()"
+          >
             Logout
           </button>
 
         </div>
 
-        <div id="profileMessage" class="message"></div>
-
       </div>
-
 
       <!-- EDIT PROFILE -->
 
-      <div id="profileEdit" class="hidden">
+      <div id="editProfile" class="edit-profile">
 
-        <div class="edit-header">
+        <h2>Edit Profile</h2>
 
-          <h2>Edit Profile</h2>
+        <p style="color:#777;margin:6px 0 20px;">
+          Make your Yaaroza profile yours.
+        </p>
 
-          <div class="edit-subtitle">
-            Make your Yaaroza profile yours
+        <div style="text-align:center;margin-bottom:22px;">
+
+          <div
+            class="avatar"
+            id="editAvatar"
+          >
+            U
           </div>
 
+          <button
+            class="change-photo-btn"
+            type="button"
+            onclick="chooseAvatar()"
+          >
+            📸 Change Photo
+          </button>
+
         </div>
 
+        <div class="field">
 
-        <div class="edit-avatar" id="editAvatar">
-          U
+          <label>Display Name</label>
+
+          <input
+            id="editDisplayName"
+            type="text"
+            placeholder="Your display name"
+          >
+
         </div>
 
+        <div class="field">
 
-        <label class="profile-label">
-          Display Name
-        </label>
+          <label>Username</label>
 
-        <input
-          id="editDisplayName"
-          type="text"
-          placeholder="Your Name"
-          maxlength="50"
-        >
+          <input
+            id="editUsername"
+            type="text"
+            placeholder="username"
+          >
 
+          <small style="color:#888;">
+            Your unique Yaaroza username.
+          </small>
 
-        <label class="profile-label">
-          Username
-        </label>
-
-        <input
-          id="editUsername"
-          type="text"
-          placeholder="Choose a username"
-          maxlength="30"
-        >
-
-        <div class="field-hint">
-          Your unique Yaaroza username.
         </div>
 
+        <div class="field">
 
-        <label class="profile-label">
-          Bio
-        </label>
+          <label>Bio</label>
 
-        <textarea
-          id="editBio"
-          maxlength="160"
-          placeholder="Tell people something about you">
-        </textarea>
+          <textarea
+            id="editBio"
+            maxlength="160"
+            placeholder="Tell something about yourself..."
+          ></textarea>
 
-        <div class="field-hint">
-          Maximum 160 characters.
+          <small style="color:#888;">
+            Maximum 160 characters.
+          </small>
+
         </div>
 
+        <div class="field">
 
-        <label class="profile-label">
-          Country
-        </label>
+          <label>Country</label>
 
-        <select id="editCountry">
+          <select id="editCountry">
 
-          <option value="">
-            Select your country
-          </option>
+            <option value="">Select country</option>
+            <option>India</option>
+            <option>United States</option>
+            <option>United Kingdom</option>
+            <option>Canada</option>
+            <option>Australia</option>
+            <option>UAE</option>
+            <option>Saudi Arabia</option>
+            <option>Germany</option>
+            <option>France</option>
+            <option>Japan</option>
+            <option>Other</option>
 
-          <option value="India">
-            India
-          </option>
+          </select>
 
-          <option value="United States">
-            United States
-          </option>
+        </div>
 
-          <option value="United Kingdom">
-            United Kingdom
-          </option>
+        <div class="field">
 
-          <option value="Canada">
-            Canada
-          </option>
+          <label>Language</label>
 
-          <option value="Australia">
-            Australia
-          </option>
+          <select id="editLanguage">
 
-          <option value="United Arab Emirates">
-            United Arab Emirates
-          </option>
+            <option value="">Select language</option>
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Marathi</option>
+            <option>Tamil</option>
+            <option>Telugu</option>
+            <option>Bengali</option>
+            <option>Gujarati</option>
+            <option>Punjabi</option>
+            <option>Urdu</option>
+            <option>Arabic</option>
+            <option>Spanish</option>
+            <option>French</option>
+            <option>Other</option>
 
-          <option value="Saudi Arabia">
-            Saudi Arabia
-          </option>
+          </select>
 
-          <option value="Germany">
-            Germany
-          </option>
-
-          <option value="France">
-            France
-          </option>
-
-          <option value="Japan">
-            Japan
-          </option>
-
-          <option value="Other">
-            Other
-          </option>
-
-        </select>
-
-
-        <label class="profile-label">
-          Language
-        </label>
-
-        <select id="editLanguage">
-
-          <option value="">
-            Select your language
-          </option>
-
-          <option value="English">
-            English
-          </option>
-
-          <option value="Hindi">
-            Hindi
-          </option>
-
-          <option value="Marathi">
-            Marathi
-          </option>
-
-          <option value="Tamil">
-            Tamil
-          </option>
-
-          <option value="Telugu">
-            Telugu
-          </option>
-
-          <option value="Bengali">
-            Bengali
-          </option>
-
-          <option value="Gujarati">
-            Gujarati
-          </option>
-
-          <option value="Punjabi">
-            Punjabi
-          </option>
-
-          <option value="Urdu">
-            Urdu
-          </option>
-
-          <option value="Arabic">
-            Arabic
-          </option>
-
-          <option value="Spanish">
-            Spanish
-          </option>
-
-          <option value="French">
-            French
-          </option>
-
-          <option value="Other">
-            Other
-          </option>
-
-        </select>
-
+        </div>
 
         <button
-          type="button"
           class="main-btn"
-          onclick="saveProfile()">
+          onclick="saveProfile()"
+        >
           Save Profile
         </button>
 
         <button
-          type="button"
           class="secondary-btn"
-          onclick="cancelEditProfile()">
+          onclick="cancelEditProfile()"
+        >
           Cancel
         </button>
-
-        <div
-          id="editProfileMessage"
-          class="message">
-        </div>
 
       </div>
 
     </div>
 
+    <div id="message" class="message"></div>
+
+    <!-- HIDDEN FILE INPUT -->
+
+    <input
+      type="file"
+      id="avatarFileInput"
+      accept="image/*"
+      style="display:none"
+      onchange="uploadAvatar(event)"
+    >
 
     <div class="footer">
-      By continuing, you agree to Yaaroza's Terms & Privacy Policy.
+      Yaaroza • Terms & Privacy
     </div>
 
   </div>
@@ -1125,151 +836,113 @@
 
 <script>
 
-  /* =========================================
+  /* =========================
      SUPABASE
-  ========================================= */
+  ========================= */
 
   const SUPABASE_URL =
     "https://qkpljuksfgyyooythbjg.supabase.co";
 
-  const SUPABASE_PUBLISHABLE_KEY =
+  const SUPABASE_KEY =
     "sb_publishable_GQG4XSSgd7_eBOe18DkkMA_7PBuNZId";
 
   const supabaseClient =
     window.supabase.createClient(
       SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
+      SUPABASE_KEY
     );
 
 
-  /* =========================================
+  /* =========================
      HELPERS
-  ========================================= */
+  ========================= */
 
   function get(id) {
     return document.getElementById(id);
   }
 
 
-  function setMessage(id, text, type) {
+  function setMessage(text) {
 
-    const element = get(id);
+    const message = get("message");
 
-    if (!element) {
-      return;
-    }
-
-    element.textContent = text;
-
-    element.className =
-      "message " + (type || "info");
+    message.textContent = text;
+    message.style.display = text ? "block" : "none";
   }
 
 
-  function formatPhone(value) {
+  function formatPhone(phone) {
 
-    let phone = value.trim();
+    if (!phone) return "";
 
-    if (phone.startsWith("+91")) {
-      return phone;
-    }
-
-    if (phone.startsWith("91") && phone.length === 12) {
-      return "+" + phone;
-    }
-
-    if (phone.length === 10) {
-      return "+91" + phone;
-    }
-
-    return phone;
+    return phone.replace(/[^\d+]/g, "");
   }
 
 
-  /* =========================================
-     TABS
-  ========================================= */
+  /* =========================
+     AUTH TABS
+  ========================= */
 
   function showForm(formName) {
 
-    get("loginForm").classList.add("hidden");
-    get("signupForm").classList.add("hidden");
-    get("forgotForm").classList.add("hidden");
+    get("loginForm").classList.remove("active");
+    get("signupForm").classList.remove("active");
+    get("forgotForm").classList.remove("active");
 
     get("loginTab").classList.remove("active");
     get("signupTab").classList.remove("active");
     get("forgotTab").classList.remove("active");
 
-
     if (formName === "login") {
 
-      get("loginForm").classList.remove("hidden");
+      get("loginForm").classList.add("active");
       get("loginTab").classList.add("active");
 
     }
 
-
     if (formName === "signup") {
 
-      get("signupForm").classList.remove("hidden");
+      get("signupForm").classList.add("active");
       get("signupTab").classList.add("active");
 
     }
 
-
     if (formName === "forgot") {
 
-      get("forgotForm").classList.remove("hidden");
+      get("forgotForm").classList.add("active");
       get("forgotTab").classList.add("active");
 
     }
 
+    setMessage("");
   }
 
 
-  /* =========================================
-     PASSWORD TOGGLE
-  ========================================= */
+  /* =========================
+     PASSWORD EYE
+  ========================= */
 
   function togglePassword(inputId, button) {
 
     const input = get(inputId);
 
-    if (!input) {
-      return;
-    }
-
-
     if (input.type === "password") {
 
       input.type = "text";
-
       button.textContent = "🙈";
-
-      button.setAttribute(
-        "aria-label",
-        "Hide password"
-      );
 
     } else {
 
       input.type = "password";
-
-      button.textContent = "👁️";
-
-      button.setAttribute(
-        "aria-label",
-        "Show password"
-      );
+      button.textContent = "👁";
 
     }
-
   }
 
 
-  /* =========================================
+  /* =========================
      CREATE ACCOUNT
-  ========================================= */
+  ========================= */
 
   async function createAccount() {
 
@@ -1277,9 +950,7 @@
       get("signupName").value.trim();
 
     const phone =
-      formatPhone(
-        get("signupPhone").value
-      );
+      formatPhone(get("signupPhone").value.trim());
 
     const password =
       get("signupPassword").value;
@@ -1290,50 +961,34 @@
 
     if (!name || !phone || !password || !confirmPassword) {
 
-      setMessage(
-        "signupMessage",
-        "Please fill in all fields.",
-        "error"
-      );
-
+      setMessage("Please fill all fields.");
       return;
+
     }
 
 
     if (password.length < 6) {
 
-      setMessage(
-        "signupMessage",
-        "Password must be at least 6 characters.",
-        "error"
-      );
-
+      setMessage("Password must be at least 6 characters.");
       return;
+
     }
 
 
     if (password !== confirmPassword) {
 
-      setMessage(
-        "signupMessage",
-        "Passwords do not match.",
-        "error"
-      );
-
+      setMessage("Passwords do not match.");
       return;
+
     }
 
 
-    setMessage(
-      "signupMessage",
-      "Creating your account...",
-      "info"
-    );
+    setMessage("Creating account...");
 
 
     try {
 
-      const result =
+      const { data, error } =
         await supabaseClient.auth.signUp({
 
           phone: phone,
@@ -1341,8 +996,6 @@
           password: password,
 
           options: {
-
-            channel: "sms",
 
             data: {
               display_name: name
@@ -1353,217 +1006,152 @@
         });
 
 
-      if (result.error) {
+      if (error) {
 
-        setMessage(
-          "signupMessage",
-          result.error.message,
-          "error"
-        );
-
+        setMessage(error.message);
         return;
+
       }
 
 
-      setMessage(
-        "signupMessage",
-        "OTP sent successfully.",
-        "success"
-      );
+      if (data.user) {
 
+        get("signupOtpArea")
+          .classList.add("show");
 
-      get("signupOtpArea")
-        .classList.remove("hidden");
+        setMessage(
+          "OTP sent. Please verify your mobile number."
+        );
 
-
-      get("signupOtp").focus();
+      }
 
     } catch (error) {
 
+      console.error(error);
+
       setMessage(
-        "signupMessage",
-        error.message || "Something went wrong.",
-        "error"
+        "Something went wrong while creating the account."
       );
 
     }
-
   }
 
 
-  /* =========================================
+  /* =========================
      VERIFY SIGNUP OTP
-  ========================================= */
+  ========================= */
 
   async function verifySignupOtp() {
 
     const phone =
-      formatPhone(
-        get("signupPhone").value
-      );
+      formatPhone(get("signupPhone").value.trim());
 
     const token =
       get("signupOtp").value.trim();
 
 
-    if (token.length !== 6) {
+    if (!phone || !token) {
 
-      setMessage(
-        "signupOtpMessage",
-        "Please enter the 6-digit OTP.",
-        "error"
-      );
-
+      setMessage("Enter the OTP.");
       return;
+
     }
 
 
-    setMessage(
-      "signupOtpMessage",
-      "Verifying OTP...",
-      "info"
-    );
+    setMessage("Verifying OTP...");
 
 
     try {
 
-      const result =
+      const { data, error } =
         await supabaseClient.auth.verifyOtp({
 
           phone: phone,
-
           token: token,
-
           type: "sms"
 
         });
 
 
-      if (result.error) {
+      if (error) {
 
-        setMessage(
-          "signupOtpMessage",
-          result.error.message,
-          "error"
-        );
-
+        setMessage(error.message);
         return;
+
       }
 
 
-      if (result.data.user) {
+      if (data.user) {
 
         await createOrUpdateProfile(
-          result.data.user,
+          data.user,
           get("signupName").value.trim()
         );
 
+        setMessage("Account verified successfully.");
+
+        await showLoggedInUser(data.user);
+
       }
-
-
-      setMessage(
-        "signupOtpMessage",
-        "Your account has been created successfully.",
-        "success"
-      );
-
-
-      setTimeout(function() {
-
-        showLoggedInUser(
-          result.data.user
-        );
-
-      }, 500);
-
 
     } catch (error) {
 
+      console.error(error);
+
       setMessage(
-        "signupOtpMessage",
-        error.message || "Verification failed.",
-        "error"
+        "OTP verification failed."
       );
 
     }
-
   }
 
 
-  /* =========================================
-     RESEND OTP
-  ========================================= */
+  /* =========================
+     RESEND SIGNUP OTP
+  ========================= */
 
   async function resendSignupOtp() {
 
     const phone =
-      formatPhone(
-        get("signupPhone").value
-      );
+      formatPhone(get("signupPhone").value.trim());
 
 
-    setMessage(
-      "signupOtpMessage",
-      "Sending a new OTP...",
-      "info"
-    );
+    if (!phone) {
 
-
-    try {
-
-      const result =
-        await supabaseClient.auth.signInWithOtp({
-
-          phone: phone,
-
-          options: {
-            channel: "sms"
-          }
-
-        });
-
-
-      if (result.error) {
-
-        setMessage(
-          "signupOtpMessage",
-          result.error.message,
-          "error"
-        );
-
-        return;
-      }
-
-
-      setMessage(
-        "signupOtpMessage",
-        "A new OTP has been sent.",
-        "success"
-      );
-
-    } catch (error) {
-
-      setMessage(
-        "signupOtpMessage",
-        error.message || "Unable to resend OTP.",
-        "error"
-      );
+      setMessage("Enter your mobile number first.");
+      return;
 
     }
 
+
+    const { error } =
+      await supabaseClient.auth.signInWithOtp({
+
+        phone: phone
+
+      });
+
+
+    if (error) {
+
+      setMessage(error.message);
+
+    } else {
+
+      setMessage("OTP sent again.");
+
+    }
   }
 
 
-  /* =========================================
+  /* =========================
      LOGIN
-  ========================================= */
+  ========================= */
 
   async function loginUser() {
 
     const phone =
-      formatPhone(
-        get("loginPhone").value
-      );
+      formatPhone(get("loginPhone").value.trim());
 
     const password =
       get("loginPassword").value;
@@ -1571,162 +1159,114 @@
 
     if (!phone || !password) {
 
-      setMessage(
-        "loginMessage",
-        "Please enter your mobile number and password.",
-        "error"
-      );
-
+      setMessage("Enter mobile number and password.");
       return;
+
     }
 
 
-    setMessage(
-      "loginMessage",
-      "Logging in...",
-      "info"
-    );
+    setMessage("Logging in...");
 
 
     try {
 
-      const result =
+      const { data, error } =
         await supabaseClient.auth.signInWithPassword({
 
           phone: phone,
-
           password: password
 
         });
 
 
-      if (result.error) {
+      if (error) {
 
-        setMessage(
-          "loginMessage",
-          result.error.message,
-          "error"
-        );
-
+        setMessage(error.message);
         return;
+
       }
 
 
-      showLoggedInUser(
-        result.data.user
-      );
+      if (data.user) {
 
+        await showLoggedInUser(data.user);
+
+        setMessage("Login successful.");
+
+      }
 
     } catch (error) {
 
-      setMessage(
-        "loginMessage",
-        error.message || "Login failed.",
-        "error"
-      );
+      console.error(error);
+
+      setMessage("Login failed.");
 
     }
-
   }
 
 
-  /* =========================================
-     FORGOT PASSWORD
-  ========================================= */
+  /* =========================
+     FORGOT PASSWORD OTP
+  ========================= */
 
   async function sendForgotOtp() {
 
     const phone =
-      formatPhone(
-        get("forgotPhone").value
-      );
+      formatPhone(get("forgotPhone").value.trim());
 
 
     if (!phone) {
 
-      setMessage(
-        "forgotMessage",
-        "Please enter your mobile number.",
-        "error"
-      );
-
+      setMessage("Enter your mobile number.");
       return;
+
     }
 
 
-    setMessage(
-      "forgotMessage",
-      "Sending OTP...",
-      "info"
-    );
+    setMessage("Sending OTP...");
 
 
     try {
 
-      const result =
+      const { error } =
         await supabaseClient.auth.signInWithOtp({
 
-          phone: phone,
-
-          options: {
-
-            shouldCreateUser: false,
-
-            channel: "sms"
-
-          }
+          phone: phone
 
         });
 
 
-      if (result.error) {
+      if (error) {
 
-        setMessage(
-          "forgotMessage",
-          result.error.message,
-          "error"
-        );
-
+        setMessage(error.message);
         return;
+
       }
 
 
-      setMessage(
-        "forgotMessage",
-        "OTP sent successfully.",
-        "success"
-      );
-
-
       get("forgotOtpArea")
-        .classList.remove("hidden");
+        .classList.add("show");
 
-
-      get("forgotOtp").focus();
+      setMessage("OTP sent.");
 
     } catch (error) {
 
-      setMessage(
-        "forgotMessage",
-        error.message || "Unable to send OTP.",
-        "error"
-      );
+      console.error(error);
+
+      setMessage("Could not send OTP.");
 
     }
-
   }
 
 
-  /* =========================================
+  /* =========================
      RESET PASSWORD
-  ========================================= */
+  ========================= */
 
   async function resetPassword() {
 
     const phone =
-      formatPhone(
-        get("forgotPhone").value
-      );
+      formatPhone(get("forgotPhone").value.trim());
 
     const token =
       get("forgotOtp").value.trim();
@@ -1735,64 +1275,57 @@
       get("newPassword").value;
 
 
-    if (token.length !== 6) {
+    if (!phone || !token || !newPassword) {
 
-      setMessage(
-        "resetMessage",
-        "Please enter the 6-digit OTP.",
-        "error"
-      );
-
+      setMessage("Please fill all fields.");
       return;
+
     }
 
 
     if (newPassword.length < 6) {
 
       setMessage(
-        "resetMessage",
-        "New password must be at least 6 characters.",
-        "error"
+        "Password must be at least 6 characters."
       );
 
       return;
+
     }
 
 
-    setMessage(
-      "resetMessage",
-      "Verifying OTP...",
-      "info"
-    );
+    setMessage("Verifying OTP...");
 
 
     try {
 
-      const otpResult =
+      const { data, error } =
         await supabaseClient.auth.verifyOtp({
 
           phone: phone,
-
           token: token,
-
           type: "sms"
 
         });
 
 
-      if (otpResult.error) {
+      if (error) {
 
-        setMessage(
-          "resetMessage",
-          otpResult.error.message,
-          "error"
-        );
-
+        setMessage(error.message);
         return;
+
       }
 
 
-      const updateResult =
+      if (!data.session) {
+
+        setMessage("Could not create reset session.");
+        return;
+
+      }
+
+
+      const { error: updateError } =
         await supabaseClient.auth.updateUser({
 
           password: newPassword
@@ -1800,134 +1333,99 @@
         });
 
 
-      if (updateResult.error) {
+      if (updateError) {
 
-        setMessage(
-          "resetMessage",
-          updateResult.error.message,
-          "error"
-        );
-
+        setMessage(updateError.message);
         return;
+
       }
 
 
       setMessage(
-        "resetMessage",
-        "Password reset successfully.",
-        "success"
+        "Password reset successfully. You can now login."
       );
 
-
-      setTimeout(function() {
-
-        showForm("login");
-
-        get("loginPhone").value = phone;
-
-        get("loginPassword").value = "";
-
-      }, 1000);
-
+      showForm("login");
 
     } catch (error) {
 
-      setMessage(
-        "resetMessage",
-        error.message || "Password reset failed.",
-        "error"
-      );
+      console.error(error);
+
+      setMessage("Password reset failed.");
 
     }
-
   }
 
 
-  /* =========================================
-     PROFILE DATABASE
-  ========================================= */
+  /* =========================
+     PROFILE CREATE
+  ========================= */
 
-  async function createOrUpdateProfile(user, displayName) {
+  async function createOrUpdateProfile(
+    user,
+    displayName
+  ) {
 
-    if (!user) {
-      return;
-    }
+    const username =
+      "user" +
+      user.id
+        .replace(/-/g, "")
+        .substring(0, 8);
 
 
-    const { data: existingProfile } =
+    const { data: existing } =
       await supabaseClient
         .from("profiles")
-        .select("*")
+        .select("id")
         .eq("id", user.id)
         .maybeSingle();
 
 
-    if (existingProfile) {
+    if (!existing) {
 
-      return existingProfile;
+      const { error } =
+        await supabaseClient
+          .from("profiles")
+          .insert({
 
-    }
+            id: user.id,
 
+            username: username,
 
-    const profileData = {
+            display_name:
+              displayName ||
+              user.user_metadata?.display_name ||
+              "User",
 
-      id: user.id,
+            bio: "",
 
-      username:
-        "user" +
-        user.id.replace(/-/g, "").substring(0, 8),
+            country: "",
 
-      display_name:
-        displayName ||
-        user.user_metadata?.display_name ||
-        "User",
+            language: "",
 
-      bio: "",
+            avatar_url: ""
 
-      country: "",
-
-      language: "",
-
-      avatar_url: ""
-
-    };
+          });
 
 
-    const { data, error } =
-      await supabaseClient
-        .from("profiles")
-        .insert(profileData)
-        .select()
-        .single();
+      if (error) {
 
+        console.error(
+          "Profile creation error:",
+          error
+        );
 
-    if (error) {
-
-      console.log(
-        "Profile creation error:",
-        error.message
-      );
-
-      return null;
+      }
 
     }
-
-
-    return data;
-
   }
 
 
-  /* =========================================
+  /* =========================
      LOAD PROFILE
-  ========================================= */
+  ========================= */
 
   async function loadProfile(user) {
-
-    if (!user) {
-      return;
-    }
-
 
     let { data: profile, error } =
       await supabaseClient
@@ -1939,28 +1437,39 @@
 
     if (error) {
 
-      console.log(
-        "Profile load error:",
-        error.message
+      console.error(error);
+
+      setMessage(
+        "Could not load profile."
       );
 
-    }
-
-
-    if (!profile) {
-
-      profile =
-        await createOrUpdateProfile(
-          user,
-          user.user_metadata?.display_name || "User"
-        );
-
-    }
-
-
-    if (!profile) {
       return;
+
     }
+
+
+    if (!profile) {
+
+      await createOrUpdateProfile(
+        user,
+        user.user_metadata?.display_name || "User"
+      );
+
+
+      const result =
+        await supabaseClient
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
+          .maybeSingle();
+
+
+      profile = result.data;
+
+    }
+
+
+    if (!profile) return;
 
 
     get("profileDisplayName").textContent =
@@ -1973,16 +1482,16 @@
         : "@username";
 
 
+    get("profileBio").textContent =
+      profile.bio || "No bio yet.";
+
+
     get("profileCountry").textContent =
       profile.country || "Not set";
 
 
     get("profileLanguage").textContent =
       profile.language || "Not set";
-
-
-    get("profileBio").textContent =
-      profile.bio || "No bio yet.";
 
 
     get("editDisplayName").value =
@@ -2006,25 +1515,20 @@
 
 
     updateAvatar(
-      profile.display_name || "User",
-      profile.avatar_url || ""
-    );
 
+      profile.display_name || "User",
+
+      profile.avatar_url || ""
+
+    );
   }
 
 
-  /* =========================================
-     AVATAR
-  ========================================= */
+  /* =========================
+     AVATAR DISPLAY
+  ========================= */
 
   function updateAvatar(name, avatarUrl) {
-
-    const firstLetter =
-      (name || "U")
-        .trim()
-        .charAt(0)
-        .toUpperCase() || "U";
-
 
     const profileAvatar =
       get("profileAvatar");
@@ -2034,30 +1538,55 @@
 
 
     profileAvatar.innerHTML = "";
-
     editAvatar.innerHTML = "";
 
 
     if (avatarUrl) {
 
-      const profileImg =
+      const image1 =
         document.createElement("img");
 
-      profileImg.src = avatarUrl;
-      profileImg.alt = "Profile";
+      image1.src = avatarUrl;
 
-      profileAvatar.appendChild(profileImg);
+      image1.alt = "Profile photo";
+
+      image1.onerror = function() {
+
+        profileAvatar.innerHTML =
+          (name || "U")
+            .charAt(0)
+            .toUpperCase();
+
+      };
 
 
-      const editImg =
+      const image2 =
         document.createElement("img");
 
-      editImg.src = avatarUrl;
-      editImg.alt = "Profile";
+      image2.src = avatarUrl;
 
-      editAvatar.appendChild(editImg);
+      image2.alt = "Profile photo";
+
+      image2.onerror = function() {
+
+        editAvatar.innerHTML =
+          (name || "U")
+            .charAt(0)
+            .toUpperCase();
+
+      };
+
+
+      profileAvatar.appendChild(image1);
+      editAvatar.appendChild(image2);
 
     } else {
+
+      const firstLetter =
+        (name || "U")
+          .charAt(0)
+          .toUpperCase();
+
 
       profileAvatar.textContent =
         firstLetter;
@@ -2066,40 +1595,249 @@
         firstLetter;
 
     }
+  }
+
+
+  /* =========================
+     CHOOSE PHOTO
+  ========================= */
+
+  function chooseAvatar() {
+
+    const input =
+      get("avatarFileInput");
+
+
+    if (!input) {
+
+      setMessage(
+        "Photo picker is not available."
+      );
+
+      return;
+
+    }
+
+
+    input.click();
 
   }
 
 
-  /* =========================================
-     SHOW LOGGED IN USER
-  ========================================= */
+  /* =========================
+     UPLOAD PHOTO
+  ========================= */
 
-  async function showLoggedInUser(user) {
+  async function uploadAvatar(event) {
 
-    if (!user) {
+    const file =
+      event.target.files[0];
+
+
+    if (!file) return;
+
+
+    if (!file.type.startsWith("image/")) {
+
+      setMessage(
+        "Please select an image file."
+      );
+
+      event.target.value = "";
+
       return;
+
     }
 
 
-    get("authArea")
-      .classList.add("hidden");
+    if (file.size > 10 * 1024 * 1024) {
+
+      setMessage(
+        "Photo must be smaller than 10 MB."
+      );
+
+      event.target.value = "";
+
+      return;
+
+    }
 
 
-    get("loggedInArea")
-      .classList.remove("hidden");
+    const {
+      data: {
+        session
+      }
+    } =
+      await supabaseClient.auth.getSession();
 
 
-    get("profileView")
-      .classList.remove("hidden");
+    if (!session) {
+
+      setMessage(
+        "Please login first."
+      );
+
+      return;
+
+    }
 
 
-    get("profileEdit")
-      .classList.add("hidden");
+    const user =
+      session.user;
 
 
-    get("userPhone")
-      .textContent =
-        user.phone || "";
+    setMessage(
+      "Uploading photo..."
+    );
+
+
+    try {
+
+      const extension =
+        file.name
+          .split(".")
+          .pop()
+          .toLowerCase() || "jpg";
+
+
+      const filePath =
+        user.id +
+        "/avatar-" +
+        Date.now() +
+        "." +
+        extension;
+
+
+      const {
+        error: uploadError
+      } =
+        await supabaseClient.storage
+          .from("avatars")
+          .upload(
+            filePath,
+            file,
+            {
+              cacheControl: "3600",
+              upsert: false,
+              contentType: file.type
+            }
+          );
+
+
+      if (uploadError) {
+
+        console.error(
+          uploadError
+        );
+
+        setMessage(
+          "Photo upload failed: " +
+          uploadError.message
+        );
+
+        return;
+
+      }
+
+
+      const {
+        data: publicUrlData
+      } =
+        supabaseClient.storage
+          .from("avatars")
+          .getPublicUrl(filePath);
+
+
+      const avatarUrl =
+        publicUrlData.publicUrl;
+
+
+      const {
+        error: profileError
+      } =
+        await supabaseClient
+          .from("profiles")
+          .update({
+
+            avatar_url: avatarUrl,
+
+            updated_at:
+              new Date().toISOString()
+
+          })
+          .eq("id", user.id);
+
+
+      if (profileError) {
+
+        console.error(
+          profileError
+        );
+
+        setMessage(
+          "Photo uploaded, but profile could not be updated."
+        );
+
+        return;
+
+      }
+
+
+      updateAvatar(
+
+        get("profileDisplayName")
+          .textContent || "User",
+
+        avatarUrl
+
+      );
+
+
+      setMessage(
+        "Profile photo updated successfully!"
+      );
+
+
+      event.target.value = "";
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      setMessage(
+        "Something went wrong while uploading the photo."
+      );
+
+    }
+
+  }
+
+
+  /* =========================
+     LOGGED IN USER
+  ========================= */
+
+  async function showLoggedInUser(user) {
+
+    get("authSection").style.display =
+      "none";
+
+
+    get("loggedInSection").style.display =
+      "block";
+
+
+    get("profileView").style.display =
+      "block";
+
+
+    get("editProfile").style.display =
+      "none";
+
+
+    get("userPhone").textContent =
+      user.phone || "Not available";
 
 
     await loadProfile(user);
@@ -2107,304 +1845,204 @@
   }
 
 
-  /* =========================================
+  /* =========================
      EDIT PROFILE
-  ========================================= */
+  ========================= */
 
   function showEditProfile() {
 
-    get("profileView")
-      .classList.add("hidden");
+    get("profileView").style.display =
+      "none";
 
-    get("profileEdit")
-      .classList.remove("hidden");
+
+    get("editProfile").style.display =
+      "block";
+
+
+    setMessage("");
 
   }
 
 
   function cancelEditProfile() {
 
-    get("profileEdit")
-      .classList.add("hidden");
+    get("editProfile").style.display =
+      "none";
 
-    get("profileView")
-      .classList.remove("hidden");
+
+    get("profileView").style.display =
+      "block";
+
+
+    setMessage("");
 
   }
 
 
-  /* =========================================
+  /* =========================
      SAVE PROFILE
-  ========================================= */
+  ========================= */
 
   async function saveProfile() {
 
+    const {
+      data: {
+        session
+      }
+    } =
+      await supabaseClient.auth.getSession();
+
+
+    if (!session) {
+
+      setMessage(
+        "Please login first."
+      );
+
+      return;
+
+    }
+
+
+    const user =
+      session.user;
+
+
+    const displayName =
+      get("editDisplayName")
+        .value
+        .trim();
+
+
+    let username =
+      get("editUsername")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const bio =
+      get("editBio")
+        .value
+        .trim();
+
+
+    const country =
+      get("editCountry")
+        .value;
+
+
+    const language =
+      get("editLanguage")
+        .value;
+
+
+    if (!displayName) {
+
+      setMessage(
+        "Display name is required."
+      );
+
+      return;
+
+    }
+
+
+    if (!username) {
+
+      setMessage(
+        "Username is required."
+      );
+
+      return;
+
+    }
+
+
+    username =
+      username.replace(
+        /[^a-z0-9_]/g,
+        ""
+      );
+
+
     setMessage(
-      "editProfileMessage",
-      "Saving profile...",
-      "info"
+      "Saving profile..."
     );
 
 
     try {
 
-      const sessionResult =
-        await supabaseClient.auth.getSession();
-
-
-      const user =
-        sessionResult.data?.session?.user;
-
-
-      if (!user) {
-
-        setMessage(
-          "editProfileMessage",
-          "Your session has expired. Please login again.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      const displayName =
-        get("editDisplayName")
-          .value
-          .trim();
-
-
-      const username =
-        get("editUsername")
-          .value
-          .trim()
-          .toLowerCase()
-          .replace(/\s+/g, "");
-
-
-      const bio =
-        get("editBio")
-          .value
-          .trim();
-
-
-      const country =
-        get("editCountry")
-          .value
-          .trim();
-
-
-      const language =
-        get("editLanguage")
-          .value
-          .trim();
-
-
-      if (!displayName) {
-
-        setMessage(
-          "editProfileMessage",
-          "Please enter your display name.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      if (!username) {
-
-        setMessage(
-          "editProfileMessage",
-          "Please choose a username.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      const { data, error } =
+      const {
+        error
+      } =
         await supabaseClient
           .from("profiles")
           .update({
 
-            display_name: displayName,
+            display_name:
+              displayName,
 
-            username: username,
+            username:
+              username,
 
-            bio: bio,
+            bio:
+              bio,
 
-            country: country,
+            country:
+              country,
 
-            language: language,
+            language:
+              language,
 
-            updated_at: new Date().toISOString()
+            updated_at:
+              new Date().toISOString()
 
           })
-          .eq("id", user.id)
-          .select()
-          .single();
+          .eq("id", user.id);
 
 
       if (error) {
 
-        if (
-          error.message &&
-          error.message.toLowerCase().includes("duplicate")
-        ) {
+        console.error(error);
 
-          setMessage(
-            "editProfileMessage",
-            "That username is already taken.",
-            "error"
-          );
-
-        } else {
-
-          setMessage(
-            "editProfileMessage",
-            error.message,
-            "error"
-          );
-
-        }
+        setMessage(
+          error.message
+        );
 
         return;
+
       }
 
 
-      setMessage(
-        "editProfileMessage",
-        "Profile saved successfully.",
-        "success"
-      );
+      get("profileDisplayName")
+        .textContent =
+        displayName;
 
 
-      get("profileDisplayName").textContent =
-        data.display_name || "User";
+      get("profileUsername")
+        .textContent =
+        "@" + username;
 
 
-      get("profileUsername").textContent =
-        data.username
-          ? "@" + data.username
-          : "@username";
+      get("profileBio")
+        .textContent =
+        bio || "No bio yet.";
 
 
-      get("profileCountry").textContent =
-        data.country || "Not set";
+      get("profileCountry")
+        .textContent =
+        country || "Not set";
 
 
-      get("profileLanguage").textContent =
-        data.language || "Not set";
-
-
-      get("profileBio").textContent =
-        data.bio || "No bio yet.";
+      get("profileLanguage")
+        .textContent =
+        language || "Not set";
 
 
       updateAvatar(
-        data.display_name || "User",
-        data.avatar_url || ""
-      );
 
+        displayName,
 
-      setTimeout(function() {
-
-        get("profileEdit")
-          .classList.add("hidden");
-
-        get("profileView")
-          .classList.remove("hidden");
-
-      }, 700);
-
-
-    } catch (error) {
-
-      setMessage(
-        "editProfileMessage",
-        error.message || "Unable to save profile.",
-        "error"
-      );
-
-    }
-
-  }
-
-
-  /* =========================================
-     LOGOUT
-  ========================================= */
-
-  async function logoutUser() {
-
-    try {
-
-      await supabaseClient.auth.signOut();
-
-    } catch (error) {
-
-      console.log(error);
-
-    }
-
-
-    get("loggedInArea")
-      .classList.add("hidden");
-
-
-    get("authArea")
-      .classList.remove("hidden");
-
-
-    showForm("login");
-
-  }
-
-
-  /* =========================================
-     CHECK SESSION
-  ========================================= */
-
-  async function checkSession() {
-
-    try {
-
-      const result =
-        await supabaseClient.auth.getSession();
-
-
-      if (
-        result.data &&
-        result.data.session &&
-        result.data.session.user
-      ) {
-
-        await showLoggedInUser(
-          result.data.session.user
-        );
-
-      }
-
-    } catch (error) {
-
-      console.log(error);
-
-    }
-
-  }
-
-
-  /* =========================================
-     START
-  ========================================= */
-
-  showForm("login");
-
-  checkSession();
-
-</script>
-
-</body>
-</html>
+        get("profileAvatar")
+          .query
