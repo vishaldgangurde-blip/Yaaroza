@@ -17,7 +17,10 @@
       margin: 0;
       min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      background:
+        radial-gradient(circle at top left, #8b5cf6 0%, transparent 35%),
+        radial-gradient(circle at bottom right, #2563eb 0%, transparent 40%),
+        linear-gradient(135deg, #111827, #312e81);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -26,27 +29,30 @@
 
     .container {
       width: 100%;
-      max-width: 430px;
+      max-width: 450px;
     }
 
     .card {
-      background: #ffffff;
-      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 28px;
       padding: 28px 22px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.20);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.30);
+      overflow: hidden;
     }
 
     .logo {
       text-align: center;
-      font-size: 34px;
-      font-weight: 700;
-      margin-bottom: 6px;
+      font-size: 35px;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 5px;
+      letter-spacing: -1px;
     }
 
     .tagline {
       text-align: center;
-      color: #666;
-      font-size: 14px;
+      color: #6b7280;
+      font-size: 13px;
       margin-bottom: 24px;
     }
 
@@ -59,37 +65,40 @@
     .tab {
       flex: 1;
       border: 0;
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 11px 5px;
-      background: #eeeeee;
-      color: #333333;
+      background: #f1f3f7;
+      color: #374151;
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
     }
 
     .tab.active {
-      background: #2575fc;
-      color: #ffffff;
+      background: linear-gradient(135deg, #6366f1, #2563eb);
+      color: white;
+      box-shadow: 0 6px 15px rgba(37, 99, 235, 0.25);
     }
 
     h2 {
       text-align: center;
       font-size: 23px;
       margin: 0 0 20px;
+      color: #111827;
     }
 
     input,
     textarea,
     select {
       width: 100%;
-      border: 1px solid #dddddd;
-      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
       padding: 12px 14px;
       font-size: 15px;
       outline: none;
       margin-bottom: 13px;
       font-family: Arial, sans-serif;
+      background: #fff;
     }
 
     input {
@@ -104,7 +113,8 @@
     input:focus,
     textarea:focus,
     select:focus {
-      border-color: #2575fc;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10);
     }
 
     .password-wrap {
@@ -134,22 +144,23 @@
       width: 100%;
       height: 48px;
       border: 0;
-      border-radius: 10px;
-      background: #2575fc;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6366f1, #2563eb);
       color: #ffffff;
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       margin-top: 3px;
+      box-shadow: 0 7px 18px rgba(37, 99, 235, 0.20);
     }
 
     .secondary-btn {
       width: 100%;
       height: 44px;
       border: 0;
-      border-radius: 10px;
-      background: #eeeeee;
-      color: #333333;
+      border-radius: 12px;
+      background: #f1f3f7;
+      color: #374151;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
@@ -201,42 +212,59 @@
       margin-bottom: 13px;
     }
 
-    .welcome {
+    /* =========================
+       PROFILE
+    ========================= */
+
+    .profile-card {
+      position: relative;
+      margin: -28px -22px 0;
+      padding-bottom: 25px;
+      background: linear-gradient(145deg, #eef2ff, #f8fafc);
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+
+    .profile-cover {
+      height: 105px;
+      background: linear-gradient(135deg, #6366f1, #2563eb, #7c3aed);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-cover::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.10);
+      right: -55px;
+      top: -80px;
+    }
+
+    .profile-avatar-wrap {
+      position: relative;
+      margin-top: -55px;
       text-align: center;
+      z-index: 2;
     }
-
-    .welcome p {
-      color: #555555;
-    }
-
-    .user-info {
-      background: #f5f5f5;
-      border-radius: 12px;
-      padding: 15px;
-      margin: 20px 0;
-      text-align: left;
-    }
-
-    .user-info p {
-      margin: 8px 0;
-      word-break: break-word;
-    }
-
-    /* PROFILE */
 
     .profile-avatar {
-      width: 90px;
-      height: 90px;
+      width: 105px;
+      height: 105px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      background: linear-gradient(135deg, #6366f1, #2563eb);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 12px;
-      font-size: 34px;
-      font-weight: 700;
+      font-size: 38px;
+      font-weight: 800;
       overflow: hidden;
+      border: 5px solid white;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.18);
     }
 
     .profile-avatar img {
@@ -245,41 +273,208 @@
       object-fit: cover;
     }
 
+    .online-dot {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #22c55e;
+      border: 3px solid white;
+      border-radius: 50%;
+      bottom: 10px;
+      right: calc(50% - 48px);
+    }
+
+    .profile-display-name {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: #111827;
+      margin: 5px 0;
+    }
+
     .profile-username {
       text-align: center;
-      color: #666;
+      color: #6366f1;
       font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .profile-bio {
+      text-align: center;
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 320px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    .profile-stats {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 17px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 17px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    .profile-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .info-item {
+      background: #f8fafc;
+      border: 1px solid #eef0f4;
+      border-radius: 14px;
+      padding: 13px;
+    }
+
+    .info-icon {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .info-title {
+      font-size: 10px;
+      color: #9ca3af;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .info-value {
+      margin-top: 4px;
+      font-size: 13px;
+      color: #374151;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .profile-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .profile-actions .main-btn {
+      margin-top: 0;
+    }
+
+    .edit-btn {
+      background: #111827;
+      box-shadow: none;
+    }
+
+    .logout-btn {
+      background: #fee2e2;
+      color: #dc2626;
+      box-shadow: none;
+    }
+
+    /* =========================
+       EDIT PROFILE
+    ========================= */
+
+    .edit-header {
+      text-align: center;
       margin-bottom: 20px;
+    }
+
+    .edit-header h2 {
+      margin-bottom: 5px;
+    }
+
+    .edit-subtitle {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .edit-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #2563eb);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 32px;
+      font-weight: 800;
+      overflow: hidden;
+      border: 4px solid #eef2ff;
+    }
+
+    .edit-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .profile-label {
       display: block;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
-      color: #444;
-      margin: 4px 0 6px;
+      color: #374151;
+      margin: 5px 0 6px;
     }
 
-    .profile-actions {
-      margin-top: 10px;
-    }
-
-    .edit-btn {
-      background: #eeeeee;
-      color: #333333;
-    }
-
-    .logout-btn {
-      margin-top: 10px;
-      background: #e53935;
+    .field-hint {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: -8px;
+      margin-bottom: 13px;
     }
 
     .footer {
       text-align: center;
-      color: #777777;
+      color: #9ca3af;
       font-size: 11px;
       line-height: 1.5;
       margin-top: 20px;
+    }
+
+    @media (max-width: 390px) {
+      .card {
+        padding: 24px 17px;
+      }
+
+      .profile-card {
+        margin: -24px -17px 0;
+      }
+
+      .profile-info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        gap: 4px;
+      }
+
+      .tab {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -298,6 +493,7 @@
 
 
     <!-- AUTH AREA -->
+
     <div id="authArea">
 
       <div class="tabs">
@@ -557,45 +753,134 @@
 
     <div id="loggedInArea" class="hidden">
 
+
       <!-- PROFILE VIEW -->
 
       <div id="profileView">
 
-        <div class="profile-avatar" id="profileAvatar">
-          U
+        <div class="profile-card">
+
+          <div class="profile-cover"></div>
+
+          <div class="profile-avatar-wrap">
+
+            <div class="profile-avatar" id="profileAvatar">
+              U
+            </div>
+
+            <div class="online-dot"></div>
+
+          </div>
+
+          <div
+            class="profile-display-name"
+            id="profileDisplayName">
+            User
+          </div>
+
+          <div
+            class="profile-username"
+            id="profileUsername">
+            @username
+          </div>
+
+          <div
+            class="profile-bio"
+            id="profileBio">
+            No bio yet.
+          </div>
+
+          <div class="profile-stats">
+
+            <div class="stat">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Friends</span>
+            </div>
+
+            <div class="stat">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Followers</span>
+            </div>
+
+            <div class="stat">
+              <span class="stat-number">0</span>
+              <span class="stat-label">Following</span>
+            </div>
+
+          </div>
+
         </div>
 
-        <h2 id="profileDisplayName">
-          User
-        </h2>
 
-        <div class="profile-username" id="profileUsername">
-          @username
+        <div class="profile-info-grid">
+
+          <div class="info-item">
+
+            <div class="info-icon">📱</div>
+
+            <div class="info-title">
+              Mobile
+            </div>
+
+            <div
+              class="info-value"
+              id="userPhone">
+              —
+            </div>
+
+          </div>
+
+
+          <div class="info-item">
+
+            <div class="info-icon">🌍</div>
+
+            <div class="info-title">
+              Country
+            </div>
+
+            <div
+              class="info-value"
+              id="profileCountry">
+              Not set
+            </div>
+
+          </div>
+
+
+          <div class="info-item">
+
+            <div class="info-icon">🗣️</div>
+
+            <div class="info-title">
+              Language
+            </div>
+
+            <div
+              class="info-value"
+              id="profileLanguage">
+              Not set
+            </div>
+
+          </div>
+
+
+          <div class="info-item">
+
+            <div class="info-icon">✨</div>
+
+            <div class="info-title">
+              Status
+            </div>
+
+            <div class="info-value">
+              Yaaroza Member
+            </div>
+
+          </div>
+
         </div>
 
-        <div class="user-info">
-
-          <p>
-            <strong>Mobile:</strong>
-            <span id="userPhone"></span>
-          </p>
-
-          <p>
-            <strong>Country:</strong>
-            <span id="profileCountry">Not set</span>
-          </p>
-
-          <p>
-            <strong>Language:</strong>
-            <span id="profileLanguage">Not set</span>
-          </p>
-
-          <p>
-            <strong>Bio:</strong>
-            <span id="profileBio">No bio yet.</span>
-          </p>
-
-        </div>
 
         <div class="profile-actions">
 
@@ -603,7 +888,7 @@
             type="button"
             class="main-btn edit-btn"
             onclick="showEditProfile()">
-            Edit Profile
+            ✏️ Edit Profile
           </button>
 
           <button
@@ -624,11 +909,21 @@
 
       <div id="profileEdit" class="hidden">
 
-        <h2>Edit Profile</h2>
+        <div class="edit-header">
 
-        <div class="profile-avatar" id="editAvatar">
+          <h2>Edit Profile</h2>
+
+          <div class="edit-subtitle">
+            Make your Yaaroza profile yours
+          </div>
+
+        </div>
+
+
+        <div class="edit-avatar" id="editAvatar">
           U
         </div>
+
 
         <label class="profile-label">
           Display Name
@@ -638,7 +933,9 @@
           id="editDisplayName"
           type="text"
           placeholder="Your Name"
+          maxlength="50"
         >
+
 
         <label class="profile-label">
           Username
@@ -648,7 +945,13 @@
           id="editUsername"
           type="text"
           placeholder="Choose a username"
+          maxlength="30"
         >
+
+        <div class="field-hint">
+          Your unique Yaaroza username.
+        </div>
+
 
         <label class="profile-label">
           Bio
@@ -660,25 +963,132 @@
           placeholder="Tell people something about you">
         </textarea>
 
+        <div class="field-hint">
+          Maximum 160 characters.
+        </div>
+
+
         <label class="profile-label">
           Country
         </label>
 
-        <input
-          id="editCountry"
-          type="text"
-          placeholder="Your Country"
-        >
+        <select id="editCountry">
+
+          <option value="">
+            Select your country
+          </option>
+
+          <option value="India">
+            India
+          </option>
+
+          <option value="United States">
+            United States
+          </option>
+
+          <option value="United Kingdom">
+            United Kingdom
+          </option>
+
+          <option value="Canada">
+            Canada
+          </option>
+
+          <option value="Australia">
+            Australia
+          </option>
+
+          <option value="United Arab Emirates">
+            United Arab Emirates
+          </option>
+
+          <option value="Saudi Arabia">
+            Saudi Arabia
+          </option>
+
+          <option value="Germany">
+            Germany
+          </option>
+
+          <option value="France">
+            France
+          </option>
+
+          <option value="Japan">
+            Japan
+          </option>
+
+          <option value="Other">
+            Other
+          </option>
+
+        </select>
+
 
         <label class="profile-label">
           Language
         </label>
 
-        <input
-          id="editLanguage"
-          type="text"
-          placeholder="Your Language"
-        >
+        <select id="editLanguage">
+
+          <option value="">
+            Select your language
+          </option>
+
+          <option value="English">
+            English
+          </option>
+
+          <option value="Hindi">
+            Hindi
+          </option>
+
+          <option value="Marathi">
+            Marathi
+          </option>
+
+          <option value="Tamil">
+            Tamil
+          </option>
+
+          <option value="Telugu">
+            Telugu
+          </option>
+
+          <option value="Bengali">
+            Bengali
+          </option>
+
+          <option value="Gujarati">
+            Gujarati
+          </option>
+
+          <option value="Punjabi">
+            Punjabi
+          </option>
+
+          <option value="Urdu">
+            Urdu
+          </option>
+
+          <option value="Arabic">
+            Arabic
+          </option>
+
+          <option value="Spanish">
+            Spanish
+          </option>
+
+          <option value="French">
+            French
+          </option>
+
+          <option value="Other">
+            Other
+          </option>
+
+        </select>
+
 
         <button
           type="button"
@@ -694,7 +1104,10 @@
           Cancel
         </button>
 
-        <div id="editProfileMessage" class="message"></div>
+        <div
+          id="editProfileMessage"
+          class="message">
+        </div>
 
       </div>
 
@@ -1620,17 +2033,29 @@
       get("editAvatar");
 
 
+    profileAvatar.innerHTML = "";
+
+    editAvatar.innerHTML = "";
+
+
     if (avatarUrl) {
 
-      profileAvatar.innerHTML =
-        '<img src="' +
-        avatarUrl +
-        '" alt="Profile">';
+      const profileImg =
+        document.createElement("img");
 
-      editAvatar.innerHTML =
-        '<img src="' +
-        avatarUrl +
-        '" alt="Profile">';
+      profileImg.src = avatarUrl;
+      profileImg.alt = "Profile";
+
+      profileAvatar.appendChild(profileImg);
+
+
+      const editImg =
+        document.createElement("img");
+
+      editImg.src = avatarUrl;
+      editImg.alt = "Profile";
+
+      editAvatar.appendChild(editImg);
 
     } else {
 
