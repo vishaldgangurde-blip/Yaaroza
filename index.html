@@ -6,7 +6,6 @@
 
   <title>Yaaroza</title>
 
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -80,18 +79,31 @@
       margin: 0 0 20px;
     }
 
-    input {
+    input,
+    textarea,
+    select {
       width: 100%;
-      height: 48px;
       border: 1px solid #dddddd;
       border-radius: 10px;
-      padding: 0 14px;
+      padding: 12px 14px;
       font-size: 15px;
       outline: none;
       margin-bottom: 13px;
+      font-family: Arial, sans-serif;
     }
 
-    input:focus {
+    input {
+      height: 48px;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
       border-color: #2575fc;
     }
 
@@ -131,13 +143,6 @@
       margin-top: 3px;
     }
 
-    .main-btn:active,
-    .tab:active,
-    .secondary-btn:active,
-    .toggle-password:active {
-      transform: scale(0.98);
-    }
-
     .secondary-btn {
       width: 100%;
       height: 44px;
@@ -149,6 +154,13 @@
       font-weight: 700;
       cursor: pointer;
       margin-top: 10px;
+    }
+
+    .main-btn:active,
+    .tab:active,
+    .secondary-btn:active,
+    .toggle-password:active {
+      transform: scale(0.98);
     }
 
     .message {
@@ -210,6 +222,58 @@
       word-break: break-word;
     }
 
+    /* PROFILE */
+
+    .profile-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 34px;
+      font-weight: 700;
+      overflow: hidden;
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-username {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .profile-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #444;
+      margin: 4px 0 6px;
+    }
+
+    .profile-actions {
+      margin-top: 10px;
+    }
+
+    .edit-btn {
+      background: #eeeeee;
+      color: #333333;
+    }
+
+    .logout-btn {
+      margin-top: 10px;
+      background: #e53935;
+    }
+
     .footer {
       text-align: center;
       color: #777777;
@@ -222,832 +286,991 @@
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="card">
+  <div class="card">
 
-      <div class="logo">Yaaroza</div>
+    <div class="logo">Yaaroza</div>
 
-      <div class="tagline">
-        Connect • Chat • Call • Make Friends
+    <div class="tagline">
+      Connect • Chat • Call • Make Friends
+    </div>
+
+
+    <!-- AUTH AREA -->
+    <div id="authArea">
+
+      <div class="tabs">
+
+        <button
+          type="button"
+          class="tab active"
+          id="loginTab"
+          onclick="showForm('login')">
+          Login
+        </button>
+
+        <button
+          type="button"
+          class="tab"
+          id="signupTab"
+          onclick="showForm('signup')">
+          Create Account
+        </button>
+
+        <button
+          type="button"
+          class="tab"
+          id="forgotTab"
+          onclick="showForm('forgot')">
+          Forgot
+        </button>
+
       </div>
 
 
-      <!-- AUTH AREA -->
-      <div id="authArea">
+      <!-- LOGIN -->
 
-        <!-- TABS -->
-        <div class="tabs">
+      <div id="loginForm">
 
-          <button
-            type="button"
-            class="tab active"
-            id="loginTab"
-            onclick="showForm('login')">
-            Login
-          </button>
+        <h2>Welcome Back</h2>
 
-          <button
-            type="button"
-            class="tab"
-            id="signupTab"
-            onclick="showForm('signup')">
-            Create Account
-          </button>
+        <input
+          id="loginPhone"
+          type="tel"
+          inputmode="tel"
+          placeholder="Mobile Number"
+          autocomplete="tel"
+        >
 
-          <button
-            type="button"
-            class="tab"
-            id="forgotTab"
-            onclick="showForm('forgot')">
-            Forgot
-          </button>
-
-        </div>
-
-
-        <!-- LOGIN -->
-        <div id="loginForm">
-
-          <h2>Welcome Back</h2>
+        <div class="password-wrap">
 
           <input
-            id="loginPhone"
-            type="tel"
-            inputmode="tel"
-            placeholder="Mobile Number"
-            autocomplete="tel"
+            id="loginPassword"
+            type="password"
+            placeholder="Password"
+            autocomplete="current-password"
           >
 
-          <div class="password-wrap">
-
-            <input
-              id="loginPassword"
-              type="password"
-              placeholder="Password"
-              autocomplete="current-password"
-            >
-
-            <button
-              type="button"
-              class="toggle-password"
-              onclick="togglePassword('loginPassword', this)"
-              aria-label="Show password">
-              👁️
-            </button>
-
-          </div>
-
           <button
             type="button"
-            class="main-btn"
-            onclick="loginUser()">
-            Login
+            class="toggle-password"
+            onclick="togglePassword('loginPassword', this)"
+            aria-label="Show password">
+            👁️
           </button>
-
-          <div id="loginMessage" class="message"></div>
 
         </div>
 
+        <button
+          type="button"
+          class="main-btn"
+          onclick="loginUser()">
+          Login
+        </button>
 
-        <!-- CREATE ACCOUNT -->
-        <div id="signupForm" class="hidden">
+        <div id="loginMessage" class="message"></div>
 
-          <h2>Create Your Account</h2>
+      </div>
+
+
+      <!-- CREATE ACCOUNT -->
+
+      <div id="signupForm" class="hidden">
+
+        <h2>Create Your Account</h2>
+
+        <input
+          id="signupName"
+          type="text"
+          placeholder="Your Name"
+          autocomplete="name"
+        >
+
+        <input
+          id="signupPhone"
+          type="tel"
+          inputmode="tel"
+          placeholder="Mobile Number"
+          autocomplete="tel"
+        >
+
+        <div class="password-wrap">
 
           <input
-            id="signupName"
+            id="signupPassword"
+            type="password"
+            placeholder="Password"
+            autocomplete="new-password"
+          >
+
+          <button
+            type="button"
+            class="toggle-password"
+            onclick="togglePassword('signupPassword', this)"
+            aria-label="Show password">
+            👁️
+          </button>
+
+        </div>
+
+        <div class="password-wrap">
+
+          <input
+            id="signupConfirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            autocomplete="new-password"
+          >
+
+          <button
+            type="button"
+            class="toggle-password"
+            onclick="togglePassword('signupConfirmPassword', this)"
+            aria-label="Show password">
+            👁️
+          </button>
+
+        </div>
+
+        <button
+          type="button"
+          class="main-btn"
+          onclick="createAccount()">
+          Create Account
+        </button>
+
+        <div id="signupMessage" class="message"></div>
+
+
+        <div id="signupOtpArea" class="otp-box hidden">
+
+          <div class="otp-info">
+            OTP sent. Enter the 6-digit OTP to verify your phone.
+          </div>
+
+          <input
+            id="signupOtp"
             type="text"
-            placeholder="Your Name"
-            autocomplete="name"
-          >
-
-          <input
-            id="signupPhone"
-            type="tel"
-            inputmode="tel"
-            placeholder="Mobile Number"
-            autocomplete="tel"
-          >
-
-          <div class="password-wrap">
-
-            <input
-              id="signupPassword"
-              type="password"
-              placeholder="Password"
-              autocomplete="new-password"
-            >
-
-            <button
-              type="button"
-              class="toggle-password"
-              onclick="togglePassword('signupPassword', this)"
-              aria-label="Show password">
-              👁️
-            </button>
-
-          </div>
-
-          <div class="password-wrap">
-
-            <input
-              id="signupConfirmPassword"
-              type="password"
-              placeholder="Confirm Password"
-              autocomplete="new-password"
-            >
-
-            <button
-              type="button"
-              class="toggle-password"
-              onclick="togglePassword('signupConfirmPassword', this)"
-              aria-label="Show password">
-              👁️
-            </button>
-
-          </div>
-
-          <button
-            type="button"
-            class="main-btn"
-            onclick="createAccount()">
-            Create Account
-          </button>
-
-          <div id="signupMessage" class="message"></div>
-
-
-          <!-- SIGNUP OTP -->
-          <div id="signupOtpArea" class="otp-box hidden">
-
-            <div class="otp-info">
-              OTP sent. Enter the 6-digit OTP to verify your phone.
-            </div>
-
-            <input
-              id="signupOtp"
-              type="text"
-              inputmode="numeric"
-              maxlength="6"
-              placeholder="Enter 6-digit OTP"
-              autocomplete="one-time-code"
-            >
-
-            <button
-              type="button"
-              class="main-btn"
-              onclick="verifySignupOtp()">
-              Verify OTP
-            </button>
-
-            <button
-              type="button"
-              class="secondary-btn"
-              onclick="resendSignupOtp()">
-              Resend OTP
-            </button>
-
-            <div id="signupOtpMessage" class="message"></div>
-
-          </div>
-
-        </div>
-
-
-        <!-- FORGOT PASSWORD -->
-        <div id="forgotForm" class="hidden">
-
-          <h2>Reset Password</h2>
-
-          <input
-            id="forgotPhone"
-            type="tel"
-            inputmode="tel"
-            placeholder="Mobile Number"
-            autocomplete="tel"
+            inputmode="numeric"
+            maxlength="6"
+            placeholder="Enter 6-digit OTP"
+            autocomplete="one-time-code"
           >
 
           <button
             type="button"
             class="main-btn"
-            onclick="sendForgotOtp()">
-            Send OTP
+            onclick="verifySignupOtp()">
+            Verify OTP
           </button>
 
-          <div id="forgotMessage" class="message"></div>
+          <button
+            type="button"
+            class="secondary-btn"
+            onclick="resendSignupOtp()">
+            Resend OTP
+          </button>
 
-
-          <!-- FORGOT OTP -->
-          <div id="forgotOtpArea" class="otp-box hidden">
-
-            <div class="otp-info">
-              Enter the 6-digit OTP sent to your phone and choose a new password.
-            </div>
-
-            <input
-              id="forgotOtp"
-              type="text"
-              inputmode="numeric"
-              maxlength="6"
-              placeholder="Enter 6-digit OTP"
-              autocomplete="one-time-code"
-            >
-
-            <div class="password-wrap">
-
-              <input
-                id="newPassword"
-                type="password"
-                placeholder="New Password"
-                autocomplete="new-password"
-              >
-
-              <button
-                type="button"
-                class="toggle-password"
-                onclick="togglePassword('newPassword', this)"
-                aria-label="Show password">
-                👁️
-              </button>
-
-            </div>
-
-            <button
-              type="button"
-              class="main-btn"
-              onclick="resetPassword()">
-              Reset Password
-            </button>
-
-            <div id="resetMessage" class="message"></div>
-
-          </div>
+          <div id="signupOtpMessage" class="message"></div>
 
         </div>
 
       </div>
 
 
-      <!-- LOGGED IN AREA -->
-      <div id="loggedInArea" class="hidden">
+      <!-- FORGOT PASSWORD -->
 
-        <div class="welcome">
+      <div id="forgotForm" class="hidden">
 
-          <h2>Welcome to Yaaroza</h2>
+        <h2>Reset Password</h2>
 
-          <p>You are successfully logged in.</p>
+        <input
+          id="forgotPhone"
+          type="tel"
+          inputmode="tel"
+          placeholder="Mobile Number"
+          autocomplete="tel"
+        >
 
-          <div class="user-info">
+        <button
+          type="button"
+          class="main-btn"
+          onclick="sendForgotOtp()">
+          Send OTP
+        </button>
 
-            <p>
-              <strong>Name:</strong>
-              <span id="userName">User</span>
-            </p>
+        <div id="forgotMessage" class="message"></div>
 
-            <p>
-              <strong>Mobile:</strong>
-              <span id="userPhone"></span>
-            </p>
+
+        <div id="forgotOtpArea" class="otp-box hidden">
+
+          <div class="otp-info">
+            Enter the 6-digit OTP sent to your phone and choose a new password.
+          </div>
+
+          <input
+            id="forgotOtp"
+            type="text"
+            inputmode="numeric"
+            maxlength="6"
+            placeholder="Enter 6-digit OTP"
+            autocomplete="one-time-code"
+          >
+
+          <div class="password-wrap">
+
+            <input
+              id="newPassword"
+              type="password"
+              placeholder="New Password"
+              autocomplete="new-password"
+            >
+
+            <button
+              type="button"
+              class="toggle-password"
+              onclick="togglePassword('newPassword', this)"
+              aria-label="Show password">
+              👁️
+            </button>
 
           </div>
 
           <button
             type="button"
             class="main-btn"
+            onclick="resetPassword()">
+            Reset Password
+          </button>
+
+          <div id="resetMessage" class="message"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- LOGGED IN AREA -->
+
+    <div id="loggedInArea" class="hidden">
+
+      <!-- PROFILE VIEW -->
+
+      <div id="profileView">
+
+        <div class="profile-avatar" id="profileAvatar">
+          U
+        </div>
+
+        <h2 id="profileDisplayName">
+          User
+        </h2>
+
+        <div class="profile-username" id="profileUsername">
+          @username
+        </div>
+
+        <div class="user-info">
+
+          <p>
+            <strong>Mobile:</strong>
+            <span id="userPhone"></span>
+          </p>
+
+          <p>
+            <strong>Country:</strong>
+            <span id="profileCountry">Not set</span>
+          </p>
+
+          <p>
+            <strong>Language:</strong>
+            <span id="profileLanguage">Not set</span>
+          </p>
+
+          <p>
+            <strong>Bio:</strong>
+            <span id="profileBio">No bio yet.</span>
+          </p>
+
+        </div>
+
+        <div class="profile-actions">
+
+          <button
+            type="button"
+            class="main-btn edit-btn"
+            onclick="showEditProfile()">
+            Edit Profile
+          </button>
+
+          <button
+            type="button"
+            class="main-btn logout-btn"
             onclick="logoutUser()">
             Logout
           </button>
 
         </div>
 
+        <div id="profileMessage" class="message"></div>
+
       </div>
 
 
-      <div class="footer">
-        By continuing, you agree to Yaaroza's Terms & Privacy Policy.
+      <!-- EDIT PROFILE -->
+
+      <div id="profileEdit" class="hidden">
+
+        <h2>Edit Profile</h2>
+
+        <div class="profile-avatar" id="editAvatar">
+          U
+        </div>
+
+        <label class="profile-label">
+          Display Name
+        </label>
+
+        <input
+          id="editDisplayName"
+          type="text"
+          placeholder="Your Name"
+        >
+
+        <label class="profile-label">
+          Username
+        </label>
+
+        <input
+          id="editUsername"
+          type="text"
+          placeholder="Choose a username"
+        >
+
+        <label class="profile-label">
+          Bio
+        </label>
+
+        <textarea
+          id="editBio"
+          maxlength="160"
+          placeholder="Tell people something about you">
+        </textarea>
+
+        <label class="profile-label">
+          Country
+        </label>
+
+        <input
+          id="editCountry"
+          type="text"
+          placeholder="Your Country"
+        >
+
+        <label class="profile-label">
+          Language
+        </label>
+
+        <input
+          id="editLanguage"
+          type="text"
+          placeholder="Your Language"
+        >
+
+        <button
+          type="button"
+          class="main-btn"
+          onclick="saveProfile()">
+          Save Profile
+        </button>
+
+        <button
+          type="button"
+          class="secondary-btn"
+          onclick="cancelEditProfile()">
+          Cancel
+        </button>
+
+        <div id="editProfileMessage" class="message"></div>
+
       </div>
 
     </div>
 
+
+    <div class="footer">
+      By continuing, you agree to Yaaroza's Terms & Privacy Policy.
+    </div>
+
   </div>
 
-
-  <script>
-
-    /* =========================================
-       SUPABASE CONFIGURATION
-    ========================================= */
-
-    const SUPABASE_URL =
-      "https://qkpljuksfgyyooythbjg.supabase.co";
-
-    const SUPABASE_PUBLISHABLE_KEY =
-      "sb_publishable_GQG4XSSgd7_eBOe18DkkMA_7PBuNZId";
+</div>
 
 
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-      );
+<script>
+
+  /* =========================================
+     SUPABASE
+  ========================================= */
+
+  const SUPABASE_URL =
+    "https://qkpljuksfgyyooythbjg.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_GQG4XSSgd7_eBOe18DkkMA_7PBuNZId";
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
 
 
-    /* =========================================
-       HELPER
-    ========================================= */
+  /* =========================================
+     HELPERS
+  ========================================= */
 
-    function get(id) {
-      return document.getElementById(id);
+  function get(id) {
+    return document.getElementById(id);
+  }
+
+
+  function setMessage(id, text, type) {
+
+    const element = get(id);
+
+    if (!element) {
+      return;
     }
 
+    element.textContent = text;
 
-    function setMessage(id, text, type) {
-
-      const element = get(id);
-
-      element.textContent = text;
-
-      element.className = "message " + (type || "info");
-    }
+    element.className =
+      "message " + (type || "info");
+  }
 
 
-    function formatPhone(value) {
+  function formatPhone(value) {
 
-      let phone = value.trim();
+    let phone = value.trim();
 
-      if (phone.startsWith("+91")) {
-        return phone;
-      }
-
-      if (phone.startsWith("91") && phone.length === 12) {
-        return "+" + phone;
-      }
-
-      if (phone.length === 10) {
-        return "+91" + phone;
-      }
-
+    if (phone.startsWith("+91")) {
       return phone;
     }
 
+    if (phone.startsWith("91") && phone.length === 12) {
+      return "+" + phone;
+    }
 
-    /* =========================================
-       SWITCH TABS
-    ========================================= */
+    if (phone.length === 10) {
+      return "+91" + phone;
+    }
 
-    function showForm(formName) {
-
-      get("loginForm").classList.add("hidden");
-      get("signupForm").classList.add("hidden");
-      get("forgotForm").classList.add("hidden");
-
-      get("loginTab").classList.remove("active");
-      get("signupTab").classList.remove("active");
-      get("forgotTab").classList.remove("active");
+    return phone;
+  }
 
 
-      if (formName === "login") {
+  /* =========================================
+     TABS
+  ========================================= */
 
-        get("loginForm").classList.remove("hidden");
-        get("loginTab").classList.add("active");
+  function showForm(formName) {
 
-      }
+    get("loginForm").classList.add("hidden");
+    get("signupForm").classList.add("hidden");
+    get("forgotForm").classList.add("hidden");
 
-
-      if (formName === "signup") {
-
-        get("signupForm").classList.remove("hidden");
-        get("signupTab").classList.add("active");
-
-      }
+    get("loginTab").classList.remove("active");
+    get("signupTab").classList.remove("active");
+    get("forgotTab").classList.remove("active");
 
 
-      if (formName === "forgot") {
+    if (formName === "login") {
 
-        get("forgotForm").classList.remove("hidden");
-        get("forgotTab").classList.add("active");
-
-      }
+      get("loginForm").classList.remove("hidden");
+      get("loginTab").classList.add("active");
 
     }
 
 
-    /* =========================================
-       PASSWORD SHOW / HIDE
-    ========================================= */
+    if (formName === "signup") {
 
-    function togglePassword(inputId, button) {
-
-      const input = get(inputId);
-
-      if (!input) {
-        return;
-      }
-
-
-      if (input.type === "password") {
-
-        input.type = "text";
-
-        button.textContent = "🙈";
-
-        button.setAttribute(
-          "aria-label",
-          "Hide password"
-        );
-
-      } else {
-
-        input.type = "password";
-
-        button.textContent = "👁️";
-
-        button.setAttribute(
-          "aria-label",
-          "Show password"
-        );
-
-      }
+      get("signupForm").classList.remove("hidden");
+      get("signupTab").classList.add("active");
 
     }
 
 
-    /* =========================================
-       CREATE ACCOUNT
-    ========================================= */
+    if (formName === "forgot") {
 
-    async function createAccount() {
+      get("forgotForm").classList.remove("hidden");
+      get("forgotTab").classList.add("active");
 
-      const name =
-        get("signupName").value.trim();
+    }
 
-      const phone =
-        formatPhone(
-          get("signupPhone").value
-        );
+  }
 
-      const password =
-        get("signupPassword").value;
 
-      const confirmPassword =
-        get("signupConfirmPassword").value;
+  /* =========================================
+     PASSWORD TOGGLE
+  ========================================= */
 
+  function togglePassword(inputId, button) {
+
+    const input = get(inputId);
+
+    if (!input) {
+      return;
+    }
+
+
+    if (input.type === "password") {
+
+      input.type = "text";
+
+      button.textContent = "🙈";
+
+      button.setAttribute(
+        "aria-label",
+        "Hide password"
+      );
+
+    } else {
+
+      input.type = "password";
+
+      button.textContent = "👁️";
+
+      button.setAttribute(
+        "aria-label",
+        "Show password"
+      );
+
+    }
+
+  }
+
+
+  /* =========================================
+     CREATE ACCOUNT
+  ========================================= */
+
+  async function createAccount() {
+
+    const name =
+      get("signupName").value.trim();
+
+    const phone =
+      formatPhone(
+        get("signupPhone").value
+      );
+
+    const password =
+      get("signupPassword").value;
+
+    const confirmPassword =
+      get("signupConfirmPassword").value;
+
+
+    if (!name || !phone || !password || !confirmPassword) {
 
       setMessage(
         "signupMessage",
-        "",
-        "info"
+        "Please fill in all fields.",
+        "error"
       );
 
-
-      if (!name || !phone || !password || !confirmPassword) {
-
-        setMessage(
-          "signupMessage",
-          "Please fill in all fields.",
-          "error"
-        );
-
-        return;
-      }
+      return;
+    }
 
 
-      if (password.length < 6) {
-
-        setMessage(
-          "signupMessage",
-          "Password must be at least 6 characters.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      if (password !== confirmPassword) {
-
-        setMessage(
-          "signupMessage",
-          "Passwords do not match.",
-          "error"
-        );
-
-        return;
-      }
-
+    if (password.length < 6) {
 
       setMessage(
         "signupMessage",
-        "Creating your account...",
-        "info"
+        "Password must be at least 6 characters.",
+        "error"
       );
 
+      return;
+    }
 
-      try {
 
-        const result =
-          await supabaseClient.auth.signUp({
+    if (password !== confirmPassword) {
 
-            phone: phone,
+      setMessage(
+        "signupMessage",
+        "Passwords do not match.",
+        "error"
+      );
 
-            password: password,
+      return;
+    }
 
-            options: {
 
-              channel: "sms",
+    setMessage(
+      "signupMessage",
+      "Creating your account...",
+      "info"
+    );
 
-              data: {
-                display_name: name
-              }
 
+    try {
+
+      const result =
+        await supabaseClient.auth.signUp({
+
+          phone: phone,
+
+          password: password,
+
+          options: {
+
+            channel: "sms",
+
+            data: {
+              display_name: name
             }
 
-          });
+          }
+
+        });
 
 
-        if (result.error) {
-
-          setMessage(
-            "signupMessage",
-            result.error.message,
-            "error"
-          );
-
-          return;
-        }
-
+      if (result.error) {
 
         setMessage(
           "signupMessage",
-          "OTP sent successfully.",
-          "success"
-        );
-
-
-        get("signupOtpArea")
-          .classList.remove("hidden");
-
-
-        get("signupOtp").focus();
-
-      } catch (error) {
-
-        setMessage(
-          "signupMessage",
-          error.message || "Something went wrong.",
+          result.error.message,
           "error"
         );
 
+        return;
       }
+
+
+      setMessage(
+        "signupMessage",
+        "OTP sent successfully.",
+        "success"
+      );
+
+
+      get("signupOtpArea")
+        .classList.remove("hidden");
+
+
+      get("signupOtp").focus();
+
+    } catch (error) {
+
+      setMessage(
+        "signupMessage",
+        error.message || "Something went wrong.",
+        "error"
+      );
 
     }
 
-
-    /* =========================================
-       VERIFY SIGNUP OTP
-    ========================================= */
-
-    async function verifySignupOtp() {
-
-      const phone =
-        formatPhone(
-          get("signupPhone").value
-        );
-
-      const token =
-        get("signupOtp").value.trim();
+  }
 
 
-      if (token.length !== 6) {
+  /* =========================================
+     VERIFY SIGNUP OTP
+  ========================================= */
+
+  async function verifySignupOtp() {
+
+    const phone =
+      formatPhone(
+        get("signupPhone").value
+      );
+
+    const token =
+      get("signupOtp").value.trim();
+
+
+    if (token.length !== 6) {
+
+      setMessage(
+        "signupOtpMessage",
+        "Please enter the 6-digit OTP.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    setMessage(
+      "signupOtpMessage",
+      "Verifying OTP...",
+      "info"
+    );
+
+
+    try {
+
+      const result =
+        await supabaseClient.auth.verifyOtp({
+
+          phone: phone,
+
+          token: token,
+
+          type: "sms"
+
+        });
+
+
+      if (result.error) {
 
         setMessage(
           "signupOtpMessage",
-          "Please enter the 6-digit OTP.",
+          result.error.message,
           "error"
         );
 
         return;
+      }
+
+
+      if (result.data.user) {
+
+        await createOrUpdateProfile(
+          result.data.user,
+          get("signupName").value.trim()
+        );
+
       }
 
 
       setMessage(
         "signupOtpMessage",
-        "Verifying OTP...",
-        "info"
+        "Your account has been created successfully.",
+        "success"
       );
 
 
-      try {
-
-        const result =
-          await supabaseClient.auth.verifyOtp({
-
-            phone: phone,
-
-            token: token,
-
-            type: "sms"
-
-          });
-
-
-        if (result.error) {
-
-          setMessage(
-            "signupOtpMessage",
-            result.error.message,
-            "error"
-          );
-
-          return;
-        }
-
-
-        setMessage(
-          "signupOtpMessage",
-          "Your account has been created successfully.",
-          "success"
-        );
-
-
-        setTimeout(function() {
-
-          showLoggedInUser(result.data.user);
-
-        }, 700);
-
-
-      } catch (error) {
-
-        setMessage(
-          "signupOtpMessage",
-          error.message || "Verification failed.",
-          "error"
-        );
-
-      }
-
-    }
-
-
-    /* =========================================
-       RESEND SIGNUP OTP
-    ========================================= */
-
-    async function resendSignupOtp() {
-
-      const phone =
-        formatPhone(
-          get("signupPhone").value
-        );
-
-
-      setMessage(
-        "signupOtpMessage",
-        "Sending a new OTP...",
-        "info"
-      );
-
-
-      try {
-
-        const result =
-          await supabaseClient.auth.signInWithOtp({
-
-            phone: phone,
-
-            options: {
-              channel: "sms"
-            }
-
-          });
-
-
-        if (result.error) {
-
-          setMessage(
-            "signupOtpMessage",
-            result.error.message,
-            "error"
-          );
-
-          return;
-        }
-
-
-        setMessage(
-          "signupOtpMessage",
-          "A new OTP has been sent.",
-          "success"
-        );
-
-      } catch (error) {
-
-        setMessage(
-          "signupOtpMessage",
-          error.message || "Unable to resend OTP.",
-          "error"
-        );
-
-      }
-
-    }
-
-
-    /* =========================================
-       LOGIN
-    ========================================= */
-
-    async function loginUser() {
-
-      const phone =
-        formatPhone(
-          get("loginPhone").value
-        );
-
-      const password =
-        get("loginPassword").value;
-
-
-      if (!phone || !password) {
-
-        setMessage(
-          "loginMessage",
-          "Please enter your mobile number and password.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      setMessage(
-        "loginMessage",
-        "Logging in...",
-        "info"
-      );
-
-
-      try {
-
-        const result =
-          await supabaseClient.auth.signInWithPassword({
-
-            phone: phone,
-
-            password: password
-
-          });
-
-
-        if (result.error) {
-
-          setMessage(
-            "loginMessage",
-            result.error.message,
-            "error"
-          );
-
-          return;
-        }
-
+      setTimeout(function() {
 
         showLoggedInUser(
           result.data.user
         );
 
+      }, 500);
 
-      } catch (error) {
 
-        setMessage(
-          "loginMessage",
-          error.message || "Login failed.",
-          "error"
-        );
+    } catch (error) {
 
-      }
+      setMessage(
+        "signupOtpMessage",
+        error.message || "Verification failed.",
+        "error"
+      );
 
     }
 
+  }
 
-    /* =========================================
-       FORGOT PASSWORD - SEND OTP
-    ========================================= */
 
-    async function sendForgotOtp() {
+  /* =========================================
+     RESEND OTP
+  ========================================= */
 
-      const phone =
-        formatPhone(
-          get("forgotPhone").value
+  async function resendSignupOtp() {
+
+    const phone =
+      formatPhone(
+        get("signupPhone").value
+      );
+
+
+    setMessage(
+      "signupOtpMessage",
+      "Sending a new OTP...",
+      "info"
+    );
+
+
+    try {
+
+      const result =
+        await supabaseClient.auth.signInWithOtp({
+
+          phone: phone,
+
+          options: {
+            channel: "sms"
+          }
+
+        });
+
+
+      if (result.error) {
+
+        setMessage(
+          "signupOtpMessage",
+          result.error.message,
+          "error"
         );
 
+        return;
+      }
 
-      if (!phone) {
+
+      setMessage(
+        "signupOtpMessage",
+        "A new OTP has been sent.",
+        "success"
+      );
+
+    } catch (error) {
+
+      setMessage(
+        "signupOtpMessage",
+        error.message || "Unable to resend OTP.",
+        "error"
+      );
+
+    }
+
+  }
+
+
+  /* =========================================
+     LOGIN
+  ========================================= */
+
+  async function loginUser() {
+
+    const phone =
+      formatPhone(
+        get("loginPhone").value
+      );
+
+    const password =
+      get("loginPassword").value;
+
+
+    if (!phone || !password) {
+
+      setMessage(
+        "loginMessage",
+        "Please enter your mobile number and password.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    setMessage(
+      "loginMessage",
+      "Logging in...",
+      "info"
+    );
+
+
+    try {
+
+      const result =
+        await supabaseClient.auth.signInWithPassword({
+
+          phone: phone,
+
+          password: password
+
+        });
+
+
+      if (result.error) {
+
+        setMessage(
+          "loginMessage",
+          result.error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      showLoggedInUser(
+        result.data.user
+      );
+
+
+    } catch (error) {
+
+      setMessage(
+        "loginMessage",
+        error.message || "Login failed.",
+        "error"
+      );
+
+    }
+
+  }
+
+
+  /* =========================================
+     FORGOT PASSWORD
+  ========================================= */
+
+  async function sendForgotOtp() {
+
+    const phone =
+      formatPhone(
+        get("forgotPhone").value
+      );
+
+
+    if (!phone) {
+
+      setMessage(
+        "forgotMessage",
+        "Please enter your mobile number.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    setMessage(
+      "forgotMessage",
+      "Sending OTP...",
+      "info"
+    );
+
+
+    try {
+
+      const result =
+        await supabaseClient.auth.signInWithOtp({
+
+          phone: phone,
+
+          options: {
+
+            shouldCreateUser: false,
+
+            channel: "sms"
+
+          }
+
+        });
+
+
+      if (result.error) {
 
         setMessage(
           "forgotMessage",
-          "Please enter your mobile number.",
+          result.error.message,
           "error"
         );
 
@@ -1057,90 +1280,98 @@
 
       setMessage(
         "forgotMessage",
-        "Sending OTP...",
-        "info"
+        "OTP sent successfully.",
+        "success"
       );
 
 
-      try {
-
-        const result =
-          await supabaseClient.auth.signInWithOtp({
-
-            phone: phone,
-
-            options: {
-
-              shouldCreateUser: false,
-
-              channel: "sms"
-
-            }
-
-          });
+      get("forgotOtpArea")
+        .classList.remove("hidden");
 
 
-        if (result.error) {
+      get("forgotOtp").focus();
 
-          setMessage(
-            "forgotMessage",
-            result.error.message,
-            "error"
-          );
+    } catch (error) {
 
-          return;
-        }
-
-
-        setMessage(
-          "forgotMessage",
-          "OTP sent successfully.",
-          "success"
-        );
-
-
-        get("forgotOtpArea")
-          .classList.remove("hidden");
-
-
-        get("forgotOtp").focus();
-
-      } catch (error) {
-
-        setMessage(
-          "forgotMessage",
-          error.message || "Unable to send OTP.",
-          "error"
-        );
-
-      }
+      setMessage(
+        "forgotMessage",
+        error.message || "Unable to send OTP.",
+        "error"
+      );
 
     }
 
-
-    /* =========================================
-       RESET PASSWORD
-    ========================================= */
-
-    async function resetPassword() {
-
-      const phone =
-        formatPhone(
-          get("forgotPhone").value
-        );
-
-      const token =
-        get("forgotOtp").value.trim();
-
-      const newPassword =
-        get("newPassword").value;
+  }
 
 
-      if (token.length !== 6) {
+  /* =========================================
+     RESET PASSWORD
+  ========================================= */
+
+  async function resetPassword() {
+
+    const phone =
+      formatPhone(
+        get("forgotPhone").value
+      );
+
+    const token =
+      get("forgotOtp").value.trim();
+
+    const newPassword =
+      get("newPassword").value;
+
+
+    if (token.length !== 6) {
+
+      setMessage(
+        "resetMessage",
+        "Please enter the 6-digit OTP.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    if (newPassword.length < 6) {
+
+      setMessage(
+        "resetMessage",
+        "New password must be at least 6 characters.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    setMessage(
+      "resetMessage",
+      "Verifying OTP...",
+      "info"
+    );
+
+
+    try {
+
+      const otpResult =
+        await supabaseClient.auth.verifyOtp({
+
+          phone: phone,
+
+          token: token,
+
+          type: "sms"
+
+        });
+
+
+      if (otpResult.error) {
 
         setMessage(
           "resetMessage",
-          "Please enter the 6-digit OTP.",
+          otpResult.error.message,
           "error"
         );
 
@@ -1148,11 +1379,19 @@
       }
 
 
-      if (newPassword.length < 6) {
+      const updateResult =
+        await supabaseClient.auth.updateUser({
+
+          password: newPassword
+
+        });
+
+
+      if (updateResult.error) {
 
         setMessage(
           "resetMessage",
-          "New password must be at least 6 characters.",
+          updateResult.error.message,
           "error"
         );
 
@@ -1162,195 +1401,585 @@
 
       setMessage(
         "resetMessage",
-        "Verifying OTP...",
-        "info"
+        "Password reset successfully.",
+        "success"
       );
 
 
-      try {
+      setTimeout(function() {
 
-        const otpResult =
-          await supabaseClient.auth.verifyOtp({
+        showForm("login");
 
-            phone: phone,
+        get("loginPhone").value = phone;
 
-            token: token,
+        get("loginPassword").value = "";
 
-            type: "sms"
-
-          });
+      }, 1000);
 
 
-        if (otpResult.error) {
+    } catch (error) {
 
-          setMessage(
-            "resetMessage",
-            otpResult.error.message,
-            "error"
-          );
+      setMessage(
+        "resetMessage",
+        error.message || "Password reset failed.",
+        "error"
+      );
 
-          return;
-        }
+    }
 
-
-        const updateResult =
-          await supabaseClient.auth.updateUser({
-
-            password: newPassword
-
-          });
+  }
 
 
-        if (updateResult.error) {
+  /* =========================================
+     PROFILE DATABASE
+  ========================================= */
 
-          setMessage(
-            "resetMessage",
-            updateResult.error.message,
-            "error"
-          );
+  async function createOrUpdateProfile(user, displayName) {
 
-          return;
-        }
+    if (!user) {
+      return;
+    }
 
 
-        setMessage(
-          "resetMessage",
-          "Password reset successfully.",
-          "success"
+    const { data: existingProfile } =
+      await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .maybeSingle();
+
+
+    if (existingProfile) {
+
+      return existingProfile;
+
+    }
+
+
+    const profileData = {
+
+      id: user.id,
+
+      username:
+        "user" +
+        user.id.replace(/-/g, "").substring(0, 8),
+
+      display_name:
+        displayName ||
+        user.user_metadata?.display_name ||
+        "User",
+
+      bio: "",
+
+      country: "",
+
+      language: "",
+
+      avatar_url: ""
+
+    };
+
+
+    const { data, error } =
+      await supabaseClient
+        .from("profiles")
+        .insert(profileData)
+        .select()
+        .single();
+
+
+    if (error) {
+
+      console.log(
+        "Profile creation error:",
+        error.message
+      );
+
+      return null;
+
+    }
+
+
+    return data;
+
+  }
+
+
+  /* =========================================
+     LOAD PROFILE
+  ========================================= */
+
+  async function loadProfile(user) {
+
+    if (!user) {
+      return;
+    }
+
+
+    let { data: profile, error } =
+      await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .maybeSingle();
+
+
+    if (error) {
+
+      console.log(
+        "Profile load error:",
+        error.message
+      );
+
+    }
+
+
+    if (!profile) {
+
+      profile =
+        await createOrUpdateProfile(
+          user,
+          user.user_metadata?.display_name || "User"
         );
 
-
-        setTimeout(function() {
-
-          showForm("login");
-
-          get("loginPhone").value = phone;
-
-          get("loginPassword").value = "";
-
-        }, 1000);
+    }
 
 
-      } catch (error) {
+    if (!profile) {
+      return;
+    }
+
+
+    get("profileDisplayName").textContent =
+      profile.display_name || "User";
+
+
+    get("profileUsername").textContent =
+      profile.username
+        ? "@" + profile.username
+        : "@username";
+
+
+    get("profileCountry").textContent =
+      profile.country || "Not set";
+
+
+    get("profileLanguage").textContent =
+      profile.language || "Not set";
+
+
+    get("profileBio").textContent =
+      profile.bio || "No bio yet.";
+
+
+    get("editDisplayName").value =
+      profile.display_name || "";
+
+
+    get("editUsername").value =
+      profile.username || "";
+
+
+    get("editBio").value =
+      profile.bio || "";
+
+
+    get("editCountry").value =
+      profile.country || "";
+
+
+    get("editLanguage").value =
+      profile.language || "";
+
+
+    updateAvatar(
+      profile.display_name || "User",
+      profile.avatar_url || ""
+    );
+
+  }
+
+
+  /* =========================================
+     AVATAR
+  ========================================= */
+
+  function updateAvatar(name, avatarUrl) {
+
+    const firstLetter =
+      (name || "U")
+        .trim()
+        .charAt(0)
+        .toUpperCase() || "U";
+
+
+    const profileAvatar =
+      get("profileAvatar");
+
+    const editAvatar =
+      get("editAvatar");
+
+
+    if (avatarUrl) {
+
+      profileAvatar.innerHTML =
+        '<img src="' +
+        avatarUrl +
+        '" alt="Profile">';
+
+      editAvatar.innerHTML =
+        '<img src="' +
+        avatarUrl +
+        '" alt="Profile">';
+
+    } else {
+
+      profileAvatar.textContent =
+        firstLetter;
+
+      editAvatar.textContent =
+        firstLetter;
+
+    }
+
+  }
+
+
+  /* =========================================
+     SHOW LOGGED IN USER
+  ========================================= */
+
+  async function showLoggedInUser(user) {
+
+    if (!user) {
+      return;
+    }
+
+
+    get("authArea")
+      .classList.add("hidden");
+
+
+    get("loggedInArea")
+      .classList.remove("hidden");
+
+
+    get("profileView")
+      .classList.remove("hidden");
+
+
+    get("profileEdit")
+      .classList.add("hidden");
+
+
+    get("userPhone")
+      .textContent =
+        user.phone || "";
+
+
+    await loadProfile(user);
+
+  }
+
+
+  /* =========================================
+     EDIT PROFILE
+  ========================================= */
+
+  function showEditProfile() {
+
+    get("profileView")
+      .classList.add("hidden");
+
+    get("profileEdit")
+      .classList.remove("hidden");
+
+  }
+
+
+  function cancelEditProfile() {
+
+    get("profileEdit")
+      .classList.add("hidden");
+
+    get("profileView")
+      .classList.remove("hidden");
+
+  }
+
+
+  /* =========================================
+     SAVE PROFILE
+  ========================================= */
+
+  async function saveProfile() {
+
+    setMessage(
+      "editProfileMessage",
+      "Saving profile...",
+      "info"
+    );
+
+
+    try {
+
+      const sessionResult =
+        await supabaseClient.auth.getSession();
+
+
+      const user =
+        sessionResult.data?.session?.user;
+
+
+      if (!user) {
 
         setMessage(
-          "resetMessage",
-          error.message || "Password reset failed.",
+          "editProfileMessage",
+          "Your session has expired. Please login again.",
           "error"
         );
 
+        return;
       }
-
-    }
-
-
-    /* =========================================
-       SHOW LOGGED-IN USER
-    ========================================= */
-
-    function showLoggedInUser(user) {
-
-      get("authArea")
-        .classList.add("hidden");
-
-      get("loggedInArea")
-        .classList.remove("hidden");
 
 
       const displayName =
-        user &&
-        user.user_metadata &&
-        user.user_metadata.display_name
-          ? user.user_metadata.display_name
-          : "User";
+        get("editDisplayName")
+          .value
+          .trim();
 
 
-      const phone =
-        user && user.phone
-          ? user.phone
-          : "";
+      const username =
+        get("editUsername")
+          .value
+          .trim()
+          .toLowerCase()
+          .replace(/\s+/g, "");
 
 
-      get("userName")
-        .textContent = displayName;
-
-      get("userPhone")
-        .textContent = phone;
-
-    }
+      const bio =
+        get("editBio")
+          .value
+          .trim();
 
 
-    /* =========================================
-       LOGOUT
-    ========================================= */
+      const country =
+        get("editCountry")
+          .value
+          .trim();
 
-    async function logoutUser() {
 
-      try {
+      const language =
+        get("editLanguage")
+          .value
+          .trim();
 
-        await supabaseClient.auth.signOut();
 
-      } catch (error) {
+      if (!displayName) {
 
-        console.log(error);
+        setMessage(
+          "editProfileMessage",
+          "Please enter your display name.",
+          "error"
+        );
 
+        return;
       }
 
 
-      get("loggedInArea")
-        .classList.add("hidden");
+      if (!username) {
 
-      get("authArea")
-        .classList.remove("hidden");
+        setMessage(
+          "editProfileMessage",
+          "Please choose a username.",
+          "error"
+        );
+
+        return;
+      }
 
 
-      showForm("login");
+      const { data, error } =
+        await supabaseClient
+          .from("profiles")
+          .update({
 
-    }
+            display_name: displayName,
+
+            username: username,
+
+            bio: bio,
+
+            country: country,
+
+            language: language,
+
+            updated_at: new Date().toISOString()
+
+          })
+          .eq("id", user.id)
+          .select()
+          .single();
 
 
-    /* =========================================
-       CHECK EXISTING SESSION
-    ========================================= */
-
-    async function checkSession() {
-
-      try {
-
-        const result =
-          await supabaseClient.auth.getSession();
-
+      if (error) {
 
         if (
-          result.data &&
-          result.data.session &&
-          result.data.session.user
+          error.message &&
+          error.message.toLowerCase().includes("duplicate")
         ) {
 
-          showLoggedInUser(
-            result.data.session.user
+          setMessage(
+            "editProfileMessage",
+            "That username is already taken.",
+            "error"
+          );
+
+        } else {
+
+          setMessage(
+            "editProfileMessage",
+            error.message,
+            "error"
           );
 
         }
 
-      } catch (error) {
-
-        console.log(error);
-
+        return;
       }
+
+
+      setMessage(
+        "editProfileMessage",
+        "Profile saved successfully.",
+        "success"
+      );
+
+
+      get("profileDisplayName").textContent =
+        data.display_name || "User";
+
+
+      get("profileUsername").textContent =
+        data.username
+          ? "@" + data.username
+          : "@username";
+
+
+      get("profileCountry").textContent =
+        data.country || "Not set";
+
+
+      get("profileLanguage").textContent =
+        data.language || "Not set";
+
+
+      get("profileBio").textContent =
+        data.bio || "No bio yet.";
+
+
+      updateAvatar(
+        data.display_name || "User",
+        data.avatar_url || ""
+      );
+
+
+      setTimeout(function() {
+
+        get("profileEdit")
+          .classList.add("hidden");
+
+        get("profileView")
+          .classList.remove("hidden");
+
+      }, 700);
+
+
+    } catch (error) {
+
+      setMessage(
+        "editProfileMessage",
+        error.message || "Unable to save profile.",
+        "error"
+      );
+
+    }
+
+  }
+
+
+  /* =========================================
+     LOGOUT
+  ========================================= */
+
+  async function logoutUser() {
+
+    try {
+
+      await supabaseClient.auth.signOut();
+
+    } catch (error) {
+
+      console.log(error);
 
     }
 
 
-    /* =========================================
-       START APP
-    ========================================= */
+    get("loggedInArea")
+      .classList.add("hidden");
+
+
+    get("authArea")
+      .classList.remove("hidden");
+
 
     showForm("login");
 
-    checkSession();
+  }
 
-  </script>
+
+  /* =========================================
+     CHECK SESSION
+  ========================================= */
+
+  async function checkSession() {
+
+    try {
+
+      const result =
+        await supabaseClient.auth.getSession();
+
+
+      if (
+        result.data &&
+        result.data.session &&
+        result.data.session.user
+      ) {
+
+        await showLoggedInUser(
+          result.data.session.user
+        );
+
+      }
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  }
+
+
+  /* =========================================
+     START
+  ========================================= */
+
+  showForm("login");
+
+  checkSession();
+
+</script>
 
 </body>
 </html>
