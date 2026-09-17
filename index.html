@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Yaaroza</title>
 
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -14,9 +16,9 @@
 
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #6a11cb, #2575fc);
-      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -29,80 +31,68 @@
     }
 
     .card {
-      background: white;
-      border-radius: 20px;
-      padding: 30px 24px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 28px 22px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.20);
     }
 
     .logo {
       text-align: center;
       font-size: 34px;
-      font-weight: bold;
-      margin-bottom: 8px;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
 
     .tagline {
       text-align: center;
       color: #666;
-      margin-bottom: 25px;
+      font-size: 14px;
+      margin-bottom: 24px;
     }
 
     .tabs {
       display: flex;
-      gap: 8px;
-      margin-bottom: 25px;
+      gap: 7px;
+      margin-bottom: 24px;
     }
 
     .tab {
       flex: 1;
-      padding: 11px 5px;
-      border: none;
+      border: 0;
       border-radius: 10px;
-      background: #eee;
+      padding: 11px 5px;
+      background: #eeeeee;
+      color: #333333;
+      font-size: 13px;
+      font-weight: 700;
       cursor: pointer;
-      font-weight: bold;
     }
 
     .tab.active {
       background: #2575fc;
-      color: white;
+      color: #ffffff;
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      font-size: 23px;
+      margin: 0 0 20px;
     }
 
     input {
       width: 100%;
-      padding: 14px;
-      margin-bottom: 14px;
-      border: 1px solid #ddd;
+      height: 48px;
+      border: 1px solid #dddddd;
       border-radius: 10px;
-      font-size: 16px;
+      padding: 0 14px;
+      font-size: 15px;
       outline: none;
+      margin-bottom: 13px;
     }
 
     input:focus {
       border-color: #2575fc;
-    }
-
-    button.main-btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      background: #2575fc;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 5px;
-    }
-
-    button.main-btn:hover {
-      opacity: 0.9;
     }
 
     .password-wrap {
@@ -111,69 +101,100 @@
     }
 
     .password-wrap input {
-      width: 100%;
-      padding-right: 50px;
-      box-sizing: border-box;
+      padding-right: 52px;
     }
 
     .toggle-password {
       position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
+      right: 7px;
+      top: 0;
+      width: 44px;
+      height: 48px;
+      border: 0;
       background: transparent;
       cursor: pointer;
       font-size: 20px;
-      padding: 5px;
       margin: 0;
-      width: auto;
+      padding: 0;
+    }
+
+    .main-btn {
+      width: 100%;
+      height: 48px;
+      border: 0;
+      border-radius: 10px;
+      background: #2575fc;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 3px;
+    }
+
+    .main-btn:active,
+    .tab:active,
+    .secondary-btn:active,
+    .toggle-password:active {
+      transform: scale(0.98);
     }
 
     .secondary-btn {
       width: 100%;
-      padding: 12px;
-      border: none;
+      height: 44px;
+      border: 0;
       border-radius: 10px;
-      background: #eee;
-      color: #333;
-      font-weight: bold;
+      background: #eeeeee;
+      color: #333333;
+      font-size: 14px;
+      font-weight: 700;
       cursor: pointer;
       margin-top: 10px;
     }
 
     .message {
+      min-height: 20px;
       text-align: center;
-      margin-top: 15px;
       font-size: 14px;
-      color: #444;
+      margin-top: 13px;
+      line-height: 1.4;
     }
 
     .success {
-      color: green;
+      color: #16823b;
     }
 
     .error {
-      color: red;
+      color: #d93025;
+    }
+
+    .info {
+      color: #555555;
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
 
-    .footer {
+    .otp-box {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid #eeeeee;
+    }
+
+    .otp-info {
       text-align: center;
-      margin-top: 20px;
-      font-size: 12px;
-      color: #777;
+      color: #555555;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 13px;
     }
 
     .welcome {
       text-align: center;
     }
 
-    .welcome h2 {
-      margin-bottom: 10px;
+    .welcome p {
+      color: #555555;
     }
 
     .user-info {
@@ -181,405 +202,1155 @@
       border-radius: 12px;
       padding: 15px;
       margin: 20px 0;
-      text-align: center;
+      text-align: left;
     }
 
     .user-info p {
-      margin: 7px 0;
+      margin: 8px 0;
+      word-break: break-word;
     }
 
-    .link-btn {
-      background: none;
-      border: none;
-      color: #2575fc;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 12px;
+    .footer {
+      text-align: center;
+      color: #777777;
+      font-size: 11px;
+      line-height: 1.5;
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <div class="card">
+    <div class="card">
 
-    <div class="logo">Yaaroza</div>
-    <div class="tagline">Connect • Chat • Call • Make Friends</div>
+      <div class="logo">Yaaroza</div>
 
-    <!-- AUTH SECTION -->
-    <div id="authSection">
-
-      <div class="tabs">
-        <button class="tab active" id="loginTab" onclick="showForm('login')">
-          Login
-        </button>
-
-        <button class="tab" id="signupTab" onclick="showForm('signup')">
-          Create Account
-        </button>
-
-        <button class="tab" id="forgotTab" onclick="showForm('forgot')">
-          Forgot
-        </button>
+      <div class="tagline">
+        Connect • Chat • Call • Make Friends
       </div>
 
 
-      <!-- LOGIN FORM -->
-      <div id="loginForm">
+      <!-- AUTH AREA -->
+      <div id="authArea">
 
-        <h2>Welcome Back</h2>
-
-        <input
-          id="loginPhone"
-          type="tel"
-          placeholder="Mobile Number"
-          required
-        >
-
-        <div class="password-wrap">
-          <input
-            id="loginPassword"
-            type="password"
-            placeholder="Password"
-            required
-          >
+        <!-- TABS -->
+        <div class="tabs">
 
           <button
             type="button"
-            class="toggle-password"
-            onclick="togglePassword('loginPassword', this)"
-          >👁️</button>
-        </div>
-
-        <button class="main-btn" onclick="loginUser()">
-          Login
-        </button>
-
-        <div id="loginMessage" class="message"></div>
-
-      </div>
-
-
-      <!-- SIGNUP FORM -->
-      <div id="signupForm" class="hidden">
-
-        <h2>Create Your Account</h2>
-
-        <input
-          id="signupName"
-          type="text"
-          placeholder="Your Name"
-          required
-        >
-
-        <input
-          id="signupPhone"
-          type="tel"
-          placeholder="Mobile Number"
-          required
-        >
-
-        <div class="password-wrap">
-          <input
-            id="signupPassword"
-            type="password"
-            placeholder="Password"
-            required
-          >
-
-          <button
-            type="button"
-            class="toggle-password"
-            onclick="togglePassword('signupPassword', this)"
-          >👁️</button>
-        </div>
-
-        <div class="password-wrap">
-          <input
-            id="signupConfirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            required
-          >
-
-          <button
-            type="button"
-            class="toggle-password"
-            onclick="togglePassword('signupConfirmPassword', this)"
-          >👁️</button>
-        </div>
-
-        <button class="main-btn" onclick="createAccount()">
-          Create Account
-        </button>
-
-        <div id="signupMessage" class="message"></div>
-
-
-        <!-- SIGNUP OTP -->
-        <div id="signupOtpSection" class="hidden">
-
-          <input
-            id="signupOtp"
-            type="text"
-            inputmode="numeric"
-            maxlength="6"
-            placeholder="Enter 6-digit OTP"
-          >
-
-          <button class="main-btn" onclick="verifySignupOtp()">
-            Verify OTP
+            class="tab active"
+            id="loginTab"
+            onclick="showForm('login')">
+            Login
           </button>
 
-          <button class="secondary-btn" onclick="resendSignupOtp()">
-            Resend OTP
+          <button
+            type="button"
+            class="tab"
+            id="signupTab"
+            onclick="showForm('signup')">
+            Create Account
           </button>
 
-          <div id="signupOtpMessage" class="message">
-            OTP sent. Enter the 6-digit OTP to verify your phone.
-          </div>
+          <button
+            type="button"
+            class="tab"
+            id="forgotTab"
+            onclick="showForm('forgot')">
+            Forgot
+          </button>
 
         </div>
 
-      </div>
 
+        <!-- LOGIN -->
+        <div id="loginForm">
 
-      <!-- FORGOT PASSWORD -->
-      <div id="forgotForm" class="hidden">
-
-        <h2>Reset Password</h2>
-
-        <input
-          id="forgotPhone"
-          type="tel"
-          placeholder="Mobile Number"
-          required
-        >
-
-        <button class="main-btn" onclick="sendForgotOtp()">
-          Send OTP
-        </button>
-
-        <div id="forgotMessage" class="message"></div>
-
-
-        <!-- FORGOT OTP SECTION -->
-        <div id="forgotOtpSection" class="hidden">
+          <h2>Welcome Back</h2>
 
           <input
-            id="forgotOtp"
-            type="text"
-            inputmode="numeric"
-            maxlength="6"
-            placeholder="Enter 6-digit OTP"
+            id="loginPhone"
+            type="tel"
+            inputmode="tel"
+            placeholder="Mobile Number"
+            autocomplete="tel"
           >
 
           <div class="password-wrap">
+
             <input
-              id="newPassword"
+              id="loginPassword"
               type="password"
-              placeholder="New Password"
-              required
+              placeholder="Password"
+              autocomplete="current-password"
             >
 
             <button
               type="button"
               class="toggle-password"
-              onclick="togglePassword('newPassword', this)"
-            >👁️</button>
+              onclick="togglePassword('loginPassword', this)"
+              aria-label="Show password">
+              👁️
+            </button>
+
           </div>
 
-          <button class="main-btn" onclick="resetPassword()">
-            Reset Password
+          <button
+            type="button"
+            class="main-btn"
+            onclick="loginUser()">
+            Login
           </button>
 
-          <div id="resetMessage" class="message"></div>
+          <div id="loginMessage" class="message"></div>
+
+        </div>
+
+
+        <!-- CREATE ACCOUNT -->
+        <div id="signupForm" class="hidden">
+
+          <h2>Create Your Account</h2>
+
+          <input
+            id="signupName"
+            type="text"
+            placeholder="Your Name"
+            autocomplete="name"
+          >
+
+          <input
+            id="signupPhone"
+            type="tel"
+            inputmode="tel"
+            placeholder="Mobile Number"
+            autocomplete="tel"
+          >
+
+          <div class="password-wrap">
+
+            <input
+              id="signupPassword"
+              type="password"
+              placeholder="Password"
+              autocomplete="new-password"
+            >
+
+            <button
+              type="button"
+              class="toggle-password"
+              onclick="togglePassword('signupPassword', this)"
+              aria-label="Show password">
+              👁️
+            </button>
+
+          </div>
+
+          <div class="password-wrap">
+
+            <input
+              id="signupConfirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              autocomplete="new-password"
+            >
+
+            <button
+              type="button"
+              class="toggle-password"
+              onclick="togglePassword('signupConfirmPassword', this)"
+              aria-label="Show password">
+              👁️
+            </button>
+
+          </div>
+
+          <button
+            type="button"
+            class="main-btn"
+            onclick="createAccount()">
+            Create Account
+          </button>
+
+          <div id="signupMessage" class="message"></div>
+
+
+          <!-- SIGNUP OTP -->
+          <div id="signupOtpArea" class="otp-box hidden">
+
+            <div class="otp-info">
+              OTP sent. Enter the 6-digit OTP to verify your phone.
+            </div>
+
+            <input
+              id="signupOtp"
+              type="text"
+              inputmode="numeric"
+              maxlength="6"
+              placeholder="Enter 6-digit OTP"
+              autocomplete="one-time-code"
+            >
+
+            <button
+              type="button"
+              class="main-btn"
+              onclick="verifySignupOtp()">
+              Verify OTP
+            </button>
+
+            <button
+              type="button"
+              class="secondary-btn"
+              onclick="resendSignupOtp()">
+              Resend OTP
+            </button>
+
+            <div id="signupOtpMessage" class="message"></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- FORGOT PASSWORD -->
+        <div id="forgotForm" class="hidden">
+
+          <h2>Reset Password</h2>
+
+          <input
+            id="forgotPhone"
+            type="tel"
+            inputmode="tel"
+            placeholder="Mobile Number"
+            autocomplete="tel"
+          >
+
+          <button
+            type="button"
+            class="main-btn"
+            onclick="sendForgotOtp()">
+            Send OTP
+          </button>
+
+          <div id="forgotMessage" class="message"></div>
+
+
+          <!-- FORGOT OTP -->
+          <div id="forgotOtpArea" class="otp-box hidden">
+
+            <div class="otp-info">
+              Enter the 6-digit OTP sent to your phone and choose a new password.
+            </div>
+
+            <input
+              id="forgotOtp"
+              type="text"
+              inputmode="numeric"
+              maxlength="6"
+              placeholder="Enter 6-digit OTP"
+              autocomplete="one-time-code"
+            >
+
+            <div class="password-wrap">
+
+              <input
+                id="newPassword"
+                type="password"
+                placeholder="New Password"
+                autocomplete="new-password"
+              >
+
+              <button
+                type="button"
+                class="toggle-password"
+                onclick="togglePassword('newPassword', this)"
+                aria-label="Show password">
+                👁️
+              </button>
+
+            </div>
+
+            <button
+              type="button"
+              class="main-btn"
+              onclick="resetPassword()">
+              Reset Password
+            </button>
+
+            <div id="resetMessage" class="message"></div>
+
+          </div>
 
         </div>
 
       </div>
 
-    </div>
 
+      <!-- LOGGED IN AREA -->
+      <div id="loggedInArea" class="hidden">
 
-    <!-- LOGGED IN SECTION -->
-    <div id="loggedInSection" class="hidden">
+        <div class="welcome">
 
-      <div class="welcome">
+          <h2>Welcome to Yaaroza</h2>
 
-        <h2>Welcome to Yaaroza</h2>
+          <p>You are successfully logged in.</p>
 
-        <p>You are successfully logged in.</p>
+          <div class="user-info">
 
-        <div class="user-info">
+            <p>
+              <strong>Name:</strong>
+              <span id="userName">User</span>
+            </p>
 
-          <p>
-            <strong>Name:</strong>
-            <span id="userName">User</span>
-          </p>
+            <p>
+              <strong>Mobile:</strong>
+              <span id="userPhone"></span>
+            </p>
 
-          <p>
-            <strong>Mobile:</strong>
-            <span id="userPhone"></span>
-          </p>
+          </div>
+
+          <button
+            type="button"
+            class="main-btn"
+            onclick="logoutUser()">
+            Logout
+          </button>
 
         </div>
 
-        <button class="main-btn" onclick="logoutUser()">
-          Logout
-        </button>
-
       </div>
 
-    </div>
 
+      <div class="footer">
+        By continuing, you agree to Yaaroza's Terms & Privacy Policy.
+      </div>
 
-    <div class="footer">
-      By continuing, you agree to Yaaroza's Terms & Privacy Policy.
     </div>
 
   </div>
 
-</div>
+
+  <script>
+
+    /* =========================================
+       SUPABASE CONFIGURATION
+    ========================================= */
+
+    const SUPABASE_URL =
+      "https://qkpljuksfgyyooythbjg.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_GQG4XSSgd7_eBOe18DkkMA_7PBuNZId";
 
 
-<script>
-
-  /* ==============================
-     SUPABASE CONFIGURATION
-  ============================== */
-
-  const SUPABASE_URL =
-    "https://qkpljuksfgyyooythbjg.supabase.co";
-
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_GQG4XSSgd7_eBOe18DkkMA_7PBuNZId";
-
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
 
 
-  /* ==============================
-     FORM SWITCHING
-  ============================== */
+    /* =========================================
+       HELPER
+    ========================================= */
 
-  function showForm(form) {
-
-    document.getElementById("loginForm").classList.add("hidden");
-    document.getElementById("signupForm").classList.add("hidden");
-    document.getElementById("forgotForm").classList.add("hidden");
-
-    document.getElementById("loginTab").classList.remove("active");
-    document.getElementById("signupTab").classList.remove("active");
-    document.getElementById("forgotTab").classList.remove("active");
-
-    if (form === "login") {
-
-      document.getElementById("loginForm").classList.remove("hidden");
-      document.getElementById("loginTab").classList.add("active");
-
+    function get(id) {
+      return document.getElementById(id);
     }
 
-    if (form === "signup") {
 
-      document.getElementById("signupForm").classList.remove("hidden");
-      document.getElementById("signupTab").classList.add("active");
+    function setMessage(id, text, type) {
 
+      const element = get(id);
+
+      element.textContent = text;
+
+      element.className = "message " + (type || "info");
     }
 
-    if (form === "forgot") {
 
-      document.getElementById("forgotForm").classList.remove("hidden");
-      document.getElementById("forgotTab").classList.add("active");
+    function formatPhone(value) {
 
-    }
+      let phone = value.trim();
 
-  }
+      if (phone.startsWith("+91")) {
+        return phone;
+      }
 
+      if (phone.startsWith("91") && phone.length === 12) {
+        return "+" + phone;
+      }
 
-  /* ==============================
-     PHONE FORMAT
-  ============================== */
+      if (phone.length === 10) {
+        return "+91" + phone;
+      }
 
-  function formatPhone(phone) {
-
-    phone = phone.trim();
-
-    if (phone.startsWith("+91")) {
       return phone;
     }
 
-    if (phone.startsWith("91") && phone.length === 12) {
-      return "+" + phone;
+
+    /* =========================================
+       SWITCH TABS
+    ========================================= */
+
+    function showForm(formName) {
+
+      get("loginForm").classList.add("hidden");
+      get("signupForm").classList.add("hidden");
+      get("forgotForm").classList.add("hidden");
+
+      get("loginTab").classList.remove("active");
+      get("signupTab").classList.remove("active");
+      get("forgotTab").classList.remove("active");
+
+
+      if (formName === "login") {
+
+        get("loginForm").classList.remove("hidden");
+        get("loginTab").classList.add("active");
+
+      }
+
+
+      if (formName === "signup") {
+
+        get("signupForm").classList.remove("hidden");
+        get("signupTab").classList.add("active");
+
+      }
+
+
+      if (formName === "forgot") {
+
+        get("forgotForm").classList.remove("hidden");
+        get("forgotTab").classList.add("active");
+
+      }
+
     }
 
-    if (phone.length === 10) {
-      return "+91" + phone;
+
+    /* =========================================
+       PASSWORD SHOW / HIDE
+    ========================================= */
+
+    function togglePassword(inputId, button) {
+
+      const input = get(inputId);
+
+      if (!input) {
+        return;
+      }
+
+
+      if (input.type === "password") {
+
+        input.type = "text";
+
+        button.textContent = "🙈";
+
+        button.setAttribute(
+          "aria-label",
+          "Hide password"
+        );
+
+      } else {
+
+        input.type = "password";
+
+        button.textContent = "👁️";
+
+        button.setAttribute(
+          "aria-label",
+          "Show password"
+        );
+
+      }
+
     }
 
-    return phone;
-  }
+
+    /* =========================================
+       CREATE ACCOUNT
+    ========================================= */
+
+    async function createAccount() {
+
+      const name =
+        get("signupName").value.trim();
+
+      const phone =
+        formatPhone(
+          get("signupPhone").value
+        );
+
+      const password =
+        get("signupPassword").value;
+
+      const confirmPassword =
+        get("signupConfirmPassword").value;
 
 
-  /* ==============================
-     PASSWORD SHOW / HIDE
-  ============================== */
-
-  function togglePassword(inputId, button) {
-
-    const input =
-      document.getElementById(inputId);
-
-    if (input.type === "password") {
-
-      input.type = "text";
-      button.textContent = "🙈";
-
-    } else {
-
-      input.type = "password";
-      button.textContent = "👁️";
-
-    }
-
-  }
-
-
-  /* ==============================
-     CREATE ACCOUNT
-  ============================== */
-
-  async function createAccount() {
-
-    const name =
-      document.getElementById("signupName").value.trim();
-
-    const phone =
-      formatPhone(
-        document.getElementById("signupPhone").value
+      setMessage(
+        "signupMessage",
+        "",
+        "info"
       );
 
-    const password =
-      document.getElementById("signupPassword").value;
 
-    const confirmPassword =
-      document.getElementById("signupConfirmPassword").value;
+      if (!name || !phone || !password || !confirmPassword) {
 
-    const message =
-      document.getElementById("signupMessage");
+        setMessage(
+          "signupMessage",
+          "Please fill in all fields.",
+          "error"
+        );
+
+        return;
+      }
 
 
-    message.className = "message";
+      if (password.length < 6) {
+
+        setMessage(
+          "signupMessage",
+          "Password must be at least 6 characters.",
+          "error"
+        );
+
+        return;
+      }
 
 
-    if (!name || !phone || !password || !confirmPassword) {
+      if (password !== confirmPassword) {
 
-      message.textContent =
-        "Please fill in all fields.";
+        setMessage(
+          "signupMessage",
+          "Passwords do not match.",
+          "error"
+        );
 
-      message.classList.add("error
+        return;
+      }
+
+
+      setMessage(
+        "signupMessage",
+        "Creating your account...",
+        "info"
+      );
+
+
+      try {
+
+        const result =
+          await supabaseClient.auth.signUp({
+
+            phone: phone,
+
+            password: password,
+
+            options: {
+
+              channel: "sms",
+
+              data: {
+                display_name: name
+              }
+
+            }
+
+          });
+
+
+        if (result.error) {
+
+          setMessage(
+            "signupMessage",
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        setMessage(
+          "signupMessage",
+          "OTP sent successfully.",
+          "success"
+        );
+
+
+        get("signupOtpArea")
+          .classList.remove("hidden");
+
+
+        get("signupOtp").focus();
+
+      } catch (error) {
+
+        setMessage(
+          "signupMessage",
+          error.message || "Something went wrong.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================
+       VERIFY SIGNUP OTP
+    ========================================= */
+
+    async function verifySignupOtp() {
+
+      const phone =
+        formatPhone(
+          get("signupPhone").value
+        );
+
+      const token =
+        get("signupOtp").value.trim();
+
+
+      if (token.length !== 6) {
+
+        setMessage(
+          "signupOtpMessage",
+          "Please enter the 6-digit OTP.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      setMessage(
+        "signupOtpMessage",
+        "Verifying OTP...",
+        "info"
+      );
+
+
+      try {
+
+        const result =
+          await supabaseClient.auth.verifyOtp({
+
+            phone: phone,
+
+            token: token,
+
+            type: "sms"
+
+          });
+
+
+        if (result.error) {
+
+          setMessage(
+            "signupOtpMessage",
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        setMessage(
+          "signupOtpMessage",
+          "Your account has been created successfully.",
+          "success"
+        );
+
+
+        setTimeout(function() {
+
+          showLoggedInUser(result.data.user);
+
+        }, 700);
+
+
+      } catch (error) {
+
+        setMessage(
+          "signupOtpMessage",
+          error.message || "Verification failed.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================
+       RESEND SIGNUP OTP
+    ========================================= */
+
+    async function resendSignupOtp() {
+
+      const phone =
+        formatPhone(
+          get("signupPhone").value
+        );
+
+
+      setMessage(
+        "signupOtpMessage",
+        "Sending a new OTP...",
+        "info"
+      );
+
+
+      try {
+
+        const result =
+          await supabaseClient.auth.signInWithOtp({
+
+            phone: phone,
+
+            options: {
+              channel: "sms"
+            }
+
+          });
+
+
+        if (result.error) {
+
+          setMessage(
+            "signupOtpMessage",
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        setMessage(
+          "signupOtpMessage",
+          "A new OTP has been sent.",
+          "success"
+        );
+
+      } catch (error) {
+
+        setMessage(
+          "signupOtpMessage",
+          error.message || "Unable to resend OTP.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================
+       LOGIN
+    ========================================= */
+
+    async function loginUser() {
+
+      const phone =
+        formatPhone(
+          get("loginPhone").value
+        );
+
+      const password =
+        get("loginPassword").value;
+
+
+      if (!phone || !password) {
+
+        setMessage(
+          "loginMessage",
+          "Please enter your mobile number and password.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      setMessage(
+        "loginMessage",
+        "Logging in...",
+        "info"
+      );
+
+
+      try {
+
+        const result =
+          await supabaseClient.auth.signInWithPassword({
+
+            phone: phone,
+
+            password: password
+
+          });
+
+
+        if (result.error) {
+
+          setMessage(
+            "loginMessage",
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        showLoggedInUser(
+          result.data.user
+        );
+
+
+      } catch (error) {
+
+        setMessage(
+          "loginMessage",
+          error.message || "Login failed.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================
+       FORGOT PASSWORD - SEND OTP
+    ========================================= */
+
+    async function sendForgotOtp() {
+
+      const phone =
+        formatPhone(
+          get("forgotPhone").value
+        );
+
+
+      if (!phone) {
+
+        setMessage(
+          "forgotMessage",
+          "Please enter your mobile number.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      setMessage(
+        "forgotMessage",
+        "Sending OTP...",
+        "info"
+      );
+
+
+      try {
+
+        const result =
+          await supabaseClient.auth.signInWithOtp({
+
+            phone: phone,
+
+            options: {
+
+              shouldCreateUser: false,
+
+              channel: "sms"
+
+            }
+
+          });
+
+
+        if (result.error) {
+
+          setMessage(
+            "forgotMessage",
+            result.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        setMessage(
+          "forgotMessage",
+          "OTP sent successfully.",
+          "success"
+        );
+
+
+        get("forgotOtpArea")
+          .classList.remove("hidden");
+
+
+        get("forgotOtp").focus();
+
+      } catch (error) {
+
+        setMessage(
+          "forgotMessage",
+          error.message || "Unable to send OTP.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================
+       RESET PASSWORD
+    ========================================= */
+
+    async function resetPassword() {
+
+      const phone =
+        formatPhone(
+          get("forgotPhone").value
+        );
+
+      const token =
+        get("forgotOtp").value.trim();
+
+      const newPassword =
+        get("newPassword").value;
+
+
+      if (token.length !== 6) {
+
+        setMessage(
+          "resetMessage",
+          "Please enter the 6-digit OTP.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (newPassword.length < 6) {
+
+        setMessage(
+          "resetMessage",
+          "New password must be at least 6 characters.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      setMessage(
+        "resetMessage",
+        "Verifying OTP...",
+        "info"
+      );
+
+
+      try {
+
+        const otpResult =
+          await supabaseClient.auth.verifyOtp({
+
+            phone: phone,
+
+            token: token,
+
+            type: "sms"
+
+          });
+
+
+        if (otpResult.error) {
+
+          setMessage(
+            "resetMessage",
+            otpResult.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        const updateResult =
+          await supabaseClient.auth.updateUser({
+
+            password: newPassword
+
+          });
+
+
+        if (updateResult.error) {
+
+          setMessage(
+            "resetMessage",
+            updateResult.error.message,
+            "error"
+          );
+
+          return;
+        }
+
+
+        setMessage(
+          "resetMessage",
+          "Password reset successfully.",
+          "success"
+        );
+
+
+        setTimeout(function() {
+
+          showForm("login");
+
+          get("loginPhone").value = phone;
+
+          get("loginPassword").value = "";
+
+        }, 1000);
+
+
+      } catch (error) {
+
+        setMessage(
+          "resetMessage",
+          error.message || "Password reset failed.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================
+       SHOW LOGGED-IN USER
+    ========================================= */
+
+    function showLoggedInUser(user) {
+
+      get("authArea")
+        .classList.add("hidden");
+
+      get("loggedInArea")
+        .classList.remove("hidden");
+
+
+      const displayName =
+        user &&
+        user.user_metadata &&
+        user.user_metadata.display_name
+          ? user.user_metadata.display_name
+          : "User";
+
+
+      const phone =
+        user && user.phone
+          ? user.phone
+          : "";
+
+
+      get("userName")
+        .textContent = displayName;
+
+      get("userPhone")
+        .textContent = phone;
+
+    }
+
+
+    /* =========================================
+       LOGOUT
+    ========================================= */
+
+    async function logoutUser() {
+
+      try {
+
+        await supabaseClient.auth.signOut();
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+
+      get("loggedInArea")
+        .classList.add("hidden");
+
+      get("authArea")
+        .classList.remove("hidden");
+
+
+      showForm("login");
+
+    }
+
+
+    /* =========================================
+       CHECK EXISTING SESSION
+    ========================================= */
+
+    async function checkSession() {
+
+      try {
+
+        const result =
+          await supabaseClient.auth.getSession();
+
+
+        if (
+          result.data &&
+          result.data.session &&
+          result.data.session.user
+        ) {
+
+          showLoggedInUser(
+            result.data.session.user
+          );
+
+        }
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    }
+
+
+    /* =========================================
+       START APP
+    ========================================= */
+
+    showForm("login");
+
+    checkSession();
+
+  </script>
+
+</body>
+</html>
