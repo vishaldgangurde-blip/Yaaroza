@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yaaroza</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <style>
     * {
       box-sizing: border-box;
@@ -17,513 +15,427 @@
 
     body {
       min-height: 100vh;
-      background: #09090f;
-      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
+      background: linear-gradient(135deg, #ff4f81, #7b2cff);
       padding: 20px;
     }
 
     .container {
       width: 100%;
       max-width: 420px;
+      background: white;
+      border-radius: 25px;
+      padding: 30px 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
     }
 
     .logo {
       text-align: center;
-      font-size: 42px;
+      font-size: 38px;
       font-weight: bold;
-      margin-bottom: 8px;
-      background: linear-gradient(90deg, #8b5cf6, #ec4899);
-      -webkit-background-clip: text;
-      color: transparent;
+      color: #ff3f7f;
+      margin-bottom: 5px;
     }
 
-    .tagline {
+    .subtitle {
       text-align: center;
-      color: #aaa;
-      margin-bottom: 30px;
+      color: #777;
+      margin-bottom: 25px;
+      font-size: 14px;
     }
 
-    .card {
-      background: #15151f;
-      border: 1px solid #292938;
-      border-radius: 22px;
-      padding: 25px;
-      box-shadow: 0 15px 40px rgba(0,0,0,.35);
+    .tabs {
+      display: flex;
+      gap: 5px;
+      background: #f2f2f2;
+      padding: 5px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+
+    .tab {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 12px 5px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      color: #666;
+    }
+
+    .tab.active {
+      background: white;
+      color: #ff3f7f;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .form {
+      display: none;
+    }
+
+    .form.active {
+      display: block;
     }
 
     h2 {
       text-align: center;
       margin-bottom: 20px;
+      color: #222;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+      font-weight: bold;
+      color: #444;
     }
 
     input {
       width: 100%;
-      padding: 15px;
-      margin-bottom: 13px;
+      padding: 14px;
+      border: 1px solid #ddd;
       border-radius: 12px;
-      border: 1px solid #353548;
-      background: #0d0d15;
-      color: white;
-      font-size: 16px;
       outline: none;
+      font-size: 15px;
     }
 
     input:focus {
-      border-color: #8b5cf6;
+      border-color: #ff3f7f;
+      box-shadow: 0 0 0 2px rgba(255,63,127,0.1);
     }
 
-    button {
+    .main-btn {
       width: 100%;
-      padding: 15px;
       border: none;
+      padding: 14px;
       border-radius: 12px;
-      background: linear-gradient(90deg, #7c3aed, #ec4899);
+      background: linear-gradient(135deg, #ff3f7f, #8b35ff);
       color: white;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 5px;
+      margin-top: 8px;
     }
 
-    button:disabled {
-      opacity: .6;
-    }
-
-    .links {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      font-size: 14px;
-    }
-
-    .link {
-      color: #b084ff;
-      cursor: pointer;
+    .main-btn:active {
+      transform: scale(0.98);
     }
 
     .message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .message.show {
+      display: block;
+      background: #f3f3f3;
+      color: #444;
+    }
+
+    .small-text {
       text-align: center;
       margin-top: 15px;
-      font-size: 14px;
-      min-height: 20px;
+      color: #777;
+      font-size: 13px;
     }
 
-    .otp-title {
-      text-align: center;
-      color: #aaa;
-      line-height: 1.5;
-      margin-bottom: 25px;
-    }
-
-    .otp-container {
-      display: flex;
-      gap: 7px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .otp {
-      width: 45px;
-      height: 52px;
-      text-align: center;
-      font-size: 22px;
+    .small-link {
+      color: #ff3f7f;
       font-weight: bold;
-      padding: 0;
-      margin: 0;
-    }
-
-    .back {
-      text-align: center;
-      margin-top: 18px;
-      color: #aaa;
       cursor: pointer;
-      font-size: 14px;
+      text-decoration: none;
     }
 
-    .hidden {
-      display: none;
-    }
-
-    .success {
-      color: #4ade80;
-    }
-
-    .error {
-      color: #fb7185;
+    .terms {
+      text-align: center;
+      font-size: 11px;
+      color: #999;
+      margin-top: 20px;
+      line-height: 1.5;
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <div class="logo">Yaaroza</div>
-  <div class="tagline">Meet • Talk • Play</div>
+    <div class="logo">Yaaroza</div>
+    <div class="subtitle">Connect • Chat • Call • Make Friends</div>
 
-  <!-- LOGIN -->
-  <div class="card" id="loginScreen">
+    <div class="tabs">
+      <button class="tab active" id="loginTab" onclick="showForm('login')">
+        Login
+      </button>
 
-    <h2>Welcome Back</h2>
+      <button class="tab" id="signupTab" onclick="showForm('signup')">
+        Create Account
+      </button>
 
-    <input
-      id="loginPhone"
-      type="tel"
-      placeholder="Mobile number (+91...)"
-    >
-
-    <input
-      id="loginPassword"
-      type="password"
-      placeholder="Password"
-    >
-
-    <button onclick="loginUser()">Login</button>
-
-    <div class="links">
-      <span class="link" onclick="showCreateAccount()">Create Account</span>
-      <span class="link" onclick="showForgotPassword()">Forgot Password?</span>
+      <button class="tab" id="forgotTab" onclick="showForm('forgot')">
+        Forgot
+      </button>
     </div>
 
-    <div id="loginMessage" class="message"></div>
+    <!-- LOGIN -->
+    <div class="form active" id="loginForm">
+
+      <h2>Welcome Back</h2>
+
+      <div class="input-group">
+        <label>Mobile Number</label>
+        <input
+          type="tel"
+          id="loginMobile"
+          placeholder="Enter mobile number"
+          maxlength="10"
+        >
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Enter password"
+        >
+      </div>
+
+      <button class="main-btn" onclick="loginUser()">
+        Login
+      </button>
+
+      <div class="small-text">
+        New to Yaaroza?
+        <span class="small-link" onclick="showForm('signup')">
+          Create Account
+        </span>
+      </div>
+
+      <div class="small-text">
+        <span class="small-link" onclick="showForm('forgot')">
+          Forgot Password?
+        </span>
+      </div>
+
+      <div class="message" id="loginMessage"></div>
+
+    </div>
+
+
+    <!-- CREATE ACCOUNT -->
+    <div class="form" id="signupForm">
+
+      <h2>Create Account</h2>
+
+      <div class="input-group">
+        <label>Your Name</label>
+        <input
+          type="text"
+          id="signupName"
+          placeholder="Enter your name"
+        >
+      </div>
+
+      <div class="input-group">
+        <label>Mobile Number</label>
+        <input
+          type="tel"
+          id="signupMobile"
+          placeholder="Enter mobile number"
+          maxlength="10"
+        >
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input
+          type="password"
+          id="signupPassword"
+          placeholder="Create password"
+        >
+      </div>
+
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          id="signupConfirm"
+          placeholder="Confirm password"
+        >
+      </div>
+
+      <button class="main-btn" onclick="createAccount()">
+        Create Account
+      </button>
+
+      <div class="small-text">
+        Already have an account?
+        <span class="small-link" onclick="showForm('login')">
+          Login
+        </span>
+      </div>
+
+      <div class="message" id="signupMessage"></div>
+
+    </div>
+
+
+    <!-- FORGOT PASSWORD -->
+    <div class="form" id="forgotForm">
+
+      <h2>Forgot Password</h2>
+
+      <div class="input-group">
+        <label>Mobile Number</label>
+        <input
+          type="tel"
+          id="forgotMobile"
+          placeholder="Enter registered mobile number"
+          maxlength="10"
+        >
+      </div>
+
+      <button class="main-btn" onclick="sendForgotOTP()">
+        Send OTP
+      </button>
+
+      <div class="small-text">
+        Remember your password?
+        <span class="small-link" onclick="showForm('login')">
+          Back to Login
+        </span>
+      </div>
+
+      <div class="message" id="forgotMessage"></div>
+
+    </div>
+
+    <div class="terms">
+      By continuing, you agree to Yaaroza's Terms & Privacy Policy.
+    </div>
 
   </div>
 
 
-  <!-- CREATE ACCOUNT -->
-  <div class="card hidden" id="createScreen">
+  <script>
 
-    <h2>Create Account</h2>
+    function showForm(formName) {
 
-    <input
-      id="signupPhone"
-      type="tel"
-      placeholder="Mobile number (+91...)"
-    >
+      document.querySelectorAll('.form').forEach(function(form) {
+        form.classList.remove('active');
+      });
 
-    <input
-      id="signupPassword"
-      type="password"
-      placeholder="Create password"
-    >
+      document.querySelectorAll('.tab').forEach(function(tab) {
+        tab.classList.remove('active');
+      });
 
-    <input
-      id="signupUsername"
-      type="text"
-      placeholder="Username"
-    >
-
-    <input
-      id="signupFullName"
-      type="text"
-      placeholder="Full name"
-    >
-
-    <button id="signupButton" onclick="createAccount()">
-      Send OTP
-    </button>
-
-    <div id="signupMessage" class="message"></div>
-
-    <div class="back" onclick="showLogin()">
-      ← Back to Login
-    </div>
-
-  </div>
-
-
-  <!-- OTP -->
-  <div class="card hidden" id="otpScreen">
-
-    <h2>Verify Your Phone</h2>
-
-    <div class="otp-title">
-      We've sent a 6-digit verification code to<br>
-      <strong id="otpPhoneText"></strong>
-    </div>
-
-    <div class="otp-container">
-
-      <input class="otp" maxlength="1" inputmode="numeric" oninput="moveOTP(this, 0)">
-      <input class="otp" maxlength="1" inputmode="numeric" oninput="moveOTP(this, 1)">
-      <input class="otp" maxlength="1" inputmode="numeric" oninput="moveOTP(this, 2)">
-      <input class="otp" maxlength="1" inputmode="numeric" oninput="moveOTP(this, 3)">
-      <input class="otp" maxlength="1" inputmode="numeric" oninput="moveOTP(this, 4)">
-      <input class="otp" maxlength="1" inputmode="numeric" oninput="moveOTP(this, 5)">
-
-    </div>
-
-    <button id="verifyButton" onclick="verifyOTP()">
-      Verify OTP
-    </button>
-
-    <button
-      id="resendButton"
-      onclick="resendOTP()"
-      style="background:#292938;margin-top:12px;"
-    >
-      Resend OTP
-    </button>
-
-    <div id="otpMessage" class="message"></div>
-
-  </div>
-
-
-  <!-- FORGOT PASSWORD -->
-  <div class="card hidden" id="forgotScreen">
-
-    <h2>Forgot Password</h2>
-
-    <input
-      id="forgotPhone"
-      type="tel"
-      placeholder="Mobile number (+91...)"
-    >
-
-    <button onclick="sendForgotOTP()">
-      Send OTP
-    </button>
-
-    <div id="forgotMessage" class="message"></div>
-
-    <div class="back" onclick="showLogin()">
-      ← Back to Login
-    </div>
-
-  </div>
-
-</div>
-
-
-<script>
-
-  // ==============================
-  // SUPABASE CONFIGURATION
-  // ==============================
-
-  const SUPABASE_URL =
-    "https://qkpljuksfgyyooythbjg.supabase.co";
-
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_GQG4XSSgd7_eBOe18DkkMA_7PBuNZId";
-
-  const client = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
-
-
-  // ==============================
-  // SCREEN CONTROL
-  // ==============================
-
-  function hideAllScreens() {
-    document.getElementById("loginScreen").classList.add("hidden");
-    document.getElementById("createScreen").classList.add("hidden");
-    document.getElementById("otpScreen").classList.add("hidden");
-    document.getElementById("forgotScreen").classList.add("hidden");
-  }
-
-  function showLogin() {
-    hideAllScreens();
-    document.getElementById("loginScreen").classList.remove("hidden");
-  }
-
-  function showCreateAccount() {
-    hideAllScreens();
-    document.getElementById("createScreen").classList.remove("hidden");
-  }
-
-  function showForgotPassword() {
-    hideAllScreens();
-    document.getElementById("forgotScreen").classList.remove("hidden");
-  }
-
-
-  // ==============================
-  // CREATE ACCOUNT
-  // ==============================
-
-  async function createAccount() {
-
-    const phone =
-      document.getElementById("signupPhone").value.trim();
-
-    const password =
-      document.getElementById("signupPassword").value;
-
-    const username =
-      document.getElementById("signupUsername").value.trim();
-
-    const fullName =
-      document.getElementById("signupFullName").value.trim();
-
-    const message =
-      document.getElementById("signupMessage");
-
-    const button =
-      document.getElementById("signupButton");
-
-    message.className = "message";
-
-    if (!phone || !password || !username || !fullName) {
-      message.textContent = "Please fill all fields.";
-      message.classList.add("error");
-      return;
-    }
-
-    if (password.length < 6) {
-      message.textContent =
-        "Password must be at least 6 characters.";
-      message.classList.add("error");
-      return;
-    }
-
-    button.disabled = true;
-    button.textContent = "Sending OTP...";
-
-    try {
-
-      const { data, error } =
-        await client.auth.signUp({
-          phone: phone,
-          password: password
-        });
-
-      if (error) {
-        throw error;
+      if (formName === 'login') {
+        document.getElementById('loginForm').classList.add('active');
+        document.getElementById('loginTab').classList.add('active');
       }
 
-      // Save registration information temporarily
-      sessionStorage.setItem(
-        "yaaroza_phone",
-        phone
-      );
-
-      sessionStorage.setItem(
-        "yaaroza_username",
-        username
-      );
-
-      sessionStorage.setItem(
-        "yaaroza_full_name",
-        fullName
-      );
-
-      document.getElementById("otpPhoneText").textContent =
-        phone;
-
-      hideAllScreens();
-      document.getElementById("otpScreen").classList.remove("hidden");
-
-      document.querySelector(".otp").focus();
-
-      document.getElementById("otpMessage").textContent =
-        "OTP sent successfully.";
-
-      document.getElementById("otpMessage").classList.add("success");
-
-    } catch (error) {
-
-      message.textContent =
-        error.message || "Unable to send OTP.";
-
-      message.classList.add("error");
-
-    } finally {
-
-      button.disabled = false;
-      button.textContent = "Send OTP";
-
-    }
-  }
-
-
-  // ==============================
-  // OTP INPUT
-  // ==============================
-
-  function moveOTP(input, index) {
-
-    input.value =
-      input.value.replace(/[^0-9]/g, "");
-
-    const boxes =
-      document.querySelectorAll(".otp");
-
-    if (input.value && index < 5) {
-      boxes[index + 1].focus();
-    }
-  }
-
-
-  // ==============================
-  // VERIFY OTP
-  // ==============================
-
-  async function verifyOTP() {
-
-    const boxes =
-      document.querySelectorAll(".otp");
-
-    let otp = "";
-
-    boxes.forEach(box => {
-      otp += box.value;
-    });
-
-    const phone =
-      sessionStorage.getItem("yaaroza_phone");
-
-    const username =
-      sessionStorage.getItem("yaaroza_username");
-
-    const fullName =
-      sessionStorage.getItem("yaaroza_full_name");
-
-    const message =
-      document.getElementById("otpMessage");
-
-    const button =
-      document.getElementById("verifyButton");
-
-    if (otp.length !== 6) {
-      message.textContent =
-        "Please enter the 6-digit OTP.";
-      message.className = "message error";
-      return;
-    }
-
-    button.disabled = true;
-    button.textContent = "Verifying...";
-
-    try {
-
-      const { data, error } =
-        await client.auth.verifyOtp({
-          phone: phone,
-          token: otp,
-          type: "sms"
-        });
-
-      if (error) {
-        throw error;
+      if (formName === 'signup') {
+        document.getElementById('signupForm').classList.add('active');
+        document.getElementById('signupTab').classList.add('active');
       }
 
-      const user =
-        data.user;
+      if (formName === 'forgot') {
+        document.getElementById('forgotForm').classList.add('active');
+        document.getElementById('forgotTab').classList.add('active');
+      }
+    }
 
-      if (user) {
 
-        const { error: profileError } =
-          await client
-            .from("profiles")
-            .update({
-              username: username,
-              full_name: fullName
-            })
-            .eq("id", user.id
+    function showMessage(id, text) {
+      const box = document.getElementById(id);
+      box.textContent = text;
+      box.classList.add('show');
+    }
+
+
+    function loginUser() {
+
+      const mobile = document.getElementById('loginMobile').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      if (!mobile || !password) {
+        showMessage(
+          'loginMessage',
+          'कृपया मोबाइल नंबर और पासवर्ड भरें।'
+        );
+        return;
+      }
+
+      showMessage(
+        'loginMessage',
+        'Login system तैयार है। Backend connection अगले step में जोड़ेंगे।'
+      );
+    }
+
+
+    function createAccount() {
+
+      const name = document.getElementById('signupName').value.trim();
+      const mobile = document.getElementById('signupMobile').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const confirm = document.getElementById('signupConfirm').value;
+
+      if (!name || !mobile || !password || !confirm) {
+        showMessage(
+          'signupMessage',
+          'कृपया सभी जानकारी भरें।'
+        );
+        return;
+      }
+
+      if (password !== confirm) {
+        showMessage(
+          'signupMessage',
+          'दोनों पासवर्ड एक जैसे होने चाहिए।'
+        );
+        return;
+      }
+
+      showMessage(
+        'signupMessage',
+        'Account form सही काम कर रहा है। OTP connection अगले step में जोड़ेंगे।'
+      );
+    }
+
+
+    function sendForgotOTP() {
+
+      const mobile = document.getElementById('forgotMobile').value.trim();
+
+      if (!mobile) {
+        showMessage(
+          'forgotMessage',
+          'कृपया अपना मोबाइल नंबर डालें।'
+        );
+        return;
+      }
+
+      showMessage(
+        'forgotMessage',
+        'Forgot Password form सही काम कर रहा है। OTP connection अगले step में जोड़ेंगे।'
+      );
+    }
+
+  </script>
+
+</body>
+</html>
