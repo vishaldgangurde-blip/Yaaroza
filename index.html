@@ -3,74 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+
   <title>Yaaroza</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
     }
 
     body {
+      margin: 0;
       min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #111827, #4c1d95, #7c3aed);
+      color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #ff4f81, #7b2cff);
       padding: 20px;
     }
 
-    .container {
+    .app {
       width: 100%;
-      max-width: 420px;
-      background: white;
-      border-radius: 25px;
-      padding: 30px 25px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      max-width: 430px;
     }
 
-    .logo {
-      text-align: center;
-      font-size: 38px;
-      font-weight: bold;
-      color: #ff3f7f;
-      margin-bottom: 5px;
+    .card {
+      background: rgba(255, 255, 255, 0.11);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 24px;
+      padding: 26px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     }
 
-    .subtitle {
+    .brand {
       text-align: center;
-      color: #777;
-      margin-bottom: 25px;
+      margin-bottom: 24px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 36px;
+      letter-spacing: 1px;
+    }
+
+    .brand p {
+      margin: 7px 0 0;
+      color: #dddddd;
       font-size: 14px;
     }
 
     .tabs {
-      display: flex;
-      gap: 5px;
-      background: #f2f2f2;
-      padding: 5px;
-      border-radius: 12px;
-      margin-bottom: 25px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 7px;
+      margin-bottom: 22px;
     }
 
     .tab {
-      flex: 1;
-      border: none;
-      background: transparent;
+      border: 0;
       padding: 12px 5px;
-      border-radius: 9px;
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.13);
+      color: #ffffff;
+      font-weight: 700;
       cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      color: #666;
     }
 
     .tab.active {
-      background: white;
-      color: #ff3f7f;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: #ffffff;
+      color: #4c1d95;
     }
 
     .form {
@@ -81,361 +88,1230 @@
       display: block;
     }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #222;
+    .form h2 {
+      margin: 0 0 15px;
+      font-size: 23px;
     }
 
-    .input-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 13px;
-      font-weight: bold;
-      color: #444;
-    }
-
-    input {
+    .input {
       width: 100%;
       padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 12px;
+      margin: 6px 0;
+      border: 0;
       outline: none;
+      border-radius: 11px;
       font-size: 15px;
+      background: #ffffff;
+      color: #111827;
     }
 
-    input:focus {
-      border-color: #ff3f7f;
-      box-shadow: 0 0 0 2px rgba(255,63,127,0.1);
+    .input::placeholder {
+      color: #777777;
     }
 
-    .main-btn {
+    .button {
       width: 100%;
-      border: none;
+      border: 0;
+      border-radius: 11px;
       padding: 14px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #ff3f7f, #8b35ff);
-      color: white;
+      margin-top: 10px;
+      background: #ffffff;
+      color: #4c1d95;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 700;
       cursor: pointer;
-      margin-top: 8px;
     }
 
-    .main-btn:active {
-      transform: scale(0.98);
+    .button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .secondary-button {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 11px;
+      padding: 12px;
+      margin-top: 9px;
+      background: rgba(255,255,255,0.08);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .otp-box {
+      display: none;
+      margin-top: 16px;
+      padding-top: 8px;
     }
 
     .message {
-      display: none;
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 10px;
+      min-height: 20px;
+      margin-top: 13px;
+      padding: 10px;
+      border-radius: 9px;
+      background: rgba(0, 0, 0, 0.22);
       text-align: center;
       font-size: 14px;
+      line-height: 1.4;
     }
 
-    .message.show {
-      display: block;
-      background: #f3f3f3;
-      color: #444;
+    .success {
+      background: rgba(34, 197, 94, 0.20);
     }
 
-    .small-text {
+    .error {
+      background: rgba(239, 68, 68, 0.20);
+    }
+
+    .info {
+      background: rgba(59, 130, 246, 0.20);
+    }
+
+    .footer {
       text-align: center;
-      margin-top: 15px;
-      color: #777;
-      font-size: 13px;
-    }
-
-    .small-link {
-      color: #ff3f7f;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .terms {
-      text-align: center;
-      font-size: 11px;
-      color: #999;
-      margin-top: 20px;
+      margin-top: 18px;
+      color: #cccccc;
+      font-size: 12px;
       line-height: 1.5;
+    }
+
+    .logged-in {
+      display: none;
+      text-align: center;
+    }
+
+    .logged-in h2 {
+      margin-top: 0;
+    }
+
+    .user-card {
+      padding: 18px;
+      margin-top: 15px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.09);
+    }
+
+    .logout {
+      background: rgba(239,68,68,0.85);
+      color: white;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="app">
 
-    <div class="logo">Yaaroza</div>
-    <div class="subtitle">Connect • Chat • Call • Make Friends</div>
+  <div class="card">
 
-    <div class="tabs">
-      <button class="tab active" id="loginTab" onclick="showForm('login')">
-        Login
-      </button>
-
-      <button class="tab" id="signupTab" onclick="showForm('signup')">
-        Create Account
-      </button>
-
-      <button class="tab" id="forgotTab" onclick="showForm('forgot')">
-        Forgot
-      </button>
-    </div>
-
-    <!-- LOGIN -->
-    <div class="form active" id="loginForm">
-
-      <h2>Welcome Back</h2>
-
-      <div class="input-group">
-        <label>Mobile Number</label>
-        <input
-          type="tel"
-          id="loginMobile"
-          placeholder="Enter mobile number"
-          maxlength="10"
-        >
-      </div>
-
-      <div class="input-group">
-        <label>Password</label>
-        <input
-          type="password"
-          id="loginPassword"
-          placeholder="Enter password"
-        >
-      </div>
-
-      <button class="main-btn" onclick="loginUser()">
-        Login
-      </button>
-
-      <div class="small-text">
-        New to Yaaroza?
-        <span class="small-link" onclick="showForm('signup')">
-          Create Account
-        </span>
-      </div>
-
-      <div class="small-text">
-        <span class="small-link" onclick="showForm('forgot')">
-          Forgot Password?
-        </span>
-      </div>
-
-      <div class="message" id="loginMessage"></div>
-
+    <div class="brand">
+      <h1>Yaaroza</h1>
+      <p>Connect • Chat • Call • Make Friends</p>
     </div>
 
 
-    <!-- CREATE ACCOUNT -->
-    <div class="form" id="signupForm">
+    <!-- AUTH AREA -->
 
-      <h2>Create Account</h2>
+    <div id="authArea">
 
-      <div class="input-group">
-        <label>Your Name</label>
-        <input
-          type="text"
-          id="signupName"
-          placeholder="Enter your name"
-        >
-      </div>
+      <div class="tabs">
 
-      <div class="input-group">
-        <label>Mobile Number</label>
-        <input
-          type="tel"
-          id="signupMobile"
-          placeholder="Enter mobile number"
-          maxlength="10"
-        >
-      </div>
-
-      <div class="input-group">
-        <label>Password</label>
-        <input
-          type="password"
-          id="signupPassword"
-          placeholder="Create password"
-        >
-      </div>
-
-      <div class="input-group">
-        <label>Confirm Password</label>
-        <input
-          type="password"
-          id="signupConfirm"
-          placeholder="Confirm password"
-        >
-      </div>
-
-      <button class="main-btn" onclick="createAccount()">
-        Create Account
-      </button>
-
-      <div class="small-text">
-        Already have an account?
-        <span class="small-link" onclick="showForm('login')">
+        <button
+          id="loginTab"
+          class="tab active"
+          onclick="showForm('login')">
           Login
-        </span>
+        </button>
+
+        <button
+          id="signupTab"
+          class="tab"
+          onclick="showForm('signup')">
+          Create Account
+        </button>
+
+        <button
+          id="forgotTab"
+          class="tab"
+          onclick="showForm('forgot')">
+          Forgot
+        </button>
+
       </div>
 
-      <div class="message" id="signupMessage"></div>
+
+      <!-- LOGIN -->
+
+      <div id="loginForm" class="form active">
+
+        <h2>Welcome Back</h2>
+
+        <input
+          id="loginPhone"
+          class="input"
+          type="tel"
+          inputmode="numeric"
+          autocomplete="tel"
+          placeholder="Mobile Number">
+
+        <input
+          id="loginPassword"
+          class="input"
+          type="password"
+          autocomplete="current-password"
+          placeholder="Password">
+
+        <button
+          id="loginButton"
+          class="button"
+          onclick="loginUser()">
+          Login
+        </button>
+
+        <div
+          id="loginMessage"
+          class="message">
+        </div>
+
+      </div>
+
+
+      <!-- CREATE ACCOUNT -->
+
+      <div id="signupForm" class="form">
+
+        <h2>Create Your Account</h2>
+
+        <input
+          id="signupName"
+          class="input"
+          type="text"
+          autocomplete="name"
+          placeholder="Your Name">
+
+        <input
+          id="signupPhone"
+          class="input"
+          type="tel"
+          inputmode="numeric"
+          autocomplete="tel"
+          placeholder="Mobile Number">
+
+        <input
+          id="signupPassword"
+          class="input"
+          type="password"
+          autocomplete="new-password"
+          placeholder="Password">
+
+        <input
+          id="signupConfirm"
+          class="input"
+          type="password"
+          autocomplete="new-password"
+          placeholder="Confirm Password">
+
+        <button
+          id="signupButton"
+          class="button"
+          onclick="createAccount()">
+          Create Account
+        </button>
+
+
+        <div
+          id="signupOtpBox"
+          class="otp-box">
+
+          <input
+            id="signupOtp"
+            class="input"
+            type="text"
+            inputmode="numeric"
+            maxlength="6"
+            placeholder="Enter 6-Digit OTP">
+
+          <button
+            id="signupVerifyButton"
+            class="button"
+            onclick="verifySignupOtp()">
+            Verify OTP
+          </button>
+
+          <button
+            class="secondary-button"
+            onclick="resendSignupOtp()">
+            Resend OTP
+          </button>
+
+        </div>
+
+
+        <div
+          id="signupMessage"
+          class="message">
+        </div>
+
+      </div>
+
+
+      <!-- FORGOT PASSWORD -->
+
+      <div id="forgotForm" class="form">
+
+        <h2>Reset Password</h2>
+
+        <input
+          id="forgotPhone"
+          class="input"
+          type="tel"
+          inputmode="numeric"
+          autocomplete="tel"
+          placeholder="Mobile Number">
+
+        <button
+          id="forgotButton"
+          class="button"
+          onclick="sendForgotOtp()">
+          Send OTP
+        </button>
+
+
+        <div
+          id="forgotOtpBox"
+          class="otp-box">
+
+          <input
+            id="forgotOtp"
+            class="input"
+            type="text"
+            inputmode="numeric"
+            maxlength="6"
+            placeholder="Enter 6-Digit OTP">
+
+          <input
+            id="newPassword"
+            class="input"
+            type="password"
+            autocomplete="new-password"
+            placeholder="New Password">
+
+          <input
+            id="confirmNewPassword"
+            class="input"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Confirm New Password">
+
+          <button
+            id="resetButton"
+            class="button"
+            onclick="verifyForgotOtp()">
+            Verify OTP & Change Password
+          </button>
+
+        </div>
+
+
+        <div
+          id="forgotMessage"
+          class="message">
+        </div>
+
+      </div>
 
     </div>
 
 
-    <!-- FORGOT PASSWORD -->
-    <div class="form" id="forgotForm">
+    <!-- LOGGED IN AREA -->
 
-      <h2>Forgot Password</h2>
+    <div
+      id="loggedInArea"
+      class="logged-in">
 
-      <div class="input-group">
-        <label>Mobile Number</label>
-        <input
-          type="tel"
-          id="forgotMobile"
-          placeholder="Enter registered mobile number"
-          maxlength="10"
-        >
+      <h2>Welcome to Yaaroza</h2>
+
+      <p>You are successfully logged in.</p>
+
+      <div class="user-card">
+        <div id="userName"></div>
+        <div id="userPhone"></div>
       </div>
 
-      <button class="main-btn" onclick="sendForgotOTP()">
-        Send OTP
+      <button
+        class="button logout"
+        onclick="logoutUser()">
+        Logout
       </button>
 
-      <div class="small-text">
-        Remember your password?
-        <span class="small-link" onclick="showForm('login')">
-          Back to Login
-        </span>
+      <div
+        id="logoutMessage"
+        class="message">
       </div>
-
-      <div class="message" id="forgotMessage"></div>
 
     </div>
 
-    <div class="terms">
+
+    <div class="footer">
       By continuing, you agree to Yaaroza's Terms & Privacy Policy.
     </div>
 
   </div>
 
+</div>
 
-  <script>
 
-    function showForm(formName) {
+<script>
 
-      document.querySelectorAll('.form').forEach(function(form) {
-        form.classList.remove('active');
+  /* ==========================================
+     SUPABASE CONFIGURATION
+     ========================================== */
+
+  const SUPABASE_URL =
+    "https://qkpljuksfgyyooythbjg.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_GQG4XSSgd7_eBOe18DkkMA_7PBuNZId";
+
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+  /* ==========================================
+     PHONE FORMAT
+     ========================================== */
+
+  function formatPhone(value) {
+
+    let phone = value.trim();
+
+    phone = phone.replace(/\s+/g, "");
+
+    if (phone.startsWith("+")) {
+      return phone;
+    }
+
+    if (phone.startsWith("91") && phone.length === 12) {
+      return "+" + phone;
+    }
+
+    if (phone.length === 10) {
+      return "+91" + phone;
+    }
+
+    return phone;
+  }
+
+
+  /* ==========================================
+     MESSAGE HELPER
+     ========================================== */
+
+  function setMessage(id, text, type = "info") {
+
+    const element = document.getElementById(id);
+
+    element.innerText = text;
+
+    element.className = "message " + type;
+  }
+
+
+  /* ==========================================
+     TAB SWITCHING
+     ========================================== */
+
+  function showForm(type) {
+
+    document
+      .querySelectorAll(".form")
+      .forEach(form => {
+        form.classList.remove("active");
       });
 
-      document.querySelectorAll('.tab').forEach(function(tab) {
-        tab.classList.remove('active');
+    document
+      .querySelectorAll(".tab")
+      .forEach(button => {
+        button.classList.remove("active");
       });
 
-      if (formName === 'login') {
-        document.getElementById('loginForm').classList.add('active');
-        document.getElementById('loginTab').classList.add('active');
-      }
 
-      if (formName === 'signup') {
-        document.getElementById('signupForm').classList.add('active');
-        document.getElementById('signupTab').classList.add('active');
-      }
+    if (type === "login") {
 
-      if (formName === 'forgot') {
-        document.getElementById('forgotForm').classList.add('active');
-        document.getElementById('forgotTab').classList.add('active');
-      }
+      document
+        .getElementById("loginForm")
+        .classList.add("active");
+
+      document
+        .getElementById("loginTab")
+        .classList.add("active");
     }
 
 
-    function showMessage(id, text) {
-      const box = document.getElementById(id);
-      box.textContent = text;
-      box.classList.add('show');
+    if (type === "signup") {
+
+      document
+        .getElementById("signupForm")
+        .classList.add("active");
+
+      document
+        .getElementById("signupTab")
+        .classList.add("active");
     }
 
 
-    function loginUser() {
+    if (type === "forgot") {
 
-      const mobile = document.getElementById('loginMobile').value.trim();
-      const password = document.getElementById('loginPassword').value.trim();
+      document
+        .getElementById("forgotForm")
+        .classList.add("active");
 
-      if (!mobile || !password) {
-        showMessage(
-          'loginMessage',
-          'कृपया मोबाइल नंबर और पासवर्ड भरें।'
+      document
+        .getElementById("forgotTab")
+        .classList.add("active");
+    }
+  }
+
+
+  /* ==========================================
+     CREATE ACCOUNT
+     ========================================== */
+
+  async function createAccount() {
+
+    const name =
+      document.getElementById("signupName").value.trim();
+
+    const phone =
+      formatPhone(
+        document.getElementById("signupPhone").value
+      );
+
+    const password =
+      document.getElementById("signupPassword").value;
+
+    const confirmPassword =
+      document.getElementById("signupConfirm").value;
+
+
+    if (!name || !phone || !password || !confirmPassword) {
+
+      setMessage(
+        "signupMessage",
+        "Please complete all fields.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    if (password.length < 6) {
+
+      setMessage(
+        "signupMessage",
+        "Password must contain at least 6 characters.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    if (password !== confirmPassword) {
+
+      setMessage(
+        "signupMessage",
+        "Passwords do not match.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    const button =
+      document.getElementById("signupButton");
+
+    button.disabled = true;
+
+    button.innerText = "Creating Account...";
+
+
+    setMessage(
+      "signupMessage",
+      "Creating your account...",
+      "info"
+    );
+
+
+    try {
+
+      const { data, error } =
+        await supabaseClient.auth.signUp({
+
+          phone: phone,
+
+          password: password,
+
+          options: {
+
+            channel: "sms",
+
+            data: {
+              display_name: name
+            }
+
+          }
+
+        });
+
+
+      if (error) {
+
+        setMessage(
+          "signupMessage",
+          error.message,
+          "error"
         );
+
+        button.disabled = false;
+        button.innerText = "Create Account";
+
         return;
       }
 
-      showMessage(
-        'loginMessage',
-        'Login system तैयार है। Backend connection अगले step में जोड़ेंगे।'
+
+      document
+        .getElementById("signupOtpBox")
+        .style.display = "block";
+
+
+      setMessage(
+        "signupMessage",
+        "OTP sent. Enter the 6-digit OTP to verify your phone.",
+        "success"
+      );
+
+
+      button.disabled = false;
+      button.innerText = "Create Account";
+
+
+    } catch (error) {
+
+      setMessage(
+        "signupMessage",
+        error.message || "Something went wrong.",
+        "error"
+      );
+
+      button.disabled = false;
+      button.innerText = "Create Account";
+    }
+  }
+
+
+  /* ==========================================
+     VERIFY SIGNUP OTP
+     ========================================== */
+
+  async function verifySignupOtp() {
+
+    const phone =
+      formatPhone(
+        document.getElementById("signupPhone").value
+      );
+
+    const token =
+      document
+        .getElementById("signupOtp")
+        .value
+        .trim();
+
+
+    if (!token || token.length !== 6) {
+
+      setMessage(
+        "signupMessage",
+        "Please enter the 6-digit OTP.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    const button =
+      document.getElementById("signupVerifyButton");
+
+    button.disabled = true;
+
+    button.innerText = "Verifying...";
+
+
+    try {
+
+      const { data, error } =
+        await supabaseClient.auth.verifyOtp({
+
+          phone: phone,
+
+          token: token,
+
+          type: "sms"
+
+        });
+
+
+      if (error) {
+
+        setMessage(
+          "signupMessage",
+          error.message,
+          "error"
+        );
+
+        button.disabled = false;
+        button.innerText = "Verify OTP";
+
+        return;
+      }
+
+
+      setMessage(
+        "signupMessage",
+        "Your account has been created successfully.",
+        "success"
+      );
+
+
+      setTimeout(() => {
+
+        showLoggedInUser(data.user);
+
+      }, 800);
+
+
+    } catch (error) {
+
+      setMessage(
+        "signupMessage",
+        error.message || "OTP verification failed.",
+        "error"
+      );
+
+      button.disabled = false;
+      button.innerText = "Verify OTP";
+    }
+  }
+
+
+  /* ==========================================
+     RESEND SIGNUP OTP
+     ========================================== */
+
+  async function resendSignupOtp() {
+
+    const phone =
+      formatPhone(
+        document.getElementById("signupPhone").value
+      );
+
+
+    if (!phone) {
+
+      setMessage(
+        "signupMessage",
+        "Please enter your mobile number first.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    setMessage(
+      "signupMessage",
+      "Sending a new OTP...",
+      "info"
+    );
+
+
+    try {
+
+      const { error } =
+        await supabaseClient.auth.signInWithOtp({
+
+          phone: phone,
+
+          options: {
+            shouldCreateUser: false,
+            channel: "sms"
+          }
+
+        });
+
+
+      if (error) {
+
+        setMessage(
+          "signupMessage",
+          error.message,
+          "error"
+        );
+
+        return;
+      }
+
+
+      setMessage(
+        "signupMessage",
+        "A new OTP has been sent.",
+        "success"
+      );
+
+
+    } catch (error) {
+
+      setMessage(
+        "signupMessage",
+        error.message || "Unable to resend OTP.",
+        "error"
       );
     }
+  }
 
 
-    function createAccount() {
+  /* ==========================================
+     LOGIN
+     ========================================== */
 
-      const name = document.getElementById('signupName').value.trim();
-      const mobile = document.getElementById('signupMobile').value.trim();
-      const password = document.getElementById('signupPassword').value;
-      const confirm = document.getElementById('signupConfirm').value;
+  async function loginUser() {
 
-      if (!name || !mobile || !password || !confirm) {
-        showMessage(
-          'signupMessage',
-          'कृपया सभी जानकारी भरें।'
-        );
-        return;
-      }
-
-      if (password !== confirm) {
-        showMessage(
-          'signupMessage',
-          'दोनों पासवर्ड एक जैसे होने चाहिए।'
-        );
-        return;
-      }
-
-      showMessage(
-        'signupMessage',
-        'Account form सही काम कर रहा है। OTP connection अगले step में जोड़ेंगे।'
+    const phone =
+      formatPhone(
+        document.getElementById("loginPhone").value
       );
+
+    const password =
+      document.getElementById("loginPassword").value;
+
+
+    if (!phone || !password) {
+
+      setMessage(
+        "loginMessage",
+        "Please enter your mobile number and password.",
+        "error"
+      );
+
+      return;
     }
 
 
-    function sendForgotOTP() {
+    const button =
+      document.getElementById("loginButton");
 
-      const mobile = document.getElementById('forgotMobile').value.trim();
+    button.disabled = true;
 
-      if (!mobile) {
-        showMessage(
-          'forgotMessage',
-          'कृपया अपना मोबाइल नंबर डालें।'
+    button.innerText = "Logging In...";
+
+
+    setMessage(
+      "loginMessage",
+      "Signing you in...",
+      "info"
+    );
+
+
+    try {
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+
+          phone: phone,
+
+          password: password
+
+        });
+
+
+      if (error) {
+
+        setMessage(
+          "loginMessage",
+          error.message,
+          "error"
         );
+
+        button.disabled = false;
+        button.innerText = "Login";
+
         return;
       }
 
-      showMessage(
-        'forgotMessage',
-        'Forgot Password form सही काम कर रहा है। OTP connection अगले step में जोड़ेंगे।'
+
+      showLoggedInUser(data.user);
+
+
+    } catch (error) {
+
+      setMessage(
+        "loginMessage",
+        error.message || "Login failed.",
+        "error"
       );
+
+      button.disabled = false;
+      button.innerText = "Login";
+    }
+  }
+
+
+  /* ==========================================
+     SEND FORGOT PASSWORD OTP
+     ========================================== */
+
+  async function sendForgotOtp() {
+
+    const phone =
+      formatPhone(
+        document.getElementById("forgotPhone").value
+      );
+
+
+    if (!phone) {
+
+      setMessage(
+        "forgotMessage",
+        "Please enter your mobile number.",
+        "error"
+      );
+
+      return;
     }
 
-  </script>
+
+    const button =
+      document.getElementById("forgotButton");
+
+    button.disabled = true;
+
+    button.innerText = "Sending OTP...";
+
+
+    try {
+
+      const { error } =
+        await supabaseClient.auth.signInWithOtp({
+
+          phone: phone,
+
+          options: {
+            shouldCreateUser: false,
+            channel: "sms"
+          }
+
+        });
+
+
+      if (error) {
+
+        setMessage(
+          "forgotMessage",
+          error.message,
+          "error"
+        );
+
+        button.disabled = false;
+        button.innerText = "Send OTP";
+
+        return;
+      }
+
+
+      document
+        .getElementById("forgotOtpBox")
+        .style.display = "block";
+
+
+      setMessage(
+        "forgotMessage",
+        "OTP sent. Enter the OTP and choose your new password.",
+        "success"
+      );
+
+
+      button.disabled = false;
+      button.innerText = "Send OTP";
+
+
+    } catch (error) {
+
+      setMessage(
+        "forgotMessage",
+        error.message || "Unable to send OTP.",
+        "error"
+      );
+
+      button.disabled = false;
+      button.innerText = "Send OTP";
+    }
+  }
+
+
+  /* ==========================================
+     VERIFY FORGOT OTP AND CHANGE PASSWORD
+     ========================================== */
+
+  async function verifyForgotOtp() {
+
+    const phone =
+      formatPhone(
+        document.getElementById("forgotPhone").value
+      );
+
+    const token =
+      document
+        .getElementById("forgotOtp")
+        .value
+        .trim();
+
+    const newPassword =
+      document.getElementById("newPassword").value;
+
+    const confirmPassword =
+      document.getElementById("confirmNewPassword").value;
+
+
+    if (!token || token.length !== 6) {
+
+      setMessage(
+        "forgotMessage",
+        "Please enter the 6-digit OTP.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    if (newPassword.length < 6) {
+
+      setMessage(
+        "forgotMessage",
+        "New password must contain at least 6 characters.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    if (newPassword !== confirmPassword) {
+
+      setMessage(
+        "forgotMessage",
+        "Passwords do not match.",
+        "error"
+      );
+
+      return;
+    }
+
+
+    const button =
+      document.getElementById("resetButton");
+
+    button.disabled = true;
+
+    button.innerText = "Verifying...";
+
+
+    try {
+
+      const { error } =
+        await supabaseClient.auth.verifyOtp({
+
+          phone: phone,
+
+          token: token,
+
+          type: "sms"
+
+        });
+
+
+      if (error) {
+
+        setMessage(
+          "forgotMessage",
+          error.message,
+          "error"
+        );
+
+        button.disabled = false;
+        button.innerText =
+          "Verify OTP & Change Password";
+
+        return;
+      }
+
+
+      const { error: passwordError } =
+        await supabaseClient.auth.updateUser({
+
+          password: newPassword
+
+        });
+
+
+      if (passwordError) {
+
+        setMessage(
+          "forgotMessage",
+          passwordError.message,
+          "error"
+        );
+
+        button.disabled = false;
+        button.innerText =
+          "Verify OTP & Change Password";
+
+        return;
+      }
+
+
+      setMessage(
+        "forgotMessage",
+        "Your password has been changed successfully.",
+        "success"
+      );
+
+
+      setTimeout(() => {
+
+        showForm("login");
+
+        document.getElementById("forgotOtpBox")
+          .style.display = "none";
+
+      }, 1200);
+
+
+    } catch (error) {
+
+      setMessage(
+        "forgotMessage",
+        error.message || "Password reset failed.",
+        "error"
+      );
+
+      button.disabled = false;
+      button.innerText =
+        "Verify OTP & Change Password";
+    }
+  }
+
+
+  /* ==========================================
+     SHOW LOGGED-IN USER
+     ========================================== */
+
+  function showLoggedInUser(user) {
+
+    document
+      .getElementById("authArea")
+      .style.display = "none";
+
+    document
+      .getElementById("loggedInArea")
+      .style.display = "block";
+
+
+    const name =
+      user?.user_metadata?.display_name || "Yaaroza User";
+
+    const phone =
+      user?.phone || "";
+
+
+    document
+      .getElementById("userName")
+      .innerText = name;
+
+    document
+      .getElementById("userPhone")
+      .innerText = phone;
+  }
+
+
+  /* ==========================================
+     LOGOUT
+     ========================================== */
+
+  async function logoutUser() {
+
+    const { error } =
+      await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+      document
+        .getElementById("logoutMessage")
+        .innerText = error.message;
+
+      return;
+    }
+
+
+    document
+      .getElementById("loggedInArea")
+      .style.display = "none";
+
+    document
+      .getElementById("authArea")
+      .style.display = "block";
+
+
+    showForm("login");
+
+    setMessage(
+      "loginMessage",
+      "You have been logged out.",
+      "success"
+    );
+  }
+
+
+  /* ==========================================
+     CHECK EXISTING SESSION
+     ========================================== */
+
+  async function checkSession() {
+
+    const { data } =
+      await supabaseClient.auth.getSession();
+
+
+    if (data && data.session && data.session.user) {
+
+      showLoggedInUser(data.session.user);
+    }
+  }
+
+
+  checkSession();
+
+</script>
 
 </body>
 </html>
