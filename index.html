@@ -331,6 +331,132 @@
       display: none;
     }
 
+    /* FIND PEOPLE */
+
+    .people-section {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .people-section h2 {
+      font-size: 21px;
+      margin-bottom: 6px;
+    }
+
+    .people-section p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 8px;
+    }
+
+    .search-box input {
+      flex: 1;
+    }
+
+    .search-btn {
+      border: none;
+      padding: 0 18px;
+      border-radius: 12px;
+      background: #6c5ce7;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .people-results {
+      margin-top: 15px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .person-card {
+      background: #f7f7f7;
+      border-radius: 16px;
+      padding: 13px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .person-avatar {
+      width: 55px;
+      height: 55px;
+      min-width: 55px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6c5ce7, #00cec9);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+      font-weight: 800;
+      overflow: hidden;
+    }
+
+    .person-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .person-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .person-name {
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .person-username {
+      color: #6c5ce7;
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .person-bio {
+      color: #777;
+      font-size: 12px;
+      margin-top: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .follow-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 9px 13px;
+      background: #6c5ce7;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .follow-btn.following {
+      background: #00b894;
+    }
+
+    .follow-btn.unfollow {
+      background: #eee;
+      color: #444;
+    }
+
+    .empty-results {
+      text-align: center;
+      color: #888;
+      padding: 15px;
+      font-size: 14px;
+    }
+
     .footer {
       text-align: center;
       margin-top: 20px;
@@ -340,6 +466,31 @@
 
     .hidden {
       display: none !important;
+    }
+
+    @media (max-width: 430px) {
+
+      body {
+        padding: 10px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .tabs button {
+        font-size: 12px;
+      }
+
+      .person-card {
+        gap: 8px;
+      }
+
+      .follow-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
     }
   </style>
 </head>
@@ -360,39 +511,61 @@
     <div id="authSection">
 
       <div class="tabs">
-        <button id="loginTab" class="active" onclick="showForm('login')">
+
+        <button
+          id="loginTab"
+          class="active"
+          onclick="showForm('login')"
+        >
           Login
         </button>
 
-        <button id="signupTab" onclick="showForm('signup')">
+        <button
+          id="signupTab"
+          onclick="showForm('signup')"
+        >
           Create Account
         </button>
 
-        <button id="forgotTab" onclick="showForm('forgot')">
+        <button
+          id="forgotTab"
+          onclick="showForm('forgot')"
+        >
           Forgot
         </button>
+
       </div>
+
 
       <!-- LOGIN -->
 
       <div id="loginForm" class="form active">
 
         <h2>Welcome Back</h2>
-        <p>Login using your mobile number and password.</p>
+
+        <p>
+          Login using your mobile number and password.
+        </p>
 
         <div class="field">
+
           <label>Mobile Number</label>
+
           <input
             id="loginPhone"
             type="tel"
             placeholder="919XXXXXXXXX"
           >
+
         </div>
 
+
         <div class="field">
+
           <label>Password</label>
 
           <div class="password-box">
+
             <input
               id="loginPassword"
               type="password"
@@ -403,45 +576,68 @@
               class="eye-btn"
               type="button"
               onclick="togglePassword('loginPassword', this)"
-            >👁</button>
+            >
+              👁
+            </button>
+
           </div>
+
         </div>
 
-        <button class="main-btn" onclick="loginUser()">
+
+        <button
+          class="main-btn"
+          onclick="loginUser()"
+        >
           Login
         </button>
 
       </div>
+
 
       <!-- SIGNUP -->
 
       <div id="signupForm" class="form">
 
         <h2>Create Account</h2>
-        <p>Create your Yaaroza account.</p>
+
+        <p>
+          Create your Yaaroza account.
+        </p>
+
 
         <div class="field">
+
           <label>Display Name</label>
+
           <input
             id="signupName"
             type="text"
             placeholder="Your name"
           >
+
         </div>
 
+
         <div class="field">
+
           <label>Mobile Number</label>
+
           <input
             id="signupPhone"
             type="tel"
             placeholder="919XXXXXXXXX"
           >
+
         </div>
 
+
         <div class="field">
+
           <label>Password</label>
 
           <div class="password-box">
+
             <input
               id="signupPassword"
               type="password"
@@ -452,14 +648,21 @@
               class="eye-btn"
               type="button"
               onclick="togglePassword('signupPassword', this)"
-            >👁</button>
+            >
+              👁
+            </button>
+
           </div>
+
         </div>
 
+
         <div class="field">
+
           <label>Confirm Password</label>
 
           <div class="password-box">
+
             <input
               id="signupConfirmPassword"
               type="password"
@@ -470,17 +673,30 @@
               class="eye-btn"
               type="button"
               onclick="togglePassword('signupConfirmPassword', this)"
-            >👁</button>
+            >
+              👁
+            </button>
+
           </div>
+
         </div>
 
-        <button class="main-btn" onclick="createAccount()">
+
+        <button
+          class="main-btn"
+          onclick="createAccount()"
+        >
           Create Account
         </button>
 
-        <div id="signupOtpArea" class="otp-area">
+
+        <div
+          id="signupOtpArea"
+          class="otp-area"
+        >
 
           <div class="field">
+
             <label>Verification OTP</label>
 
             <input
@@ -489,13 +705,22 @@
               maxlength="6"
               placeholder="Enter OTP"
             >
+
           </div>
 
-          <button class="main-btn" onclick="verifySignupOtp()">
+
+          <button
+            class="main-btn"
+            onclick="verifySignupOtp()"
+          >
             Verify OTP
           </button>
 
-          <button class="secondary-btn" onclick="resendSignupOtp()">
+
+          <button
+            class="secondary-btn"
+            onclick="resendSignupOtp()"
+          >
             Resend OTP
           </button>
 
@@ -503,14 +728,20 @@
 
       </div>
 
+
       <!-- FORGOT PASSWORD -->
 
       <div id="forgotForm" class="form">
 
         <h2>Reset Password</h2>
-        <p>Use your mobile number to reset your password.</p>
+
+        <p>
+          Use your mobile number to reset your password.
+        </p>
+
 
         <div class="field">
+
           <label>Mobile Number</label>
 
           <input
@@ -518,15 +749,25 @@
             type="tel"
             placeholder="919XXXXXXXXX"
           >
+
         </div>
 
-        <button class="main-btn" onclick="sendForgotOtp()">
+
+        <button
+          class="main-btn"
+          onclick="sendForgotOtp()"
+        >
           Send OTP
         </button>
 
-        <div id="forgotOtpArea" class="otp-area">
+
+        <div
+          id="forgotOtpArea"
+          class="otp-area"
+        >
 
           <div class="field">
+
             <label>OTP</label>
 
             <input
@@ -535,9 +776,12 @@
               maxlength="6"
               placeholder="Enter OTP"
             >
+
           </div>
 
+
           <div class="field">
+
             <label>New Password</label>
 
             <div class="password-box">
@@ -552,12 +796,19 @@
                 class="eye-btn"
                 type="button"
                 onclick="togglePassword('newPassword', this)"
-              >👁</button>
+              >
+                👁
+              </button>
 
             </div>
+
           </div>
 
-          <button class="main-btn" onclick="resetPassword()">
+
+          <button
+            class="main-btn"
+            onclick="resetPassword()"
+          >
             Reset Password
           </button>
 
@@ -567,9 +818,13 @@
 
     </div>
 
+
     <!-- LOGGED IN -->
 
-    <div id="loggedInSection" class="logged-in">
+    <div
+      id="loggedInSection"
+      class="logged-in"
+    >
 
       <!-- PROFILE VIEW -->
 
@@ -579,9 +834,13 @@
 
           <div class="avatar-wrap">
 
-            <div class="avatar" id="profileAvatar">
+            <div
+              class="avatar"
+              id="profileAvatar"
+            >
               U
             </div>
+
 
             <button
               class="change-photo-btn"
@@ -595,64 +854,128 @@
 
         </div>
 
+
         <div class="profile-info">
 
           <h2 id="profileDisplayName">
             User
           </h2>
 
-          <div class="username" id="profileUsername">
+          <div
+            class="username"
+            id="profileUsername"
+          >
             @username
           </div>
 
-          <div class="bio" id="profileBio">
+          <div
+            class="bio"
+            id="profileBio"
+          >
             No bio yet.
           </div>
 
         </div>
 
+
         <div class="stats">
 
           <div class="stat">
-            <strong id="friendsCount">0</strong>
-            <span>Friends</span>
+
+            <strong id="friendsCount">
+              0
+            </strong>
+
+            <span>
+              Friends
+            </span>
+
           </div>
 
-          <div class="stat">
-            <strong id="followersCount">0</strong>
-            <span>Followers</span>
-          </div>
 
           <div class="stat">
-            <strong id="followingCount">0</strong>
-            <span>Following</span>
+
+            <strong id="followersCount">
+              0
+            </strong>
+
+            <span>
+              Followers
+            </span>
+
+          </div>
+
+
+          <div class="stat">
+
+            <strong id="followingCount">
+              0
+            </strong>
+
+            <span>
+              Following
+            </span>
+
           </div>
 
         </div>
+
 
         <div class="info-grid">
 
           <div class="info-item">
-            <small>Mobile</small>
-            <span id="userPhone">Not available</span>
+
+            <small>
+              Mobile
+            </small>
+
+            <span id="userPhone">
+              Not available
+            </span>
+
           </div>
 
-          <div class="info-item">
-            <small>Country</small>
-            <span id="profileCountry">Not set</span>
-          </div>
 
           <div class="info-item">
-            <small>Language</small>
-            <span id="profileLanguage">Not set</span>
+
+            <small>
+              Country
+            </small>
+
+            <span id="profileCountry">
+              Not set
+            </span>
+
           </div>
 
+
           <div class="info-item">
-            <small>Status</small>
-            <span>Yaaroza Member</span>
+
+            <small>
+              Language
+            </small>
+
+            <span id="profileLanguage">
+              Not set
+            </span>
+
+          </div>
+
+
+          <div class="info-item">
+
+            <small>
+              Status
+            </small>
+
+            <span>
+              Yaaroza Member
+            </span>
+
           </div>
 
         </div>
+
 
         <div class="profile-actions">
 
@@ -663,6 +986,7 @@
             Edit Profile
           </button>
 
+
           <button
             class="secondary-btn"
             onclick="logoutUser()"
@@ -672,19 +996,70 @@
 
         </div>
 
+
+        <!-- FIND PEOPLE -->
+
+        <div class="people-section">
+
+          <h2>
+            🔎 Find People
+          </h2>
+
+          <p>
+            Search Yaaroza users by username or name.
+          </p>
+
+
+          <div class="search-box">
+
+            <input
+              id="peopleSearch"
+              type="text"
+              placeholder="Search username or name"
+              onkeydown="handleSearchKey(event)"
+            >
+
+            <button
+              class="search-btn"
+              onclick="searchPeople()"
+            >
+              Search
+            </button>
+
+          </div>
+
+
+          <div
+            id="peopleResults"
+            class="people-results"
+          ></div>
+
+        </div>
+
       </div>
+
 
       <!-- EDIT PROFILE -->
 
-      <div id="editProfile" class="edit-profile">
+      <div
+        id="editProfile"
+        class="edit-profile"
+      >
 
-        <h2>Edit Profile</h2>
+        <h2>
+          Edit Profile
+        </h2>
 
-        <p style="color:#777;margin:6px 0 20px;">
+        <p
+          style="color:#777;margin:6px 0 20px;"
+        >
           Make your Yaaroza profile yours.
         </p>
 
-        <div style="text-align:center;margin-bottom:22px;">
+
+        <div
+          style="text-align:center;margin-bottom:22px;"
+        >
 
           <div
             class="avatar"
@@ -692,6 +1067,7 @@
           >
             U
           </div>
+
 
           <button
             class="change-photo-btn"
@@ -703,9 +1079,12 @@
 
         </div>
 
+
         <div class="field">
 
-          <label>Display Name</label>
+          <label>
+            Display Name
+          </label>
 
           <input
             id="editDisplayName"
@@ -715,9 +1094,12 @@
 
         </div>
 
+
         <div class="field">
 
-          <label>Username</label>
+          <label>
+            Username
+          </label>
 
           <input
             id="editUsername"
@@ -725,15 +1107,20 @@
             placeholder="username"
           >
 
-          <small style="color:#888;">
+          <small
+            style="color:#888;"
+          >
             Your unique Yaaroza username.
           </small>
 
         </div>
 
+
         <div class="field">
 
-          <label>Bio</label>
+          <label>
+            Bio
+          </label>
 
           <textarea
             id="editBio"
@@ -741,59 +1128,144 @@
             placeholder="Tell something about yourself..."
           ></textarea>
 
-          <small style="color:#888;">
+          <small
+            style="color:#888;"
+          >
             Maximum 160 characters.
           </small>
 
         </div>
 
+
         <div class="field">
 
-          <label>Country</label>
+          <label>
+            Country
+          </label>
 
           <select id="editCountry">
 
-            <option value="">Select country</option>
-            <option>India</option>
-            <option>United States</option>
-            <option>United Kingdom</option>
-            <option>Canada</option>
-            <option>Australia</option>
-            <option>UAE</option>
-            <option>Saudi Arabia</option>
-            <option>Germany</option>
-            <option>France</option>
-            <option>Japan</option>
-            <option>Other</option>
+            <option value="">
+              Select country
+            </option>
+
+            <option>
+              India
+            </option>
+
+            <option>
+              United States
+            </option>
+
+            <option>
+              United Kingdom
+            </option>
+
+            <option>
+              Canada
+            </option>
+
+            <option>
+              Australia
+            </option>
+
+            <option>
+              UAE
+            </option>
+
+            <option>
+              Saudi Arabia
+            </option>
+
+            <option>
+              Germany
+            </option>
+
+            <option>
+              France
+            </option>
+
+            <option>
+              Japan
+            </option>
+
+            <option>
+              Other
+            </option>
 
           </select>
 
         </div>
+
 
         <div class="field">
 
-          <label>Language</label>
+          <label>
+            Language
+          </label>
 
           <select id="editLanguage">
 
-            <option value="">Select language</option>
-            <option>English</option>
-            <option>Hindi</option>
-            <option>Marathi</option>
-            <option>Tamil</option>
-            <option>Telugu</option>
-            <option>Bengali</option>
-            <option>Gujarati</option>
-            <option>Punjabi</option>
-            <option>Urdu</option>
-            <option>Arabic</option>
-            <option>Spanish</option>
-            <option>French</option>
-            <option>Other</option>
+            <option value="">
+              Select language
+            </option>
+
+            <option>
+              English
+            </option>
+
+            <option>
+              Hindi
+            </option>
+
+            <option>
+              Marathi
+            </option>
+
+            <option>
+              Tamil
+            </option>
+
+            <option>
+              Telugu
+            </option>
+
+            <option>
+              Bengali
+            </option>
+
+            <option>
+              Gujarati
+            </option>
+
+            <option>
+              Punjabi
+            </option>
+
+            <option>
+              Urdu
+            </option>
+
+            <option>
+              Arabic
+            </option>
+
+            <option>
+              Spanish
+            </option>
+
+            <option>
+              French
+            </option>
+
+            <option>
+              Other
+            </option>
 
           </select>
 
         </div>
+
 
         <button
           class="main-btn"
@@ -801,6 +1273,7 @@
         >
           Save Profile
         </button>
+
 
         <button
           class="secondary-btn"
@@ -813,7 +1286,12 @@
 
     </div>
 
-    <div id="message" class="message"></div>
+
+    <div
+      id="message"
+      class="message"
+    ></div>
+
 
     <!-- HIDDEN FILE INPUT -->
 
@@ -824,6 +1302,7 @@
       style="display:none"
       onchange="uploadAvatar(event)"
     >
+
 
     <div class="footer">
       Yaaroza • Terms & Privacy
@@ -858,16 +1337,23 @@
   ========================= */
 
   function get(id) {
+
     return document.getElementById(id);
+
   }
 
 
   function setMessage(text) {
 
-    const message = get("message");
+    const message =
+      get("message");
 
-    message.textContent = text;
-    message.style.display = text ? "block" : "none";
+    message.textContent =
+      text;
+
+    message.style.display =
+      text ? "block" : "none";
+
   }
 
 
@@ -875,7 +1361,11 @@
 
     if (!phone) return "";
 
-    return phone.replace(/[^\d+]/g, "");
+    return phone.replace(
+      /[^\d+]/g,
+      ""
+    );
+
   }
 
 
@@ -885,36 +1375,61 @@
 
   function showForm(formName) {
 
-    get("loginForm").classList.remove("active");
-    get("signupForm").classList.remove("active");
-    get("forgotForm").classList.remove("active");
+    get("loginForm")
+      .classList.remove("active");
 
-    get("loginTab").classList.remove("active");
-    get("signupTab").classList.remove("active");
-    get("forgotTab").classList.remove("active");
+    get("signupForm")
+      .classList.remove("active");
+
+    get("forgotForm")
+      .classList.remove("active");
+
+
+    get("loginTab")
+      .classList.remove("active");
+
+    get("signupTab")
+      .classList.remove("active");
+
+    get("forgotTab")
+      .classList.remove("active");
+
 
     if (formName === "login") {
 
-      get("loginForm").classList.add("active");
-      get("loginTab").classList.add("active");
+      get("loginForm")
+        .classList.add("active");
+
+      get("loginTab")
+        .classList.add("active");
 
     }
+
 
     if (formName === "signup") {
 
-      get("signupForm").classList.add("active");
-      get("signupTab").classList.add("active");
+      get("signupForm")
+        .classList.add("active");
+
+      get("signupTab")
+        .classList.add("active");
 
     }
+
 
     if (formName === "forgot") {
 
-      get("forgotForm").classList.add("active");
-      get("forgotTab").classList.add("active");
+      get("forgotForm")
+        .classList.add("active");
+
+      get("forgotTab")
+        .classList.add("active");
 
     }
 
+
     setMessage("");
+
   }
 
 
@@ -922,21 +1437,31 @@
      PASSWORD EYE
   ========================= */
 
-  function togglePassword(inputId, button) {
+  function togglePassword(
+    inputId,
+    button
+  ) {
 
-    const input = get(inputId);
+    const input =
+      get(inputId);
+
 
     if (input.type === "password") {
 
       input.type = "text";
-      button.textContent = "🙈";
+
+      button.textContent =
+        "🙈";
 
     } else {
 
       input.type = "password";
-      button.textContent = "👁";
+
+      button.textContent =
+        "👁";
 
     }
+
   }
 
 
@@ -947,21 +1472,40 @@
   async function createAccount() {
 
     const name =
-      get("signupName").value.trim();
+      get("signupName")
+        .value
+        .trim();
+
 
     const phone =
-      formatPhone(get("signupPhone").value.trim());
+      formatPhone(
+        get("signupPhone")
+          .value
+          .trim()
+      );
+
 
     const password =
-      get("signupPassword").value;
+      get("signupPassword")
+        .value;
+
 
     const confirmPassword =
-      get("signupConfirmPassword").value;
+      get("signupConfirmPassword")
+        .value;
 
 
-    if (!name || !phone || !password || !confirmPassword) {
+    if (
+      !name ||
+      !phone ||
+      !password ||
+      !confirmPassword
+    ) {
 
-      setMessage("Please fill all fields.");
+      setMessage(
+        "Please fill all fields."
+      );
+
       return;
 
     }
@@ -969,26 +1513,40 @@
 
     if (password.length < 6) {
 
-      setMessage("Password must be at least 6 characters.");
+      setMessage(
+        "Password must be at least 6 characters."
+      );
+
       return;
 
     }
 
 
-    if (password !== confirmPassword) {
+    if (
+      password !==
+      confirmPassword
+    ) {
 
-      setMessage("Passwords do not match.");
+      setMessage(
+        "Passwords do not match."
+      );
+
       return;
 
     }
 
 
-    setMessage("Creating account...");
+    setMessage(
+      "Creating account..."
+    );
 
 
     try {
 
-      const { data, error } =
+      const {
+        data,
+        error
+      } =
         await supabaseClient.auth.signUp({
 
           phone: phone,
@@ -1008,7 +1566,10 @@
 
       if (error) {
 
-        setMessage(error.message);
+        setMessage(
+          error.message
+        );
+
         return;
 
       }
@@ -1018,6 +1579,7 @@
 
         get("signupOtpArea")
           .classList.add("show");
+
 
         setMessage(
           "OTP sent. Please verify your mobile number."
@@ -1034,6 +1596,7 @@
       );
 
     }
+
   }
 
 
@@ -1044,30 +1607,47 @@
   async function verifySignupOtp() {
 
     const phone =
-      formatPhone(get("signupPhone").value.trim());
+      formatPhone(
+        get("signupPhone")
+          .value
+          .trim()
+      );
+
 
     const token =
-      get("signupOtp").value.trim();
+      get("signupOtp")
+        .value
+        .trim();
 
 
     if (!phone || !token) {
 
-      setMessage("Enter the OTP.");
+      setMessage(
+        "Enter the OTP."
+      );
+
       return;
 
     }
 
 
-    setMessage("Verifying OTP...");
+    setMessage(
+      "Verifying OTP..."
+    );
 
 
     try {
 
-      const { data, error } =
+      const {
+        data,
+        error
+      } =
         await supabaseClient.auth.verifyOtp({
 
           phone: phone,
+
           token: token,
+
           type: "sms"
 
         });
@@ -1075,7 +1655,10 @@
 
       if (error) {
 
-        setMessage(error.message);
+        setMessage(
+          error.message
+        );
+
         return;
 
       }
@@ -1085,12 +1668,20 @@
 
         await createOrUpdateProfile(
           data.user,
-          get("signupName").value.trim()
+          get("signupName")
+            .value
+            .trim()
         );
 
-        setMessage("Account verified successfully.");
 
-        await showLoggedInUser(data.user);
+        setMessage(
+          "Account verified successfully."
+        );
+
+
+        await showLoggedInUser(
+          data.user
+        );
 
       }
 
@@ -1103,6 +1694,7 @@
       );
 
     }
+
   }
 
 
@@ -1113,18 +1705,27 @@
   async function resendSignupOtp() {
 
     const phone =
-      formatPhone(get("signupPhone").value.trim());
+      formatPhone(
+        get("signupPhone")
+          .value
+          .trim()
+      );
 
 
     if (!phone) {
 
-      setMessage("Enter your mobile number first.");
+      setMessage(
+        "Enter your mobile number first."
+      );
+
       return;
 
     }
 
 
-    const { error } =
+    const {
+      error
+    } =
       await supabaseClient.auth.signInWithOtp({
 
         phone: phone
@@ -1134,13 +1735,18 @@
 
     if (error) {
 
-      setMessage(error.message);
+      setMessage(
+        error.message
+      );
 
     } else {
 
-      setMessage("OTP sent again.");
+      setMessage(
+        "OTP sent again."
+      );
 
     }
+
   }
 
 
@@ -1151,29 +1757,44 @@
   async function loginUser() {
 
     const phone =
-      formatPhone(get("loginPhone").value.trim());
+      formatPhone(
+        get("loginPhone")
+          .value
+          .trim()
+      );
+
 
     const password =
-      get("loginPassword").value;
+      get("loginPassword")
+        .value;
 
 
     if (!phone || !password) {
 
-      setMessage("Enter mobile number and password.");
+      setMessage(
+        "Enter mobile number and password."
+      );
+
       return;
 
     }
 
 
-    setMessage("Logging in...");
+    setMessage(
+      "Logging in..."
+    );
 
 
     try {
 
-      const { data, error } =
+      const {
+        data,
+        error
+      } =
         await supabaseClient.auth.signInWithPassword({
 
           phone: phone,
+
           password: password
 
         });
@@ -1181,7 +1802,10 @@
 
       if (error) {
 
-        setMessage(error.message);
+        setMessage(
+          error.message
+        );
+
         return;
 
       }
@@ -1189,9 +1813,14 @@
 
       if (data.user) {
 
-        await showLoggedInUser(data.user);
+        await showLoggedInUser(
+          data.user
+        );
 
-        setMessage("Login successful.");
+
+        setMessage(
+          "Login successful."
+        );
 
       }
 
@@ -1199,9 +1828,12 @@
 
       console.error(error);
 
-      setMessage("Login failed.");
+      setMessage(
+        "Login failed."
+      );
 
     }
+
   }
 
 
@@ -1212,23 +1844,34 @@
   async function sendForgotOtp() {
 
     const phone =
-      formatPhone(get("forgotPhone").value.trim());
+      formatPhone(
+        get("forgotPhone")
+          .value
+          .trim()
+      );
 
 
     if (!phone) {
 
-      setMessage("Enter your mobile number.");
+      setMessage(
+        "Enter your mobile number."
+      );
+
       return;
 
     }
 
 
-    setMessage("Sending OTP...");
+    setMessage(
+      "Sending OTP..."
+    );
 
 
     try {
 
-      const { error } =
+      const {
+        error
+      } =
         await supabaseClient.auth.signInWithOtp({
 
           phone: phone
@@ -1238,7 +1881,10 @@
 
       if (error) {
 
-        setMessage(error.message);
+        setMessage(
+          error.message
+        );
+
         return;
 
       }
@@ -1247,15 +1893,21 @@
       get("forgotOtpArea")
         .classList.add("show");
 
-      setMessage("OTP sent.");
+
+      setMessage(
+        "OTP sent."
+      );
 
     } catch (error) {
 
       console.error(error);
 
-      setMessage("Could not send OTP.");
+      setMessage(
+        "Could not send OTP."
+      );
 
     }
+
   }
 
 
@@ -1266,18 +1918,34 @@
   async function resetPassword() {
 
     const phone =
-      formatPhone(get("forgotPhone").value.trim());
+      formatPhone(
+        get("forgotPhone")
+          .value
+          .trim()
+      );
+
 
     const token =
-      get("forgotOtp").value.trim();
+      get("forgotOtp")
+        .value
+        .trim();
+
 
     const newPassword =
-      get("newPassword").value;
+      get("newPassword")
+        .value;
 
 
-    if (!phone || !token || !newPassword) {
+    if (
+      !phone ||
+      !token ||
+      !newPassword
+    ) {
 
-      setMessage("Please fill all fields.");
+      setMessage(
+        "Please fill all fields."
+      );
+
       return;
 
     }
@@ -1294,16 +1962,23 @@
     }
 
 
-    setMessage("Verifying OTP...");
+    setMessage(
+      "Verifying OTP..."
+    );
 
 
     try {
 
-      const { data, error } =
+      const {
+        data,
+        error
+      } =
         await supabaseClient.auth.verifyOtp({
 
           phone: phone,
+
           token: token,
+
           type: "sms"
 
         });
@@ -1311,7 +1986,10 @@
 
       if (error) {
 
-        setMessage(error.message);
+        setMessage(
+          error.message
+        );
+
         return;
 
       }
@@ -1319,23 +1997,32 @@
 
       if (!data.session) {
 
-        setMessage("Could not create reset session.");
+        setMessage(
+          "Could not create reset session."
+        );
+
         return;
 
       }
 
 
-      const { error: updateError } =
+      const {
+        error: updateError
+      } =
         await supabaseClient.auth.updateUser({
 
-          password: newPassword
+          password:
+            newPassword
 
         });
 
 
       if (updateError) {
 
-        setMessage(updateError.message);
+        setMessage(
+          updateError.message
+        );
+
         return;
 
       }
@@ -1345,15 +2032,19 @@
         "Password reset successfully. You can now login."
       );
 
+
       showForm("login");
 
     } catch (error) {
 
       console.error(error);
 
-      setMessage("Password reset failed.");
+      setMessage(
+        "Password reset failed."
+      );
 
     }
+
   }
 
 
@@ -1373,7 +2064,9 @@
         .substring(0, 8);
 
 
-    const { data: existing } =
+    const {
+      data: existing
+    } =
       await supabaseClient
         .from("profiles")
         .select("id")
@@ -1383,7 +2076,9 @@
 
     if (!existing) {
 
-      const { error } =
+      const {
+        error
+      } =
         await supabaseClient
           .from("profiles")
           .insert({
@@ -1418,6 +2113,7 @@
       }
 
     }
+
   }
 
 
@@ -1427,7 +2123,10 @@
 
   async function loadProfile(user) {
 
-    let { data: profile, error } =
+    let {
+      data: profile,
+      error
+    } =
       await supabaseClient
         .from("profiles")
         .select("*")
@@ -1452,7 +2151,8 @@
 
       await createOrUpdateProfile(
         user,
-        user.user_metadata?.display_name || "User"
+        user.user_metadata?.display_name ||
+        "User"
       );
 
 
@@ -1464,7 +2164,8 @@
           .maybeSingle();
 
 
-      profile = result.data;
+      profile =
+        result.data;
 
     }
 
@@ -1472,55 +2173,82 @@
     if (!profile) return;
 
 
-    get("profileDisplayName").textContent =
-      profile.display_name || "User";
+    get("profileDisplayName")
+      .textContent =
+      profile.display_name ||
+      "User";
 
 
-    get("profileUsername").textContent =
+    get("profileUsername")
+      .textContent =
       profile.username
         ? "@" + profile.username
         : "@username";
 
 
-    get("profileBio").textContent =
-      profile.bio || "No bio yet.";
+    get("profileBio")
+      .textContent =
+      profile.bio ||
+      "No bio yet.";
 
 
-    get("profileCountry").textContent =
-      profile.country || "Not set";
+    get("profileCountry")
+      .textContent =
+      profile.country ||
+      "Not set";
 
 
-    get("profileLanguage").textContent =
-      profile.language || "Not set";
+    get("profileLanguage")
+      .textContent =
+      profile.language ||
+      "Not set";
 
 
-    get("editDisplayName").value =
-      profile.display_name || "";
+    get("editDisplayName")
+      .value =
+      profile.display_name ||
+      "";
 
 
-    get("editUsername").value =
-      profile.username || "";
+    get("editUsername")
+      .value =
+      profile.username ||
+      "";
 
 
-    get("editBio").value =
-      profile.bio || "";
+    get("editBio")
+      .value =
+      profile.bio ||
+      "";
 
 
-    get("editCountry").value =
-      profile.country || "";
+    get("editCountry")
+      .value =
+      profile.country ||
+      "";
 
 
-    get("editLanguage").value =
-      profile.language || "";
+    get("editLanguage")
+      .value =
+      profile.language ||
+      "";
 
 
     updateAvatar(
 
-      profile.display_name || "User",
+      profile.display_name ||
+      "User",
 
-      profile.avatar_url || ""
+      profile.avatar_url ||
+      ""
 
     );
+
+
+    await loadFollowStats(
+      user.id
+    );
+
   }
 
 
@@ -1528,7 +2256,10 @@
      AVATAR DISPLAY
   ========================= */
 
-  function updateAvatar(name, avatarUrl) {
+  function updateAvatar(
+    name,
+    avatarUrl
+  ) {
 
     const profileAvatar =
       get("profileAvatar");
@@ -1537,8 +2268,11 @@
       get("editAvatar");
 
 
-    profileAvatar.innerHTML = "";
-    editAvatar.innerHTML = "";
+    profileAvatar.innerHTML =
+      "";
+
+    editAvatar.innerHTML =
+      "";
 
 
     if (avatarUrl) {
@@ -1546,39 +2280,57 @@
       const image1 =
         document.createElement("img");
 
-      image1.src = avatarUrl;
 
-      image1.alt = "Profile photo";
+      image1.src =
+        avatarUrl;
 
-      image1.onerror = function() {
 
-        profileAvatar.innerHTML =
-          (name || "U")
-            .charAt(0)
-            .toUpperCase();
+      image1.alt =
+        "Profile photo";
 
-      };
+
+      image1.onerror =
+        function() {
+
+          profileAvatar.innerHTML =
+            (name || "U")
+              .charAt(0)
+              .toUpperCase();
+
+        };
 
 
       const image2 =
         document.createElement("img");
 
-      image2.src = avatarUrl;
 
-      image2.alt = "Profile photo";
-
-      image2.onerror = function() {
-
-        editAvatar.innerHTML =
-          (name || "U")
-            .charAt(0)
-            .toUpperCase();
-
-      };
+      image2.src =
+        avatarUrl;
 
 
-      profileAvatar.appendChild(image1);
-      editAvatar.appendChild(image2);
+      image2.alt =
+        "Profile photo";
+
+
+      image2.onerror =
+        function() {
+
+          editAvatar.innerHTML =
+            (name || "U")
+              .charAt(0)
+              .toUpperCase();
+
+        };
+
+
+      profileAvatar.appendChild(
+        image1
+      );
+
+
+      editAvatar.appendChild(
+        image2
+      );
 
     } else {
 
@@ -1591,10 +2343,12 @@
       profileAvatar.textContent =
         firstLetter;
 
+
       editAvatar.textContent =
         firstLetter;
 
     }
+
   }
 
 
@@ -1643,20 +2397,29 @@
         "Please select an image file."
       );
 
-      event.target.value = "";
+
+      event.target.value =
+        "";
+
 
       return;
 
     }
 
 
-    if (file.size > 10 * 1024 * 1024) {
+    if (
+      file.size >
+      10 * 1024 * 1024
+    ) {
 
       setMessage(
         "Photo must be smaller than 10 MB."
       );
 
-      event.target.value = "";
+
+      event.target.value =
+        "";
+
 
       return;
 
@@ -1697,7 +2460,8 @@
         file.name
           .split(".")
           .pop()
-          .toLowerCase() || "jpg";
+          .toLowerCase() ||
+        "jpg";
 
 
       const filePath =
@@ -1717,9 +2481,16 @@
             filePath,
             file,
             {
-              cacheControl: "3600",
-              upsert: false,
-              contentType: file.type
+
+              cacheControl:
+                "3600",
+
+              upsert:
+                false,
+
+              contentType:
+                file.type
+
             }
           );
 
@@ -1730,10 +2501,12 @@
           uploadError
         );
 
+
         setMessage(
           "Photo upload failed: " +
           uploadError.message
         );
+
 
         return;
 
@@ -1745,7 +2518,9 @@
       } =
         supabaseClient.storage
           .from("avatars")
-          .getPublicUrl(filePath);
+          .getPublicUrl(
+            filePath
+          );
 
 
       const avatarUrl =
@@ -1759,13 +2534,17 @@
           .from("profiles")
           .update({
 
-            avatar_url: avatarUrl,
+            avatar_url:
+              avatarUrl,
 
             updated_at:
               new Date().toISOString()
 
           })
-          .eq("id", user.id);
+          .eq(
+            "id",
+            user.id
+          );
 
 
       if (profileError) {
@@ -1774,9 +2553,11 @@
           profileError
         );
 
+
         setMessage(
           "Photo uploaded, but profile could not be updated."
         );
+
 
         return;
 
@@ -1786,7 +2567,8 @@
       updateAvatar(
 
         get("profileDisplayName")
-          .textContent || "User",
+          .textContent ||
+        "User",
 
         avatarUrl
 
@@ -1798,12 +2580,14 @@
       );
 
 
-      event.target.value = "";
+      event.target.value =
+        "";
 
 
     } catch (error) {
 
       console.error(error);
+
 
       setMessage(
         "Something went wrong while uploading the photo."
@@ -1820,27 +2604,35 @@
 
   async function showLoggedInUser(user) {
 
-    get("authSection").style.display =
+    get("authSection")
+      .style.display =
       "none";
 
 
-    get("loggedInSection").style.display =
+    get("loggedInSection")
+      .style.display =
       "block";
 
 
-    get("profileView").style.display =
+    get("profileView")
+      .style.display =
       "block";
 
 
-    get("editProfile").style.display =
+    get("editProfile")
+      .style.display =
       "none";
 
 
-    get("userPhone").textContent =
-      user.phone || "Not available";
+    get("userPhone")
+      .textContent =
+      user.phone ||
+      "Not available";
 
 
-    await loadProfile(user);
+    await loadProfile(
+      user
+    );
 
   }
 
@@ -1851,11 +2643,13 @@
 
   function showEditProfile() {
 
-    get("profileView").style.display =
+    get("profileView")
+      .style.display =
       "none";
 
 
-    get("editProfile").style.display =
+    get("editProfile")
+      .style.display =
       "block";
 
 
@@ -1866,11 +2660,13 @@
 
   function cancelEditProfile() {
 
-    get("editProfile").style.display =
+    get("editProfile")
+      .style.display =
       "none";
 
 
-    get("profileView").style.display =
+    get("profileView")
+      .style.display =
       "block";
 
 
@@ -1966,6 +2762,17 @@
       );
 
 
+    if (!username) {
+
+      setMessage(
+        "Please enter a valid username."
+      );
+
+      return;
+
+    }
+
+
     setMessage(
       "Saving profile..."
     );
@@ -1999,7 +2806,10 @@
               new Date().toISOString()
 
           })
-          .eq("id", user.id);
+          .eq(
+            "id",
+            user.id
+          );
 
 
       if (error) {
@@ -2027,17 +2837,20 @@
 
       get("profileBio")
         .textContent =
-        bio || "No bio yet.";
+        bio ||
+        "No bio yet.";
 
 
       get("profileCountry")
         .textContent =
-        country || "Not set";
+        country ||
+        "Not set";
 
 
       get("profileLanguage")
         .textContent =
-        language || "Not set";
+        language ||
+        "Not set";
 
 
       updateAvatar(
@@ -2045,4 +2858,912 @@
         displayName,
 
         get("profileAvatar")
-          .query
+          .querySelector("img")?.src ||
+        ""
+
+      );
+
+
+      get("editProfile")
+        .style.display =
+        "none";
+
+
+      get("profileView")
+        .style.display =
+        "block";
+
+
+      await loadFollowStats(
+        user.id
+      );
+
+
+      setMessage(
+        "Profile saved successfully."
+      );
+
+
+    } catch (error) {
+
+      console.error(error);
+
+
+      setMessage(
+        "Could not save profile."
+      );
+
+    }
+
+  }
+
+
+  /* =========================
+     FOLLOW STATS
+  ========================= */
+
+  async function loadFollowStats(
+    profileId
+  ) {
+
+    if (!profileId) return;
+
+
+    try {
+
+      const followersResult =
+        await supabaseClient
+          .from("follows")
+          .select(
+            "id",
+            {
+              count: "exact",
+              head: true
+            }
+          )
+          .eq(
+            "following_id",
+            profileId
+          );
+
+
+      const followingResult =
+        await supabaseClient
+          .from("follows")
+          .select(
+            "id",
+            {
+              count: "exact",
+              head: true
+            }
+          )
+          .eq(
+            "follower_id",
+            profileId
+          );
+
+
+      if (followersResult.error) {
+
+        console.error(
+          "Followers count error:",
+          followersResult.error
+        );
+
+      }
+
+
+      if (followingResult.error) {
+
+        console.error(
+          "Following count error:",
+          followingResult.error
+        );
+
+      }
+
+
+      get("followersCount")
+        .textContent =
+        followersResult.count ||
+        0;
+
+
+      get("followingCount")
+        .textContent =
+        followingResult.count ||
+        0;
+
+
+    } catch (error) {
+
+      console.error(
+        "Follow stats error:",
+        error
+      );
+
+    }
+
+  }
+
+
+  /* =========================
+     CHECK FOLLOWING
+  ========================= */
+
+  async function isFollowing(
+    profileId
+  ) {
+
+    const {
+      data: {
+        session
+      }
+    } =
+      await supabaseClient.auth.getSession();
+
+
+    if (!session || !profileId) {
+
+      return false;
+
+    }
+
+
+    const currentUser =
+      session.user;
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("follows")
+        .select("id")
+        .eq(
+          "follower_id",
+          currentUser.id
+        )
+        .eq(
+          "following_id",
+          profileId
+        )
+        .maybeSingle();
+
+
+    if (error) {
+
+      console.error(
+        "Follow check error:",
+        error
+      );
+
+
+      return false;
+
+    }
+
+
+    return !!data;
+
+  }
+
+
+  /* =========================
+     FOLLOW USER
+  ========================= */
+
+  async function followUser(
+    profileId
+  ) {
+
+    const {
+      data: {
+        session
+      }
+    } =
+      await supabaseClient.auth.getSession();
+
+
+    if (!session) {
+
+      setMessage(
+        "Please login first."
+      );
+
+      return;
+
+    }
+
+
+    const currentUser =
+      session.user;
+
+
+    if (!profileId) {
+
+      setMessage(
+        "Profile not found."
+      );
+
+      return;
+
+    }
+
+
+    if (
+      currentUser.id ===
+      profileId
+    ) {
+
+      setMessage(
+        "You cannot follow yourself."
+      );
+
+      return;
+
+    }
+
+
+    const alreadyFollowing =
+      await isFollowing(
+        profileId
+      );
+
+
+    if (alreadyFollowing) {
+
+      setMessage(
+        "You are already following this user."
+      );
+
+      return;
+
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("follows")
+        .insert({
+
+          id:
+            crypto.randomUUID(),
+
+          follower_id:
+            currentUser.id,
+
+          following_id:
+            profileId
+
+        });
+
+
+    if (error) {
+
+      console.error(
+        "Follow error:",
+        error
+      );
+
+
+      setMessage(
+        "Could not follow this user: " +
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    setMessage(
+      "Following successfully!"
+    );
+
+
+    await searchPeople();
+
+  }
+
+
+  /* =========================
+     UNFOLLOW USER
+  ========================= */
+
+  async function unfollowUser(
+    profileId
+  ) {
+
+    const {
+      data: {
+        session
+      }
+    } =
+      await supabaseClient.auth.getSession();
+
+
+    if (!session) {
+
+      setMessage(
+        "Please login first."
+      );
+
+      return;
+
+    }
+
+
+    const currentUser =
+      session.user;
+
+
+    if (!profileId) {
+
+      setMessage(
+        "Profile not found."
+      );
+
+      return;
+
+    }
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("follows")
+        .delete()
+        .eq(
+          "follower_id",
+          currentUser.id
+        )
+        .eq(
+          "following_id",
+          profileId
+        );
+
+
+    if (error) {
+
+      console.error(
+        "Unfollow error:",
+        error
+      );
+
+
+      setMessage(
+        "Could not unfollow this user: " +
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    setMessage(
+      "Unfollowed successfully."
+    );
+
+
+    await searchPeople();
+
+  }
+
+
+  /* =========================
+     SEARCH KEY
+  ========================= */
+
+  function handleSearchKey(
+    event
+  ) {
+
+    if (
+      event.key ===
+      "Enter"
+    ) {
+
+      searchPeople();
+
+    }
+
+  }
+
+
+  /* =========================
+     SEARCH PEOPLE
+  ========================= */
+
+  async function searchPeople() {
+
+    const search =
+      get("peopleSearch")
+        .value
+        .trim();
+
+
+    const results =
+      get("peopleResults");
+
+
+    if (!search) {
+
+      results.innerHTML =
+        '<div class="empty-results">Enter a name or username to search.</div>';
+
+      return;
+
+    }
+
+
+    results.innerHTML =
+      '<div class="empty-results">Searching...</div>';
+
+
+    const {
+      data: {
+        session
+      }
+    } =
+      await supabaseClient.auth.getSession();
+
+
+    if (!session) {
+
+      results.innerHTML =
+        '<div class="empty-results">Please login first.</div>';
+
+      return;
+
+    }
+
+
+    const currentUser =
+      session.user;
+
+
+    try {
+
+      const {
+        data: profiles,
+        error
+      } =
+        await supabaseClient
+          .from("profiles")
+          .select(
+            "id, username, display_name, bio, avatar_url, country, language"
+          )
+          .or(
+            "username.ilike.%" +
+            search +
+            "%,display_name.ilike.%" +
+            search +
+            "%"
+          )
+          .neq(
+            "id",
+            currentUser.id
+          )
+          .limit(20);
+
+
+      if (error) {
+
+        console.error(
+          "Search error:",
+          error
+        );
+
+
+        results.innerHTML =
+          '<div class="empty-results">Search failed: ' +
+          escapeHtml(error.message) +
+          '</div>';
+
+        return;
+
+      }
+
+
+      if (
+        !profiles ||
+        profiles.length === 0
+      ) {
+
+        results.innerHTML =
+          '<div class="empty-results">No Yaaroza users found.</div>';
+
+        return;
+
+      }
+
+
+      results.innerHTML =
+        "";
+
+
+      for (
+        const profile of profiles
+      ) {
+
+        const following =
+          await isFollowing(
+            profile.id
+          );
+
+
+        const card =
+          document.createElement(
+            "div"
+          );
+
+
+        card.className =
+          "person-card";
+
+
+        const avatar =
+          document.createElement(
+            "div"
+          );
+
+
+        avatar.className =
+          "person-avatar";
+
+
+        if (profile.avatar_url) {
+
+          const img =
+            document.createElement(
+              "img"
+            );
+
+
+          img.src =
+            profile.avatar_url;
+
+
+          img.alt =
+            "Profile photo";
+
+
+          img.onerror =
+            function() {
+
+              avatar.textContent =
+                (
+                  profile.display_name ||
+                  "U"
+                )
+                  .charAt(0)
+                  .toUpperCase();
+
+            };
+
+
+          avatar.appendChild(
+            img
+          );
+
+        } else {
+
+          avatar.textContent =
+            (
+              profile.display_name ||
+              "U"
+            )
+              .charAt(0)
+              .toUpperCase();
+
+        }
+
+
+        const info =
+          document.createElement(
+            "div"
+          );
+
+
+        info.className =
+          "person-info";
+
+
+        const name =
+          document.createElement(
+            "div"
+          );
+
+
+        name.className =
+          "person-name";
+
+
+        name.textContent =
+          profile.display_name ||
+          "User";
+
+
+        const username =
+          document.createElement(
+            "div"
+          );
+
+
+        username.className =
+          "person-username";
+
+
+        username.textContent =
+          profile.username
+            ? "@" +
+              profile.username
+            : "@username";
+
+
+        const bio =
+          document.createElement(
+            "div"
+          );
+
+
+        bio.className =
+          "person-bio";
+
+
+        bio.textContent =
+          profile.bio ||
+          "Yaaroza Member";
+
+
+        info.appendChild(
+          name
+        );
+
+
+        info.appendChild(
+          username
+        );
+
+
+        info.appendChild(
+          bio
+        );
+
+
+        const button =
+          document.createElement(
+            "button"
+          );
+
+
+        button.className =
+          "follow-btn";
+
+
+        if (following) {
+
+          button.textContent =
+            "Following";
+
+
+          button.classList.add(
+            "following"
+          );
+
+
+          button.onclick =
+            function() {
+
+              unfollowUser(
+                profile.id
+              );
+
+            };
+
+        } else {
+
+          button.textContent =
+            "Follow";
+
+
+          button.onclick =
+            function() {
+
+              followUser(
+                profile.id
+              );
+
+            };
+
+        }
+
+
+        card.appendChild(
+          avatar
+        );
+
+
+        card.appendChild(
+          info
+        );
+
+
+        card.appendChild(
+          button
+        );
+
+
+        results.appendChild(
+          card
+        );
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Search exception:",
+        error
+      );
+
+
+      results.innerHTML =
+        '<div class="empty-results">Something went wrong while searching.</div>';
+
+    }
+
+  }
+
+
+  /* =========================
+     HTML ESCAPE
+  ========================= */
+
+  function escapeHtml(
+    text
+  ) {
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+
+    div.textContent =
+      text || "";
+
+
+    return div.innerHTML;
+
+  }
+
+
+  /* =========================
+     LOGOUT
+  ========================= */
+
+  async function logoutUser() {
+
+    const {
+      error
+    } =
+      await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+      console.error(error);
+
+
+      setMessage(
+        "Logout failed."
+      );
+
+      return;
+
+    }
+
+
+    get("loggedInSection")
+      .style.display =
+      "none";
+
+
+    get("authSection")
+      .style.display =
+      "block";
+
+
+    get("peopleResults")
+      .innerHTML =
+      "";
+
+
+    get("peopleSearch")
+      .value =
+      "";
+
+
+    showForm(
+      "login"
+    );
+
+
+    setMessage(
+      "Logged out successfully."
+    );
+
+  }
+
+
+  /* =========================
+     AUTO LOGIN
+  ========================= */
+
+  async function checkSession() {
+
+    const {
+      data: {
+        session
+      }
+    } =
+      await supabaseClient.auth.getSession();
+
+
+    if (
+      session &&
+      session.user
+    ) {
+
+      await showLoggedInUser(
+        session.user
+      );
+
+    }
+
+  }
+
+
+  /* =========================
+     AUTH STATE
+  ========================= */
+
+  supabaseClient.auth.onAuthStateChange(
+    async (
+      event,
+      session
+    ) => {
+
+      if (
+        event ===
+        "SIGNED_IN" &&
+        session?.user
+      ) {
+
+        await showLoggedInUser(
+          session.user
+        );
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     START APP
+  ========================= */
+
+  checkSession();
+
+</script>
+
+</body>
+</html>
